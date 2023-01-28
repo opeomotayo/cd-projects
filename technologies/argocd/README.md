@@ -9,8 +9,8 @@ kubectl port-forward svc/argocd-server -n argocd 8080:443 --address 167.235.236.
 ```
 
 ### login to argocd ui
-url is argocd.opeomotayo.net
-username is admin
+url is [argocd url](argocd.opeomotayo.net) <br>
+username is admin <br>
 get password
 ```
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
@@ -26,6 +26,11 @@ argocd version --grpc-web
 ### login to argocd cli
 ```
 argocd login argocd.opeomotayo.net:443 --grpc-web
+```
+username is admin <br>
+get password
+```
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
 ```
 
 ### test commands
