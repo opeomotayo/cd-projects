@@ -1,0 +1,4 @@
+# Good to Know commands
+
+### delete remaining kyverno resources
+kubectl delete validatingwebhookconfigurations.admissionregistration.k8s.io kyverno-policy-validating-webhook-cfg kyverno-resource-validating-webhook-cfg

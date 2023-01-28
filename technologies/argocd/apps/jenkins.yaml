@@ -16,7 +16,7 @@ spec:
 
   project: default
   source: 
-    path: devops-tools/charts/jenkins
+    path: technologies/charts/jenkins
     repoURL: "https://github.com/opeomotayo/playground"
     targetRevision: HEAD
     directory:
