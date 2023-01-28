@@ -7,17 +7,17 @@ Apply the yaml file directly on the cluster or
 Push the change up to github and navigate to argocd to sync the change
 
 ### References:
-jenkins helm chart
-https://github.com/jenkinsci/helm-charts/blob/main/charts/jenkins/README.md
-configuration as code (jcasc)
-https://plugins.jenkins.io/configuration-as-code/
-job-dsl (seed job)
-https://plugins.jenkins.io/job-dsl/
-pipeline as code (Jenkinsfile)
-https://www.jenkins.io/doc/book/pipeline/
-https://www.jenkins.io/doc/book/pipeline/jenkinsfile/
-kubernetes agent
-https://devopscube.com/jenkins-build-agents-kubernetes/
-https://plugins.jenkins.io/kubernetes/
-shared library
-https://www.jenkins.io/doc/book/pipeline/shared-libraries/
+#### jenkins helm chart
+https://github.com/jenkinsci/helm-charts/blob/main/charts/jenkins/README.md <br />
+#### configuration as code (jcasc)
+https://plugins.jenkins.io/configuration-as-code/ <br />
+#### job-dsl (seed job)
+https://plugins.jenkins.io/job-dsl/ <br />
+#### pipeline as code (Jenkinsfile)
+https://www.jenkins.io/doc/book/pipeline/ <br />
+https://www.jenkins.io/doc/book/pipeline/jenkinsfile/ <br />
+#### kubernetes agent
+https://devopscube.com/jenkins-build-agents-kubernetes/ <br />
+https://plugins.jenkins.io/kubernetes/ <br />
+#### shared library
+https://www.jenkins.io/doc/book/pipeline/shared-libraries/ <br />
