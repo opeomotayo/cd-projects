@@ -35,8 +35,8 @@ pipeline {
     stages {
         stage('Add ARC Repo') {
             steps {
-                sh "helm3 repo add ${config.repoName} https://actions-runner-controller.github.io/actions-runner-controller"
-                sh "helm3 pull --version ${config.version} --untar ${config.repoName}/actions-runner-controller"
+                sh "helm repo add ${config.repoName} https://actions-runner-controller.github.io/actions-runner-controller"
+                sh "helm pull --version ${config.version} --untar ${config.repoName}/actions-runner-controller"
             }
         }
 
