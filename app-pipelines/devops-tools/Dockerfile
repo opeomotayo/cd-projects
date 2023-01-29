@@ -8,12 +8,16 @@ RUN apk add bash
 #curl
 RUN apk --no-cache add curl
 
+#openssl
+RUN apk add --update openssl && \
+    rm -rf /var/cache/apk/*
+
 #docker
 RUN apk add --update docker openrc
 RUN rc-update add docker boot
 
 #helm
-RUN curl -sSfL https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | sh -s -- -b /usr/local/bin
+RUN curl -sSL https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 
 # ENV BASE_URL="https://get.helm.sh"
 
