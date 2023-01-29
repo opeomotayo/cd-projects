@@ -13,7 +13,7 @@ RUN apk add --update docker openrc
 RUN rc-update add docker boot
 
 #helm
-RUN curl -sSL https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+RUN curl -sSfL https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | sh -s -- -b /usr/local/bin
 
 # ENV BASE_URL="https://get.helm.sh"
 
