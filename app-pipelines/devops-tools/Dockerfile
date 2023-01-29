@@ -5,6 +5,9 @@ RUN apk update
 #bash
 RUN apk add bash
 
+#curl
+RUN apk --no-cache add curl
+
 #docker
 RUN apk add --update docker openrc
 RUN rc-update add docker boot
