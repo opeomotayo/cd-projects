@@ -16,11 +16,22 @@ spec:
       command:
         - cat
       tty: true
-    - name: helm
-      image: ibmcom/helm:v2.6.0
+    - name: devops-tools
+      image: opeomotayo/devops-tools:latest
+      imagePullPolicy: Always
+      volumeMounts:
+        - name: docker
+          mountPath: /var/run/docker.sock
       command:
         - cat
       tty: true
+      resources:
+        requests:
+          cpu: 100m
+          memory: 50Mi
+        limits:
+          cpu: 500m
+          memory: 500Mi
     - name: docker
       image: docker:latest
       command: ["tail", "-f", "/dev/null"]
