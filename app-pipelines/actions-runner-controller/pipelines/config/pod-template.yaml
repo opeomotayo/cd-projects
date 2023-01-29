@@ -16,6 +16,11 @@ spec:
       command:
         - cat
       tty: true
+    - name: helm
+      image: helm:latest
+      command:
+        - cat
+      tty: true
     - name: docker
       image: docker:latest
       command: ["tail", "-f", "/dev/null"]
