@@ -21,10 +21,10 @@ pipeline {
     agent {
         kubernetes {
             label "-${UUID.randomUUID()}"
-            yamlFile 'app-pipelines/actions-runner-controller/pipelines/config/podTemplate.yaml'
+            yamlFile './pipelines/config/podTemplate.yaml'
             defaultContainer 'helm'
         }
-    }
+
 
     // environment {
     //     http_proxy = "ep.threatpulse.net:80"
