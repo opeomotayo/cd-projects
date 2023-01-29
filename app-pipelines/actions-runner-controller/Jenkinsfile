@@ -21,7 +21,7 @@ pipeline {
     agent {
         kubernetes {
             label "-${UUID.randomUUID()}"
-            yamlFile './pipelines/config/podTemplate.yaml'
+            yamlFile 'app-pipelines/actions-runner-controller/pipelines/config/podTemplate.yaml'
             defaultContainer 'helm'
         }
     }
