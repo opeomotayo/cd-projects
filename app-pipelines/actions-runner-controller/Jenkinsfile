@@ -24,7 +24,7 @@ pipeline {
             yamlFile './pipelines/config/podTemplate.yaml'
             defaultContainer 'helm'
         }
-
+    }
 
     // environment {
     //     http_proxy = "ep.threatpulse.net:80"
