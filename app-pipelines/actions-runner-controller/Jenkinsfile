@@ -22,7 +22,7 @@ pipeline {
         kubernetes {
             label "-${UUID.randomUUID()}"
             yamlFile './pipelines/config/podTemplate.yaml'
-            defaultContainer 'infra-tools'
+            defaultContainer 'helm'
         }
     }
 
