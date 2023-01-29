@@ -17,7 +17,7 @@ spec:
         - cat
       tty: true
     - name: helm
-      image: helm:latest
+      image: ibmcom/helm
       command:
         - cat
       tty: true
