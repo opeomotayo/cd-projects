@@ -17,7 +17,7 @@ spec:
   project: default
   source: 
     path: technologies/charts/jenkins
-    repoURL: "https://github.com/opeomotayo/playground"
+    repoURL: "https://github.com/opeomotayo/cd-projects"
     targetRevision: HEAD
     directory:
       recurse: false
