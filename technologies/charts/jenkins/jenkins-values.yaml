@@ -1,4 +1,5 @@
 controller:
+  # tag: "2.235.1"
   ingress:
     enabled: true
     paths:
@@ -23,3 +24,12 @@ controller:
   additionalPlugins:
     - blueocean
     - job-dsl
+
+  # sidecars:
+  #   configAutoReload:
+  #     folder: >-
+  #       https://github.com/opeomotayo/ci-projects/blob/main/README.md
+
+  # persistence:
+  #   enabled: true
+  #   existingClaim: jenkins-claim
