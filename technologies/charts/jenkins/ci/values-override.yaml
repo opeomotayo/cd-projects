@@ -25,10 +25,10 @@ controller:
     - blueocean
     - job-dsl
 
-  # sidecars:
-  #   configAutoReload:
-  #     folder: >-
-  #       https://github.com/opeomotayo/ci-projects/blob/main/README.md
+  sidecars:
+    configAutoReload:
+      folder: >-
+        https://github.com/opeomotayo/ci-projects/blob/main/README.md
 
   # persistence:
   #   enabled: true
