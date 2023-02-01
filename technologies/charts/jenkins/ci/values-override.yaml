@@ -30,7 +30,7 @@ controller:
     configAutoReload:
       enabled: true
       folder: >-
-        https://github.com/opeomotayo/ci-projects/blob/main/README.md
+        https://github.com/opeomotayo/cd-projects/blob/main/technologies/charts/jenkins/ci/jenkins-casc.yaml
 
   # persistence:
   #   enabled: true
