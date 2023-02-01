@@ -25,8 +25,10 @@ controller:
     - blueocean
     - job-dsl
 
+# controller.sidecars.configAutoReload.enabled
   sidecars:
     configAutoReload:
+      enabled: true
       folder: >-
         https://github.com/opeomotayo/ci-projects/blob/main/README.md
 
