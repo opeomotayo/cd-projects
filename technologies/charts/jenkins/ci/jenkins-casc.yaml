@@ -64,40 +64,49 @@ jobs:
   - scripts: >
       pipelineJob('example') {
         definition {
-          cpsScm {
-            scm {
-                git('https://github.com/opeomotayo/cd-projects.git')
-            }
+          cps {
+              script(readFileFromWorkspace('project-a-workflow.groovy'))
           }
         }
       }
 
-      # folder('jobs') {
-      #   scm {
-      #     git {
-      #       extensions {
-      #         wipeOutWorkspace()
-      #       }
-      #       remote {
-      #         url('https://github.com/opeomotayo/cd-projects.git')
-      #         # credentials('')
-      #       }
-      #       branch('main')
-      #     }
-      #   }
-      #   triggers {
-      #     scm('H/15 * * * *')
-      #   }
-      #   steps {
-      #     jobDsl {
-      #       targets('jobs/**/*.groovy')
-      #       # additionalClasspath('src/main/groovy')
-      #       # removedJobAction('DELETE')
-      #       # removedViewAction('DELETE')
-      #       # lookupStrategy('')
-      #     }
-      #   }
-      # }
+
+# pipelineJob('example') {
+#   definition {
+#     cpsScm {
+#       scm {
+#           git('https://github.com/opeomotayo/cd-projects.git')
+#       }
+#     }
+#   }
+# }
+
+# folder('jobs') {
+#   scm {
+#     git {
+#       extensions {
+#         wipeOutWorkspace()
+#       }
+#       remote {
+#         url('https://github.com/opeomotayo/cd-projects.git')
+#         # credentials('')
+#       }
+#       branch('main')
+#     }
+#   }
+#   triggers {
+#     scm('H/15 * * * *')
+#   }
+#   steps {
+#     jobDsl {
+#       targets('jobs/**/*.groovy')
+#       # additionalClasspath('src/main/groovy')
+#       # removedJobAction('DELETE')
+#       # removedViewAction('DELETE')
+#       # lookupStrategy('')
+#     }
+#   }
+# }
 
 # groovy:
 #   - script: |
