@@ -330,10 +330,7 @@ controller:
                   branchSources {
                     git {
                       id('testrepo')
-                      credentialsId('bitbucketv1')
                       remote('https://bitbucket.org/repo/test.git')
-                      includes("master develop")
-                      excludes("")
                     }
                   }
                 }
