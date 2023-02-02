@@ -39,16 +39,6 @@ metadata:
     "app.kubernetes.io/component": "{{ $.Values.controller.componentName }}"
     {{ template "jenkins.fullname" $root }}-jenkins-config: "true"
 data:
-  jcasc-default-config.yaml: |-
-    - scripts: >
-        pipelineJob('example') {
-          definition {
-            cps {
-                script(readFileFromWorkspace('project-a-workflow.groovy'))
-            }
-          }
-        }
-    # - file: ../../../../jobdsl/image-builder.groovy
-    # {{- include "jenkins.casc.defaults" . |nindent 4 }}
+    {{- include "jenkins.casc.defaults" . |nindent 4 }}
 {{- end}}
 {{- end }}
