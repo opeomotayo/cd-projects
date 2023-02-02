@@ -1,6 +1,6 @@
 jenkins:
-#   systemMessage: "This Jenkins is configured by single JCasC plugin"
-#   numExecutors: 1
+  systemMessage: "This Jenkins is configured by single JCasC plugin"
+  numExecutors: 1
 #   nodes:
 #     - permanent:
 #         labelString: "linux jenkins test"
@@ -60,15 +60,15 @@ jenkins:
 #       - name: git
 #         home: /usr/local/bin/git
  
-jobs:
-  - scripts: >
-      pipelineJob('example') {
-        definition {
-          cps {
-              script(readFileFromWorkspace('project-a-workflow.groovy'))
-          }
-        }
-      }
+# jobs:
+#   - scripts: >
+#       pipelineJob('example') {
+#         definition {
+#           cps {
+#               script(readFileFromWorkspace('project-a-workflow.groovy'))
+#           }
+#         }
+#       }
 
 
 # pipelineJob('example') {
