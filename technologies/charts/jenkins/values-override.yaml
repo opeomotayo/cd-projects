@@ -82,9 +82,9 @@ controller:
   # initContainerEnv:
   #   - name: http_proxy
   #     value: "http://192.168.64.1:3128"
-  containerEnv:
-    - name: CASC_JENKINS_CONFIG
-      value: https://github.com/opeomotayo/cd-projects/blob/main/technologies/charts/jenkins/ci/jenkins-casc.yaml
+  # containerEnv:
+  #   - name: CASC_JENKINS_CONFIG
+  #     value: https://github.com/opeomotayo/cd-projects/blob/main/technologies/charts/jenkins/ci/jenkins-casc.yaml
   #   - name: http_proxy
   #     value: "http://192.168.64.1:3128"
   # Set min/max heap here if needed with:
