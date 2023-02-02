@@ -322,10 +322,23 @@ controller:
   # etc.  Best reference is https://<jenkins_url>/configuration-as-code/reference.  The example below creates a welcome message:
   JCasC:
     defaultConfig: true
+      configScripts:
+        pipeline-job: |
+          jobs:
+            - script: >
+                multibranchPipelineJob('testrepo') {
+                  branchSources {
+                    git {
+                      id('testrepo')
+                      credentialsId('bitbucketv1')
+                      remote('https://bitbucket.org/repo/test.git')
+                      includes("master develop")
+                      excludes("")
+                    }
+                  }
     configUrls: []
     # - https://acme.org/jenkins.yaml
     # Remote URL:s for configuration files.
-    configScripts: {}
     #  welcome-message: |
     #    jenkins:
     #      systemMessage: Welcome to our CI\CD server.  This Jenkins is configured and managed 'as code'.
@@ -385,8 +398,17 @@ controller:
       # folder in the pod that should hold the collected dashboards:
       #maintained by opeomotayo
       # folder: "/var/jenkins_home/casc_configs"
-      folder: >-
-        https://github.com/opeomotayo/cd-projects/blob/main/technologies/charts/jenkins/ci/jenkins-casc.yaml
+      # folder: >-
+      #   jobs:
+      #     - scripts: >
+      #         pipelineJob('example') {
+      #           definition {
+      #             cps {
+      #                 script(readFileFromWorkspace('project-a-workflow.groovy'))
+      #             }
+      #           }
+      #         }
+        # https://github.com/opeomotayo/cd-projects/blob/main/technologies/charts/jenkins/ci/jenkins-casc.yaml
       # If specified, the sidecar will search for JCasC config-maps inside this namespace.
       # Otherwise the namespace in which the sidecar is running will be used.
       # It's also possible to specify ALL to search in all namespaces:
