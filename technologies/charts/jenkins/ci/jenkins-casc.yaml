@@ -62,32 +62,42 @@ jenkins:
  
 jobs:
   - scripts: >
-      folder('jobs') {
-        scm {
-          git {
-            extensions {
-              wipeOutWorkspace()
+      pipelineJob('example') {
+        definition {
+          cpsScm {
+            scm {
+                git('https://github.com/opeomotayo/cd-projects.git')
             }
-            remote {
-              url('https://github.com/opeomotayo/cd-projects.git')
-              # credentials('')
-            }
-            branch('main')
-          }
-        }
-        triggers {
-          scm('H/15 * * * *')
-        }
-        steps {
-          jobDsl {
-            targets('jobs/**/*.groovy')
-            # additionalClasspath('src/main/groovy')
-            # removedJobAction('DELETE')
-            # removedViewAction('DELETE')
-            # lookupStrategy('')
           }
         }
       }
+
+      # folder('jobs') {
+      #   scm {
+      #     git {
+      #       extensions {
+      #         wipeOutWorkspace()
+      #       }
+      #       remote {
+      #         url('https://github.com/opeomotayo/cd-projects.git')
+      #         # credentials('')
+      #       }
+      #       branch('main')
+      #     }
+      #   }
+      #   triggers {
+      #     scm('H/15 * * * *')
+      #   }
+      #   steps {
+      #     jobDsl {
+      #       targets('jobs/**/*.groovy')
+      #       # additionalClasspath('src/main/groovy')
+      #       # removedJobAction('DELETE')
+      #       # removedViewAction('DELETE')
+      #       # lookupStrategy('')
+      #     }
+      #   }
+      # }
 
 # groovy:
 #   - script: |
