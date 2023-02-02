@@ -62,21 +62,22 @@ controller:
   # Overrides the default arguments passed to the war
   # overrideArgs:
   #   - --httpPort=8080
+   #maintained by opeomotayo
   resources:
     requests:
-      cpu: "50m"
-      memory: "256Mi"
+      cpu: "25m"
+      memory: "128Mi"
     limits:
-      cpu: "2000m"
-      memory: "4096Mi"
+      cpu: "1000m"
+      memory: "2048Mi"
   # Overrides the init container default values
-  # initContainerResources:
-  #   requests:
-  #     cpu: "50m"
-  #     memory: "256Mi"
-  #   limits:
-  #     cpu: "2000m"
-  #     memory: "4096Mi"
+  initContainerResources:
+    requests:
+      cpu: "25m"
+      memory: "128Mi"
+    limits:
+      cpu: "1000m"
+      memory: "2048Mi"
   # Environment variables that get added to the init container (useful for e.g. http_proxy)
   # initContainerEnv:
   #   - name: http_proxy
@@ -251,7 +252,10 @@ controller:
   installLatestSpecifiedPlugins: false
 
   # List of plugins to install in addition to those listed in controller.installPlugins
-  additionalPlugins: []
+  #maintained by opeomotayo
+  additionalPlugins:
+    - blueocean
+    - job-dsl
 
   # Enable to initialize the Jenkins controller only once on initial installation.
   # Without this, whenever the controller gets restarted (Evicted, etc.) it will fetch plugin updates which has the potential to cause breakage.
@@ -359,13 +363,14 @@ controller:
       enabled: true
       image: kiwigrid/k8s-sidecar:1.15.0
       imagePullPolicy: IfNotPresent
-      resources: {}
-        #   limits:
-        #     cpu: 100m
-        #     memory: 100Mi
-        #   requests:
-        #     cpu: 50m
-        #     memory: 50Mi
+      #maintained by opeomotayo
+      resources:
+        limits:
+          cpu: 50m
+          memory: 50Mi
+        requests:
+          cpu: 25m
+          memory: 25Mi
       # How many connection-related errors to retry on
       reqRetryConnect: 10
       # env:
@@ -378,7 +383,10 @@ controller:
       # this must be > 1024:
       sshTcpPort: 1044
       # folder in the pod that should hold the collected dashboards:
-      folder: "/var/jenkins_home/casc_configs"
+      #maintained by opeomotayo
+      # folder: "/var/jenkins_home/casc_configs"
+      folder: >-
+        https://github.com/opeomotayo/cd-projects/blob/main/technologies/charts/jenkins/ci/jenkins-casc.yaml
       # If specified, the sidecar will search for JCasC config-maps inside this namespace.
       # Otherwise the namespace in which the sidecar is running will be used.
       # It's also possible to specify ALL to search in all namespaces:
