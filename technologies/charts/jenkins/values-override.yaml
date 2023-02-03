@@ -27,6 +27,7 @@ controller:
                     scm {
                       git('https://github.com/opeomotayo/cd-projects.git')
                       scriptPath('jobs/actions-runner-controller/Jenkinsfile')
+                      #credentialsId('github-pat')
                     } 
                   } 
                 }  
