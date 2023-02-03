@@ -28,7 +28,6 @@ controller:
                       git {
                         remote {
                           github('opeomotayo/cd-projects')
-                          #credentialsId('github-pat')
                         }
                       }
                     }   
