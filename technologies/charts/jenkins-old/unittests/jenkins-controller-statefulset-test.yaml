@@ -46,7 +46,7 @@ tests:
             template:
               metadata:
                 annotations:
-                  checksum/config: 27c6cde5ca265fc73187297fb82674d8ec1234d8bdb247e79be8a846a222487f
+                  checksum/config: d00c6603a9397bc202be5072a81644630af27fe47c7e542ea6b066073458af83
                 labels:
                   app.kubernetes.io/component: jenkins-controller
                   app.kubernetes.io/instance: my-release
@@ -71,7 +71,7 @@ tests:
                         value: "50000"
                       - name: CASC_JENKINS_CONFIG
                         value: /var/jenkins_home/casc_configs
-                    image: jenkins/jenkins:2.361.1-jdk11
+                    image: jenkins/jenkins:2.361.3-jdk11
                     imagePullPolicy: Always
                     securityContext:
                       runAsUser: 1000
@@ -164,7 +164,7 @@ tests:
                   - command:
                       - sh
                       - /var/jenkins_config/apply_config.sh
-                    image: jenkins/jenkins:2.361.1-jdk11
+                    image: jenkins/jenkins:2.361.3-jdk11
                     imagePullPolicy: Always
                     securityContext:
                       runAsUser: 1000
@@ -353,7 +353,7 @@ tests:
     asserts:
       - equal:
           path: spec.template.spec.containers[0].image
-          value: jenkins/jenkins:2.361.1-alpine
+          value: jenkins/jenkins:2.361.3-alpine
   - it: configure empty image tag label
     template: jenkins-controller-statefulset.yaml
     set:
@@ -361,7 +361,7 @@ tests:
     asserts:
       - equal:
           path: spec.template.spec.containers[0].image
-          value: jenkins/jenkins:2.361.1
+          value: jenkins/jenkins:2.361.3
   - it: custom image
     template: jenkins-controller-statefulset.yaml
     set:
