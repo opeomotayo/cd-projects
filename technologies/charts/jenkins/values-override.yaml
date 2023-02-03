@@ -1,7 +1,7 @@
 controller:
   additionalPlugins:
-    - blueocean
-    - job-dsl
+    - blueocean:1.27.1
+    - job-dsl:1.80
   
   JCasC:
     defaultConfig: true
