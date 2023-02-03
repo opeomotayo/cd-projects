@@ -52,7 +52,26 @@ controller:
                     scriptPath('jobs/actions-runner-controller/Jenkinsfile')
                   }  
                 }       
-              }      
+              }
+          - script: >
+              pipelineJob('another-pipeline') {
+                logRotator {
+                    numToKeep(5)
+                }
+                definition {
+                  cpsScm {
+                    scm {
+                      git {
+                        remote {
+                          github('opeomotayo/cd-projects')
+                        }
+                      }
+                      branch('main')
+                    }   
+                    scriptPath('jobs/actions-runner-controller/Jenkinsfile')
+                  }  
+                }       
+              }        
           - script: >
               pipelineJob('github-demo') {
                 definition {
