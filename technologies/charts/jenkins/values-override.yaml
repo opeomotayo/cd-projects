@@ -19,19 +19,23 @@ controller:
                     remote('https://github.com/jenkinsci/job-dsl-plugin.git')
                   }
                 }
-              }
+              } 
           - script: >
               pipelineJob('actions-runner-controller') {
                 definition {
                   cpsScm {
                     scm {
-                      git('https://github.com/opeomotayo/cd-projects.git')
-                      scriptPath('jobs/actions-runner-controller/Jenkinsfile')
-                      #credentialsId('github-pat')
-                    } 
-                  } 
-                }  
-              }          
+                      git {
+                        remote {
+                          github('opeomotayo/cd-projects')
+                          #credentialsId('github-pat')
+                        }
+                      }
+                    }   
+                    scriptPath('jobs/actions-runner-controller/Jenkinsfile')
+                  }  
+                }       
+              }      
           - script: >
               pipelineJob('github-demo') {
                 definition {
@@ -73,3 +77,4 @@ controller:
     - hosts:
       - jenkins.opeomotayo.net
       secretName: jenkins-production-certificate
+
