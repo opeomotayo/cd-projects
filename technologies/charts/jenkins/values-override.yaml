@@ -1,6 +1,6 @@
 controller:
   image: "jenkins/jenkins"
-  tag: "2.375.2-jdk11"
+  tag: "2.389-jdk11"
   installPlugins:
     - kubernetes:3734.v562b_b_a_627ea_c
     - workflow-aggregator:590.v6a_d052e5a_a_b_5
