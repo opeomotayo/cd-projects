@@ -1,4 +1,9 @@
 controller:
+  installPlugins:
+    - kubernetes:3845.va_9823979a_744
+    - workflow-aggregator:590.v6a_d052e5a_a_b_5
+    - git:5.0.0
+    - configuration-as-code:1569.vb_72405b_80249
   additionalPlugins:
     - blueocean:1.27.1
     - job-dsl:1.80
@@ -9,33 +14,33 @@ controller:
       welcome-message: |
         jenkins:
           systemMessage: Welcome to our CI\CD server.  This Jenkins is configured and managed as code.
-      # pipelines-jobs: |
-      #   jobs:
-      #     - script: >
-      #         multibranchPipelineJob('multibranch-pipeline-job') {
-      #           branchSources {
-      #             git {
-      #               id('123456789') // IMPORTANT: use a constant and unique identifier
-      #               remote('https://github.com/jenkinsci/job-dsl-plugin.git')
-      #             }
-      #           }
-      #         } 
-      #     - script: >
-      #         pipelineJob('actions-runner-controller') {
-      #           definition {
-      #             cpsScm {
-      #               scm {
-      #                 git {
-      #                   remote {
-      #                     github('opeomotayo/cd-projects')
-      #                   }
-      #                 }
-      #               }   
-      #               scriptPath('jobs/actions-runner-controller/Jenkinsfile')
-      #             }  
-      #           }       
-      #         }      
-      #     - script: >
+      pipelines-jobs: |
+        jobs:
+          - script: >
+              multibranchPipelineJob('multibranch-pipeline-job') {
+                branchSources {
+                  git {
+                    id('123456789') // IMPORTANT: use a constant and unique identifier
+                    remote('https://github.com/jenkinsci/job-dsl-plugin.git')
+                  }
+                }
+              } 
+          - script: >
+              pipelineJob('actions-runner-controller') {
+                definition {
+                  cpsScm {
+                    scm {
+                      git {
+                        remote {
+                          github('opeomotayo/cd-projects')
+                        }
+                      }
+                    }   
+                    scriptPath('jobs/actions-runner-controller/Jenkinsfile')
+                  }  
+                }       
+              }      
+          - script: >
               pipelineJob('github-demo') {
                 definition {
                   cpsScm {
@@ -56,8 +61,9 @@ controller:
       #folder: >-
       # https://raw.githubusercontent.com/opeomotayo/cd-projects/main/technologies/charts/jenkins/ci/jenkins-casc.yaml
 
+#disabled ingress here because I created ingress.yaml in the template folder
   # ingress:
-  #   enabled: false #I chanaged it to false because I created ingress.yaml in the template folder
+  #   enabled: false 
   #   paths:
   #   - path: "/"
   #     pathType: Prefix
