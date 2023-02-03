@@ -1,4 +1,5 @@
 controller:
+  jenkinsUrl: "https://jenkins.opeomotayo.net"
   image: "jenkins/jenkins"
   tag: "2.389-jdk11"
   installPlugins:
