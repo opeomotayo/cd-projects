@@ -12,6 +12,7 @@ controller:
     - job-dsl
     - credentials-binding
     - kubernetes-credentials-provider
+    - github-oauth
   
   JCasC:
     defaultConfig: true
