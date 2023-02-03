@@ -14,6 +14,7 @@ controller:
     - kubernetes-credentials-provider
     - github-oauth
     - role-strategy
+    - matrix-auth
   
   JCasC:
     defaultConfig: true
