@@ -22,7 +22,7 @@ pipeline {
         kubernetes {
             label "-${UUID.randomUUID()}"
             defaultContainer 'devops-tools'
-            yamlFile 'app-pipelines/pod-templates.yaml'
+            yamlFile 'jobs/pod-templates.yaml'
         }
     }
 
