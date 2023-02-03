@@ -13,7 +13,11 @@ controller:
     configScripts:
       welcome-message: |
         jenkins:
-          systemMessage: Welcome to our CI\CD server.  This Jenkins is configured and managed as code.
+          systemMessage: |
+            Welcome to my build server.
+
+            This Jenkins is 100% configured and managed 'as code'.
+            Config is now mostly handled by the 'Jenkins Configuration as Code' (JCasC) plugin.
       pipelines-jobs: |
         jobs:
           - script: >
