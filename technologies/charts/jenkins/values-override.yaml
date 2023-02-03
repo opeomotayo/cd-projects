@@ -1,6 +1,6 @@
 controller:
   installPlugins:
-    - kubernetes:3842.v7ff395ed0cf3
+    - kubernetes
     - workflow-aggregator
     - git
     - configuration-as-code
