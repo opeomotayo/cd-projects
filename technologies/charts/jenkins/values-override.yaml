@@ -36,6 +36,9 @@ controller:
               } 
           - script: >
               pipelineJob('actions-runner-controller') {
+                logRotator {
+                    numToKeep(5)
+                }
                 definition {
                   cpsScm {
                     scm {
@@ -44,6 +47,7 @@ controller:
                           github('opeomotayo/cd-projects')
                         }
                       }
+                      branch('main')
                     }   
                     scriptPath('jobs/actions-runner-controller/Jenkinsfile')
                   }  
