@@ -2,7 +2,7 @@ controller:
   jenkinsUrl: "https://jenkins.opeomotayo.net"
   image: "jenkins/jenkins"
   tag: "2.389-jdk11"
-  adminSecret: false
+  adminSecret: true
   securityRealm:
     github:
       clientID: "bc7a747c92713d3c6f9d"
