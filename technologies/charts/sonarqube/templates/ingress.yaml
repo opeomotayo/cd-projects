@@ -1,28 +1,28 @@
-  apiVersion: networking.k8s.io/v1
-  kind: Ingress
-  annotations:
-    kubernetes.io/ingress.class: nginx
-  metadata:
-    name: sonarqube-lts
-    namespace: sonarqube
-    labels:
-      app: sonarqube-lts
-      chart: sonarqube-lts-1.0.31
-      release: sonarqube-lts
-      heritage: Helm
-  spec:
-    rules:
-    - host: sonarqube.opeomotayo.net
-      http:
-        paths:
-        - backend:
-            service:
-              name: sonarqube-lts
-              port:
-                number: 9000
-          path: /
-          pathType: ImplementationSpecific
-        tls:
-        - hosts:
-          - sonarqube.opeomotayo.net
-          secretName: sonarqube-production-certificate
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+annotations:
+  kubernetes.io/ingress.class: nginx
+metadata:
+  name: sonarqube-lts
+  namespace: sonarqube
+  labels:
+    app: sonarqube-lts
+    chart: sonarqube-lts-1.0.31
+    release: sonarqube-lts
+    heritage: Helm
+spec:
+  rules:
+  - host: sonarqube.opeomotayo.net
+    http:
+      paths:
+      - backend:
+          service:
+            name: sonarqube-lts
+            port:
+              number: 9000
+        path: /
+        pathType: ImplementationSpecific
+      tls:
+      - hosts:
+        - sonarqube.opeomotayo.net
+        secretName: sonarqube-production-certificate
