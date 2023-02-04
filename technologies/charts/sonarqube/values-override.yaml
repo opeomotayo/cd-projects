@@ -1,23 +1,3 @@
 ingress:
   enabled: true
-  # ingress:
-  #   enabled: false 
-  #   paths:
-  #   - path: "/"
-  #     pathType: Prefix
-  #     backend:
-  #       service:
-  #         name: >-
-  #           jenkins
-  #         port:
-  #           number: 8080
-  #   apiVersion: "networking.k8s.io/v1"
-  #   annotations:
-  #     kubernetes.io/ingress.class: nginx
-  #   # configures the hostname e.g. jenkins.example.com
-  #   hostName: jenkins.opeomotayo.net
-  #   tls:
-  #   - hosts:
-  #     - jenkins.opeomotayo.net
-  #     secretName: jenkins-production-certificate
 
