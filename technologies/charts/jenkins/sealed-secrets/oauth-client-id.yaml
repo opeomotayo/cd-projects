@@ -1,0 +1,21 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: oauth-client-id
+  namespace: jenkins
+spec:
+  encryptedData:
+    text: AgBitC4heMrHosSI4HriciAeg/OJT2lFZzRr9uSzrdxCeoUsDkwhWBi9kaaRI3SG7+4ghwWlhjUcEvz+95tpjwJRcvFWE9Zxcz1IOIvZAAieqA9DnmCLkB/QJi2g85Jj2mLbXvAzm1+E4Qm+xSgu1t4Y2e4Jc7zSkut0shI7IS2osf6+K131Vy5M0hwE3uZqDpqdPv7LcPjW8f5Vdp7cRJggwO6XJUqbazS++vrizvJBhupLl7vSnkDpUl1Wa4dtMEZTcVN7ppMW+JYFJ6rmiCFRMQoH8Ls5C6eZ4bkWGL0Y10Q/HKttLHcg+YW6h3jveBLZahFBi495RUachqHsY5WVLJnGe/xbfabbrbmolSLd47n0snifJLDrUWZPV82Fjt5SnZ+7OIoTIk8nq1GB13Snoz+5c16DhWTZlW28CXrsgbsaxUQP8ttyZaSiqJpWF434uAYoWyTSBQTj5BHopgKKq+mjZ6fdoTVSoxCaOt1TQ01vvKI1YBjs19bpHjGI2oUAiJRTH/vP/Fq49S3a2q5HOuhO9ymfzsPq98sOTZCZhQPt2iCzaoMXf6qmJ4Exf5HFjYAagnX6/6eFhN7QuTIW80aaMHzKizenzhWAx+TcXWoaxlw1aQP6WcE2u1DviMNe5n6Ao5Su9PNEsWENQrqxFlFNldkegGElVYaqi8bbFepan7zwZSouGMtWSeWuNTpWk1lwBwH5JeZu4lvDA9txQFDJ7AdgsffZH7uu
+  template:
+    data: null
+    metadata:
+      annotations:
+        jenkins.io/credentials-description: github oauth client id secret text credential from Kubernetes
+      creationTimestamp: null
+      labels:
+        jenkins.io/credentials-type: secretText
+      name: oauth-client-id
+      namespace: jenkins
+    type: Opaque
+

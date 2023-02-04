@@ -1,0 +1,626 @@
+---
+# Source: sonarqube-lts/charts/postgresql/templates/secrets.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: RELEASE-NAME-postgresql
+  labels:
+    app: postgresql
+    chart: postgresql-8.6.4
+    release: "RELEASE-NAME"
+    heritage: "Helm"
+type: Opaque
+data:
+  postgresql-password: "c29uYXJQYXNz"
+---
+# Source: sonarqube-lts/templates/secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: RELEASE-NAME-sonarqube-lts-monitoring-passcode
+  labels:
+    app: sonarqube-lts
+    chart: sonarqube-lts-1.0.31
+    release: RELEASE-NAME
+    heritage: Helm
+type: Opaque
+data:
+  SONAR_WEB_SYSTEMPASSCODE: "ZGVmaW5lX2l0"
+---
+# Source: sonarqube-lts/templates/config.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: RELEASE-NAME-sonarqube-lts-config
+  labels:
+    app: sonarqube-lts
+    chart: sonarqube-lts-1.0.31
+    release: RELEASE-NAME
+    heritage: Helm
+data:
+---
+# Source: sonarqube-lts/templates/init-fs.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: RELEASE-NAME-sonarqube-lts-init-fs
+  labels:
+    app: sonarqube-lts
+    chart: sonarqube-lts-1.0.31
+    release: RELEASE-NAME
+    heritage: Helm
+data:
+  init_fs.sh: |-
+---
+# Source: sonarqube-lts/templates/init-sysctl.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: RELEASE-NAME-sonarqube-lts-init-sysctl
+  labels:
+    app: sonarqube-lts
+    chart: sonarqube-lts-1.0.31
+    release: RELEASE-NAME
+    heritage: Helm
+data:
+  init_sysctl.sh: |-
+    if [[ "$(sysctl -n vm.max_map_count)" -lt 524288 ]]; then
+      sysctl -w vm.max_map_count=524288
+    fi
+    if [[ "$(sysctl -n fs.file-max)" -lt 131072 ]]; then
+      sysctl -w fs.file-max=131072
+    fi
+    if [[ "$(ulimit -n)" != "unlimited" ]]; then
+      if [[ "$(ulimit -n)" -lt 131072 ]]; then
+        echo "ulimit -n 131072"
+        ulimit -n 131072
+      fi
+    fi
+    if [[ "$(ulimit -u)" != "unlimited" ]]; then
+      if [[ "$(ulimit -u)" -lt 8192 ]]; then
+        echo "ulimit -u 8192"
+        ulimit -u 8192
+      fi
+    fi
+---
+# Source: sonarqube-lts/templates/install-plugins.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: RELEASE-NAME-sonarqube-lts-install-plugins
+  labels:
+    app: sonarqube-lts
+    chart: sonarqube-lts-1.0.31
+    release: RELEASE-NAME
+    heritage: Helm
+data:
+  install_plugins.sh: |-
+---
+# Source: sonarqube-lts/templates/postgres-config.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: RELEASE-NAME-sonarqube-lts-postgres-config
+  labels:
+    app: sonarqube-lts
+    chart: sonarqube-lts-1.0.31
+    release: RELEASE-NAME
+    heritage: Helm
+data:
+  SONAR_JDBC_USERNAME: "sonarUser"
+  SONAR_JDBC_URL: "jdbc:postgresql://RELEASE-NAME-postgresql:5432/sonarDB"
+---
+# Source: sonarqube-lts/templates/prometheus-ce-config.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: RELEASE-NAME-sonarqube-lts-prometheus-ce-config
+  labels:
+    app: sonarqube-lts
+    chart: sonarqube-lts-1.0.31
+    release: RELEASE-NAME
+    heritage: Helm
+data:
+  prometheus-ce-config.yaml: |-
+        rules:
+        - pattern: .*
+---
+# Source: sonarqube-lts/templates/prometheus-config.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: RELEASE-NAME-sonarqube-lts-prometheus-config
+  labels:
+    app: sonarqube-lts
+    chart: sonarqube-lts-1.0.31
+    release: RELEASE-NAME
+    heritage: Helm
+data:
+  prometheus-config.yaml: |-
+        rules:
+        - pattern: .*
+---
+# Source: sonarqube-lts/templates/tests/test-config.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: RELEASE-NAME-sonarqube-lts-tests
+  labels:
+    app: sonarqube-lts
+    chart: sonarqube-lts-1.0.31
+    release: RELEASE-NAME
+    heritage: Helm
+data:
+  run.sh: |-
+    @test "Testing Sonarqube UI is accessible" {
+      curl --connect-timeout 5 --retry 12 --retry-delay 1 --retry-max-time 60 RELEASE-NAME-sonarqube-lts:9000/api/system/status
+    }
+---
+# Source: sonarqube-lts/charts/postgresql/templates/svc-headless.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: RELEASE-NAME-postgresql-headless
+  labels:
+    app: postgresql
+    chart: postgresql-8.6.4
+    release: "RELEASE-NAME"
+    heritage: "Helm"
+spec:
+  type: ClusterIP
+  clusterIP: None
+  ports:
+    - name: tcp-postgresql
+      port: 5432
+      targetPort: tcp-postgresql
+  selector:
+    app: postgresql
+    release: "RELEASE-NAME"
+---
+# Source: sonarqube-lts/charts/postgresql/templates/svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: RELEASE-NAME-postgresql
+  labels:
+    app: postgresql
+    chart: postgresql-8.6.4
+    release: "RELEASE-NAME"
+    heritage: "Helm"
+spec:
+  type: ClusterIP
+  ports:
+    - name: tcp-postgresql
+      port: 5432
+      targetPort: tcp-postgresql
+  selector:
+    app: postgresql
+    release: "RELEASE-NAME"
+    role: master
+---
+# Source: sonarqube-lts/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: RELEASE-NAME-sonarqube-lts
+  labels:
+    app: sonarqube-lts
+    chart: sonarqube-lts-1.0.31
+    release: RELEASE-NAME
+    heritage: Helm
+
+spec:
+  type: ClusterIP
+  ports:
+    - port: 9000
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: sonarqube-lts
+    release: RELEASE-NAME
+---
+# Source: sonarqube-lts/charts/postgresql/templates/statefulset.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: RELEASE-NAME-postgresql
+  labels:
+    app: postgresql
+    chart: postgresql-8.6.4
+    release: "RELEASE-NAME"
+    heritage: "Helm"
+spec:
+  serviceName: RELEASE-NAME-postgresql-headless
+  replicas: 1
+  updateStrategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: postgresql
+      release: "RELEASE-NAME"
+      role: master
+  template:
+    metadata:
+      name: RELEASE-NAME-postgresql
+      labels:
+        app: postgresql
+        chart: postgresql-8.6.4
+        release: "RELEASE-NAME"
+        heritage: "Helm"
+        role: master
+    spec:      
+      securityContext:
+        fsGroup: 1001
+      initContainers:
+        # - name: do-something
+        #   image: busybox
+        #   command: ['do', 'something']
+        
+      containers:
+        - name: RELEASE-NAME-postgresql
+          image: docker.io/bitnami/postgresql:11.7.0-debian-10-r26
+          imagePullPolicy: "IfNotPresent"
+          resources:
+            limits:
+              cpu: 2
+              memory: 2Gi
+            requests:
+              cpu: 100m
+              memory: 200Mi
+          securityContext:
+            runAsUser: 1001
+          env:
+            - name: BITNAMI_DEBUG
+              value: "false"
+            - name: POSTGRESQL_PORT_NUMBER
+              value: "5432"
+            - name: POSTGRESQL_VOLUME_DIR
+              value: "/bitnami/postgresql"
+            - name: PGDATA
+              value: "/bitnami/postgresql/data"
+            - name: POSTGRES_USER
+              value: "sonarUser"
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: RELEASE-NAME-postgresql
+                  key: postgresql-password
+            - name: POSTGRES_DB
+              value: "sonarDB"
+            - name: POSTGRESQL_ENABLE_LDAP
+              value: "no"
+          ports:
+            - name: tcp-postgresql
+              containerPort: 5432
+          livenessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - exec pg_isready -U "sonarUser" -d "sonarDB" -h 127.0.0.1 -p 5432
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 6
+          readinessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - -e
+                - |
+                  exec pg_isready -U "sonarUser" -d "sonarDB" -h 127.0.0.1 -p 5432
+                  [ -f /opt/bitnami/postgresql/tmp/.initialized ] || [ -f /bitnami/postgresql/.initialized ]
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 6
+          volumeMounts:
+            - name: dshm
+              mountPath: /dev/shm
+            - name: data
+              mountPath: /bitnami/postgresql
+              subPath: 
+      volumes:
+        - name: dshm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 1Gi
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes:
+          - "ReadWriteOnce"
+        resources:
+          requests:
+            storage: "20Gi"
+---
+# Source: sonarqube-lts/templates/sonarqube-sts.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: RELEASE-NAME-sonarqube-lts
+  labels:
+    app: sonarqube-lts
+    chart: sonarqube-lts-1.0.31
+    release: RELEASE-NAME
+    heritage: Helm
+    app.kubernetes.io/name: sonarqube-lts-RELEASE-NAME-sonarqube-lts
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: sonarqube
+    app.kubernetes.io/component: RELEASE-NAME-sonarqube-lts
+    app.kubernetes.io/version: "8.9.10-community"
+spec:
+  replicas: 1
+  serviceName: RELEASE-NAME-sonarqube-lts
+  selector:
+    matchLabels:
+      app: sonarqube-lts
+      release: RELEASE-NAME
+  template:
+    metadata:
+      labels:
+        app: sonarqube-lts
+        release: RELEASE-NAME
+      annotations:
+        checksum/init-sysctl: 6a389e25d5bdb04eb31b30e2ab92bcc13b89bfba44f893a3f1fc9625b198b815
+        checksum/init-fs: 2c130072469e350f12ab2eeffa97218f436f2bfb073eee9fa09da1b4258ff421
+        checksum/plugins: 58032eb344aec1390e10c4b454487f7965c05766cddf866dbcea50579bf396e0
+        checksum/config: 6e6b948327f63b5420ded896e7db9d7f2ca30a65a16c3f8ee56ced071c6458fd
+        checksum/secret: ed0438a14a5d2c382a3cdbae24c9debf7dc30ba492827c3a4321b2d78eab3e6f
+        checksum/prometheus-config: 960af69811070c00faf0184caed353b5c781bf6bcdb3d2649bbe976a2724e422
+        checksum/prometheus-ce-config: a6646024f9a5a25d2f6dd88f63a4df5bd68100e22f1b963ae4dd59c4c9b1063b
+    spec:
+      initContainers:
+        - name: "wait-for-db"
+          image: busybox:1.32
+          imagePullPolicy: IfNotPresent
+          resources:
+            {}
+          command: ["/bin/sh", "-c", "for i in $(seq 1 200); do nc -z -w3 RELEASE-NAME-postgresql 5432 && exit 0 || sleep 2; done; exit 1"]
+        - name: init-sysctl
+          image: busybox:1.32
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            privileged: true
+          resources:
+            {}
+          command: ["sh",
+            "-e",
+            "/tmp/scripts/init_sysctl.sh"]
+          volumeMounts:
+            - name: init-sysctl
+              mountPath: /tmp/scripts/
+        - name: inject-prometheus-exporter
+          image: curlimages/curl:7.76.1
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            runAsGroup: 0
+            runAsUser: 0
+          resources:
+            {}
+          command: ["/bin/sh","-c"]
+          args: ["curl -s 'https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/0.15.0/jmx_prometheus_javaagent-0.15.0.jar'  --output /data/jmx_prometheus_javaagent.jar -v"]
+          volumeMounts:
+            - mountPath: /data
+              name: sonarqube
+              subPath: data
+          env:
+            - name: http_proxy
+              value: 
+            - name: https_proxy
+              value: 
+            - name: no_proxy
+              value: 
+      containers:
+        - name: sonarqube-lts
+          image: "sonarqube:8.9.10-community"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 9000
+              protocol: TCP
+            - name: monitoring-web
+              containerPort: 8000
+              protocol: TCP
+            - name: monitoring-ce
+              containerPort: 8001
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 800m
+              memory: 4096M
+            requests:
+              cpu: 400m
+              memory: 2Gi
+          env:
+            - name: SONAR_WEB_JAVAOPTS
+              value: "-javaagent:/opt/sonarqube/data/jmx_prometheus_javaagent.jar=8000:/opt/sonarqube/conf/prometheus-config.yaml"
+            - name: SONAR_CE_JAVAOPTS
+              value: "-javaagent:/opt/sonarqube/data/jmx_prometheus_javaagent.jar=8001:/opt/sonarqube/conf/prometheus-ce-config.yaml"
+            - name: SONAR_JDBC_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: RELEASE-NAME-postgresql
+                  key: postgresql-password
+            - name: SONAR_WEB_SYSTEMPASSCODE
+              valueFrom:
+                secretKeyRef:
+                  name: RELEASE-NAME-sonarqube-lts-monitoring-passcode
+                  key: SONAR_WEB_SYSTEMPASSCODE
+          envFrom:
+            - configMapRef:
+                name: RELEASE-NAME-sonarqube-lts-postgres-config
+          livenessProbe:
+            exec:
+              command:
+              - sh
+              - -c
+              - |
+                #!/bin/bash
+                # A Sonarqube container is considered healthy if the health status is GREEN or YELLOW
+                host="$(hostname -i || echo '127.0.0.1')"
+                if wget --header="X-Sonar-Passcode: ${SONAR_WEB_SYSTEMPASSCODE}" -qO- http://${host}:9000/api/system/health | grep -q -e '"health":"GREEN"' -e '"health":"YELLOW"'; then
+                	exit 0
+                fi
+                exit 1
+            initialDelaySeconds: 60
+            periodSeconds: 30
+          readinessProbe:
+            exec:
+              command:
+              - sh
+              - -c
+              - |
+                #!/bin/bash
+                # A Sonarqube container is considered ready if the status is UP, DB_MIGRATION_NEEDED or DB_MIGRATION_RUNNING
+                # status about migration are added to prevent the node to be kill while sonarqube is upgrading the database.
+                host="$(hostname -i || echo '127.0.0.1')"
+                if wget -qO- http://${host}:9000/api/system/status | grep -q -e '"status":"UP"' -e '"status":"DB_MIGRATION_NEEDED"' -e '"status":"DB_MIGRATION_RUNNING"'; then
+                	exit 0
+                fi
+                exit 1
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            failureThreshold: 6
+          startupProbe:
+            httpGet:
+              scheme: HTTP
+              path: /api/system/status
+              port: 9000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 24
+          securityContext:
+            runAsUser: 1000
+          volumeMounts:
+            - mountPath: /opt/sonarqube/data
+              name: sonarqube
+              subPath: data
+            - mountPath: /opt/sonarqube/temp
+              name: sonarqube
+              subPath: temp
+            - mountPath: /opt/sonarqube/logs
+              name: sonarqube
+              subPath: logs
+            - mountPath: /tmp
+              name: tmp-dir
+            - mountPath: /opt/sonarqube/conf/prometheus-config.yaml
+              subPath: prometheus-config.yaml
+              name: prometheus-config
+            - mountPath: /opt/sonarqube/conf/prometheus-ce-config.yaml
+              subPath: prometheus-ce-config.yaml
+              name: prometheus-ce-config
+      volumes:
+      - name: init-sysctl
+        configMap:
+          name: RELEASE-NAME-sonarqube-lts-init-sysctl
+          items:
+            - key: init_sysctl.sh
+              path: init_sysctl.sh
+      - name: init-fs
+        configMap:
+          name: RELEASE-NAME-sonarqube-lts-init-fs
+          items:
+            - key: init_fs.sh
+              path: init_fs.sh
+      - name: install-plugins
+        configMap:
+          name: RELEASE-NAME-sonarqube-lts-install-plugins
+          items:
+            - key: install_plugins.sh
+              path: install_plugins.sh
+      - name: prometheus-config
+        configMap:
+          name: RELEASE-NAME-sonarqube-lts-prometheus-config
+          items:
+            - key: prometheus-config.yaml
+              path: prometheus-config.yaml
+      - name: prometheus-ce-config
+        configMap:
+          name: RELEASE-NAME-sonarqube-lts-prometheus-ce-config
+          items:
+            - key: prometheus-ce-config.yaml
+              path: prometheus-ce-config.yaml
+      - name: sonarqube
+        emptyDir:
+          {}
+      - name : tmp-dir
+        emptyDir:
+          {}
+---
+# Source: sonarqube-lts/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: RELEASE-NAME-sonarqube-lts
+  labels:
+    app: sonarqube-lts
+    chart: sonarqube-lts-1.0.31
+    release: RELEASE-NAME
+    heritage: Helm
+spec:
+  rules:
+  - host: sonarqube.your-org.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: RELEASE-NAME-sonarqube-lts
+            port:
+              number: 9000
+        path: /
+        pathType: ImplementationSpecific
+---
+# Source: sonarqube-lts/templates/tests/sonarqube-test.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "RELEASE-NAME-ui-test"
+  annotations:
+    "helm.sh/hook": test-success
+  labels:
+    app: sonarqube-lts
+    chart: sonarqube-lts-1.0.31
+    release: RELEASE-NAME
+    heritage: Helm
+spec:
+  initContainers:
+    - name: "bats"
+      image: "bats/bats:1.2.1"
+      imagePullPolicy: IfNotPresent
+      command: ["bash", "-c"]
+      args:
+        - |-
+          set -ex
+          cp -R /opt/bats /tools/bats/
+      volumeMounts:
+        - mountPath: /tools
+          name: tools
+  containers:
+    - name: RELEASE-NAME-ui-test
+      image: bitnami/minideb-extras
+      imagePullPolicy: IfNotPresent
+      command: [
+        "/tools/bats/bin/bats",
+        "--tap",
+        "/tests/run.sh"]
+      volumeMounts:
+      - mountPath: /tests
+        name: tests
+        readOnly: true
+      - mountPath: /tools
+        name: tools
+  volumes:
+  - name: tests
+    configMap:
+      name: RELEASE-NAME-sonarqube-lts-tests
+  - name: tools
+    emptyDir: 
+      {}
+  restartPolicy: Never
