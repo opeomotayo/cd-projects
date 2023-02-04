@@ -2,6 +2,13 @@ controller:
   jenkinsUrl: "https://jenkins.opeomotayo.net"
   image: "jenkins/jenkins"
   tag: "2.389-jdk11"
+  securityRealm:
+    github:
+      clientID: "bc7a747c92713d3c6f9d"
+      clientSecret: "{AQAAABAAAAAwBw44ZHrODQFVrt4O19u0rV4HFot92CbAgG9RJWzn3O223/jR7hLX4KmFHf+plwQaIvA5iJ3vQt4wcaDllTzhfg==}"
+      githubApiUri: "https://api.github.com"
+      githubWebUri: "https://github.com"
+      oauthScopes: "read:org,user:email,repo"
   installPlugins:
   - kubernetes
   - workflow-aggregator
