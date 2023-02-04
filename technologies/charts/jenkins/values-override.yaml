@@ -16,6 +16,18 @@ controller:
     # - role-strategy
     - matrix-auth
     - sonar
+
+  tool:
+    git:
+      installations:
+        - name: git
+          home: /usr/local/bin/git
+    sonarglobalconfiguration:
+      buildWrapperEnabled: true
+      installations:
+        - name: "SonarQube 1"
+          serverUrl: "http://example.com/sonar1"
+          serverAuthenticationToken: "asdasd"   
   
   # url('https://github.com/opeomotayo/cd-projects.git')
   # credentials('ssh-key-jenkins-github-devops')
@@ -28,18 +40,7 @@ controller:
             Welcome to my build server.
 
             This Jenkins is 100% configured and managed 'as code'.
-            Config is now mostly handled by the 'Jenkins Configuration as Code' (JCasC) plugin.
-      tool:
-        git:
-          installations:
-            - name: git
-              home: /usr/local/bin/git
-        sonarglobalconfiguration:
-          buildWrapperEnabled: true
-          installations:
-            - name: "SonarQube 1"
-              serverUrl: "http://example.com/sonar1"
-              serverAuthenticationToken: "asdasd"             
+            Config is now mostly handled by the 'Jenkins Configuration as Code' (JCasC) plugin.          
 
       pipelines-jobs: |
         jobs:
