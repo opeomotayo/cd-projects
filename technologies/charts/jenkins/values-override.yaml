@@ -3,31 +3,36 @@ controller:
   image: "jenkins/jenkins"
   tag: "2.389-jdk11"
   installPlugins:
-    - kubernetes
-    - workflow-aggregator
-    - git
-    - configuration-as-code
+  - kubernetes
+  - workflow-aggregator
+  - git
+  - configuration-as-code
   additionalPlugins:
-    - blueocean
-    - job-dsl
-    - credentials-binding
-    - kubernetes-credentials-provider
-    - github-oauth
-    # - role-strategy
-    - matrix-auth
-    - sonar
+  - blueocean
+  - job-dsl
+  - credentials-binding
+  - kubernetes-credentials-provider
+  - github-oauth
+  # - role-strategy
+  - matrix-auth
+  - sonar
 
   tool:
     git:
       installations:
-        - name: git
-          home: /usr/local/bin/git
-    sonarglobalconfiguration:
-      buildWrapperEnabled: true
+      - home: "/usr/bin/git"
+        name: "git"
+    jdk:
       installations:
-        - name: "SonarQube 1"
-          serverUrl: "http://example.com/sonar1"
-          serverAuthenticationToken: "asdasd"   
+      - name: "jdk"
+    sonarRunnerInstallation:
+      installations:
+      - name: "sonarqube"
+        properties:
+        - installSource:
+            installers:
+            - sonarRunnerInstaller:
+                id: "4.8.0.2856" 
   
   # url('https://github.com/opeomotayo/cd-projects.git')
   # credentials('ssh-key-jenkins-github-devops')
