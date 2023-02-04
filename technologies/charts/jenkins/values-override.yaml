@@ -3,10 +3,14 @@ controller:
   image: "jenkins/jenkins"
   tag: "2.389-jdk11"
   adminSecret: true
+  authorizationStrategy:
+    projectMatrix:
+      permissions:
+      - "GROUP:Overall/Administer:authenticated"
   securityRealm:
     github:
       clientID: "bc7a747c92713d3c6f9d"
-      clientSecret: "{AQAAABAAAAAwBw44ZHrODQFVrt4O19u0rV4HFot92CbAgG9RJWzn3O223/jR7hLX4KmFHf+plwQaIvA5iJ3vQt4wcaDllTzhfg==}"
+      clientSecret: "{AQAAABAAAAAwOiXKE/AAOM4oZSK1WplKpxjU35o6Icult+4cp7Qj40WEmsoiEAgym8V1/FZvtm+lZMAw/EKCWv3BqPf2mRtWTA==}"
       githubApiUri: "https://api.github.com"
       githubWebUri: "https://github.com"
       oauthScopes: "read:org,user:email,repo"
@@ -22,10 +26,11 @@ controller:
     - github-oauth
     - job-dsl
     - kubernetes-credentials-provider
+    - ldap
     - nexus-artifact-uploader
     - matrix-auth
     - role-strategy
-    - slack
+    # - slack
     - sonar
 
   tool:
