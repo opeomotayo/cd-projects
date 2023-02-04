@@ -13,7 +13,7 @@ controller:
     - credentials-binding
     - kubernetes-credentials-provider
     - github-oauth
-    - role-strategy
+    # - role-strategy
     - matrix-auth
   
   # url('https://github.com/opeomotayo/cd-projects.git')
