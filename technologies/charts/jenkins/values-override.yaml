@@ -2,6 +2,7 @@ controller:
   jenkinsUrl: "https://jenkins.opeomotayo.net"
   image: "jenkins/jenkins"
   tag: "2.389-jdk11"
+  adminSecret: false
   securityRealm:
     github:
       clientID: "bc7a747c92713d3c6f9d"
@@ -10,21 +11,21 @@ controller:
       githubWebUri: "https://github.com"
       oauthScopes: "read:org,user:email,repo"
   installPlugins:
-  - configuration-as-code
-  - git
-  - kubernetes
-  - workflow-aggregator
+    - configuration-as-code
+    - git
+    - kubernetes
+    - workflow-aggregator
 
   additionalPlugins:
-  - blueocean
-  - credentials-binding
-  - github-oauth
-  - job-dsl
-  - kubernetes-credentials-provider
-  - nexus-artifact-uploader
-  - matrix-auth
-  - role-strategy
-  - sonar
+    - blueocean
+    - credentials-binding
+    - github-oauth
+    - job-dsl
+    - kubernetes-credentials-provider
+    - nexus-artifact-uploader
+    - matrix-auth
+    - role-strategy
+    - sonar
 
   tool:
     git:
