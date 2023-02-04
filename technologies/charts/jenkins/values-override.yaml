@@ -16,6 +16,8 @@ controller:
     - role-strategy
     - matrix-auth
   
+  # url('https://github.com/opeomotayo/cd-projects.git')
+  # credentials('ssh-key-jenkins-github-devops')
   JCasC:
     defaultConfig: true
     configScripts:
@@ -39,9 +41,10 @@ controller:
               } 
           - script: >
               pipelineJob('actions-runner-controller') {
-                logRotator {
-                    numToKeep(5)
-                }
+              logRotator {
+                  numToKeep(10)
+                  daysToKeep(30)
+              }
                 definition {
                   cpsScm {
                     scm {
@@ -49,12 +52,33 @@ controller:
                         remote {
                           github('opeomotayo/cd-projects')
                         }
+                        branches('main')
                       }
                     }   
                     scriptPath('jobs/actions-runner-controller/Jenkinsfile')
                   }  
                 }       
-              }      
+              }
+          - script: >
+              pipelineJob('actions-runner-controller2') {
+                logRotator {
+                  numToKeep(10)
+                  daysToKeep(30)
+                }
+                definition {
+                  cpsScm {
+                    scm {
+                        git {
+                          remote {
+                              url('https://github.com/opeomotayo/cd-projects.git')
+                          }
+                          branches('*')
+                        }
+                    }
+                    scriptPath('jobs/actions-runner-controller/Jenkinsfile')
+                  }
+                }         
+              }   
           - script: >
               pipelineJob('github-demo') {
                 definition {
