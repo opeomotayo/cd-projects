@@ -10,18 +10,20 @@ controller:
       githubWebUri: "https://github.com"
       oauthScopes: "read:org,user:email,repo"
   installPlugins:
+  - configuration-as-code
+  - git
   - kubernetes
   - workflow-aggregator
-  - git
-  - configuration-as-code
+
   additionalPlugins:
   - blueocean
-  - job-dsl
   - credentials-binding
-  - kubernetes-credentials-provider
   - github-oauth
-  # - role-strategy
+  - job-dsl
+  - kubernetes-credentials-provider
+  - nexus-artifact-uploader
   - matrix-auth
+  - role-strategy
   - sonar
 
   tool:
