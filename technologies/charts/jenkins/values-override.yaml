@@ -19,7 +19,7 @@ controller:
     - nexus-artifact-uploader
     - matrix-auth
     - role-strategy
-    # - slack
+    - slack
     - sonar
 
   tool:
@@ -49,7 +49,7 @@ controller:
           systemMessage: |
             Welcome to my Jenkins build server, this server is 100% configured and managed 'as code'.
 
-          securityRealm:
+          securityRealm: |-
             github:
               clientID: "${oauth-client-id}"
               clientSecret: "${oauth-client-secret}"
@@ -57,7 +57,7 @@ controller:
               githubWebUri: "https://github.com"
               oauthScopes: "read:org,user:email,repo"
 
-          authorizationStrategy:
+          authorizationStrategy: |-
             projectMatrix:
               permissions:
               - "GROUP:Overall/Administer:authenticated"    
