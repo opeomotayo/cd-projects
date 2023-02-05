@@ -45,7 +45,7 @@ controller:
     - ldap
     - nexus-artifact-uploader
     - matrix-auth
-    - role-strategy
+    # - role-strategy
     # - slack
     - sonar
 
