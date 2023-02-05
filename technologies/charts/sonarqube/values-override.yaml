@@ -1,3 +1,17 @@
-ingress:
-  enabled: false
+resources:
+  limits:
+    cpu: 800m
+    memory: 4096M
+  requests:
+    cpu: 200m
+    memory: 1Gi
+
+postgresql:
+  resources:
+    limits:
+      cpu: 2
+      memory: 2Gi
+    requests:
+      cpu: 50m
+      memory: 50Mi
 
