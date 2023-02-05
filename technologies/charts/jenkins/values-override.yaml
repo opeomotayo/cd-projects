@@ -49,6 +49,9 @@ controller:
     # - slack
     - sonar
 
+  persistence:
+    size: "4Gi"
+
   tool:
     git:
       installations:
@@ -88,8 +91,8 @@ controller:
               clientSecret: "{AQAAABAAAAAw0u3FyKPTvWbLHXfyqYrYXn8epezYtzj/QkS6OIKJUTO70X6PdG7Ao6abwd6Ii6git8JtDsp9po70kK1aGbOjIg==}"
               githubApiUri: "https://api.github.com"
               githubWebUri: "https://github.com"
-              oauthScopes: "read:org,user:email,repo
-              
+              oauthScopes: "read:org,user:email,repo"
+
       authorizationStrategy-config: |
         jenkins:
           authorizationStrategy:
