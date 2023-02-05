@@ -88,12 +88,11 @@ controller:
           adminSecret: true
           securityRealm:
             github:
-              clientID: "bc7a747c92713d3c6f9d"
+              clientID: "{YmM3YTc0N2M5MjcxM2QzYzZmOWQ=}"
               clientSecret: "{AQAAABAAAAAw0u3FyKPTvWbLHXfyqYrYXn8epezYtzj/QkS6OIKJUTO70X6PdG7Ao6abwd6Ii6git8JtDsp9po70kK1aGbOjIg==}"
               githubApiUri: "https://api.github.com"
               githubWebUri: "https://github.com"
               oauthScopes: "read:org,user:email,repo"
-
           authorizationStrategy:
             projectMatrix:
               permissions:
