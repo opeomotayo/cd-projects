@@ -1,7 +1,34 @@
+# agent:
+#   resources:
+#     requests:
+#       cpu: "256m"
+#       memory: "256Mi"
+#     limits:
+#       cpu: "512m"
+#       memory: "512Mi"    
+
 controller:
   jenkinsUrl: "https://jenkins.opeomotayo.net"
   image: "jenkins/jenkins"
   tag: "2.389-jdk11"
+
+  # resources:
+  #   requests:
+  #     cpu: "25m"
+  #     memory: "128Mi"
+  #   limits:
+  #     cpu: "2000m"
+  #     memory: "4096Mi"
+
+  # sidecars:
+  #   configAutoReload:
+  #     resources:
+  #       limits:
+  #         cpu: 100m
+  #         memory: 100Mi
+  #       requests:
+  #         cpu: 25m
+  #         memory: 25Mi
   
   installPlugins:
     - configuration-as-code
@@ -18,7 +45,7 @@ controller:
     - ldap
     - nexus-artifact-uploader
     - matrix-auth
-    - role-strategy
+    # - role-strategy
     # - slack
     - sonar
 
@@ -42,12 +69,33 @@ controller:
   # url('https://github.com/opeomotayo/cd-projects.git')
   # credentials('ssh-key-jenkins-github-devops')
   JCasC:
-    defaultConfig: true
+    enabled: true
+    defaultConfig: false
     configScripts:
-      jcasc-config-scripts: |
+      welcome-message: |
         jenkins:
           systemMessage: |
-            Welcome to my Jenkins build server, this server is 100% configured and managed 'as code'.
+            Welcome to my build server.
+
+            This Jenkins is 100% configured and managed 'as code'.
+            Config is now mostly handled by the 'Jenkins Configuration as Code' (JCasC) plugin.
+
+      security-realm-config: |
+        jenkins:
+          securityRealm:
+            github:
+              clientID: "bc7a747c92713d3c6f9d"
+              clientSecret: "{AQAAABAAAAAw78oeclxjbb9NsNq0evHEEFP7Lw3/AiQW+MObCM7v7vZzu8xxrthwlah2vf62DPaAiu6y1McYchpD87uR0+Remg==}"
+              githubApiUri: "https://api.github.com"
+              githubWebUri: "https://github.com"
+              oauthScopes: "read:org,user:email,repo"
+              
+      authorizationStrategy-config: |
+        jenkins:
+          authorizationStrategy:
+            projectMatrix:
+              permissions:
+              - "GROUP:Overall/Administer:authenticated"  
 
       pipelines-jobs: |
         jobs:
@@ -121,24 +169,3 @@ controller:
       #folder: >-
       # https://raw.githubusercontent.com/opeomotayo/cd-projects/main/technologies/charts/jenkins/ci/jenkins-casc.yaml
 
-#disabled ingress here because I created ingress.yaml in the template folder
-  # ingress:
-  #   enabled: false 
-  #   paths:
-  #   - path: "/"
-  #     pathType: Prefix
-  #     backend:
-  #       service:
-  #         name: >-
-  #           jenkins
-  #         port:
-  #           number: 8080
-  #   apiVersion: "networking.k8s.io/v1"
-  #   annotations:
-  #     kubernetes.io/ingress.class: nginx
-  #   # configures the hostname e.g. jenkins.example.com
-  #   hostName: jenkins.opeomotayo.net
-  #   tls:
-  #   - hosts:
-  #     - jenkins.opeomotayo.net
-  #     secretName: jenkins-production-certificate
