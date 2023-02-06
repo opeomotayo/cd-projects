@@ -246,13 +246,14 @@ The following tables list the configurable parameters of the Jenkins chart and t
 
 #### Kubernetes Secret
 
-| Parameter                         | Description                          | Default                                   |
-| --------------------------------- | ------------------------------------ | ----------------------------------------- |
-| `controller.adminUser`                | Admin username (and password) created as a secret if adminSecret is true | `admin` |
-| `controller.adminPassword`            | Admin password (and user) created as a secret if adminSecret is true | Random value |
-| `controller.additionalSecrets`        | List of additional secrets to create and mount according to [JCasC docs](https://github.com/jenkinsci/configuration-as-code-plugin/blob/master/docs/features/secrets.adoc#kubernetes-secrets) | `[]` |
-| `controller.additionalExistingSecrets`| List of additional existing secrets to mount according to [JCasC docs](https://github.com/jenkinsci/configuration-as-code-plugin/blob/master/docs/features/secrets.adoc#kubernetes-secrets) | `[]` |
-| `controller.secretClaims`             | List of `SecretClaim` resources to create | `[]` |
+| Parameter                              | Description                                                                                                                                                                                   | Default                                   |
+|----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| ----------------------------------------- |
+| `controller.adminUser`                 | Admin username (and password) created as a secret if adminSecret is true                                                                                                                      | `admin` |
+| `controller.adminPassword`             | Admin password (and user) created as a secret if adminSecret is true                                                                                                                          | Random value |
+| `controller.existingSecret`            | The name of an existing secret containing keys credentials.                                                                                                                                   | `""`|
+| `controller.additionalSecrets`         | List of additional secrets to create and mount according to [JCasC docs](https://github.com/jenkinsci/configuration-as-code-plugin/blob/master/docs/features/secrets.adoc#kubernetes-secrets) | `[]` |
+| `controller.additionalExistingSecrets` | List of additional existing secrets to mount according to [JCasC docs](https://github.com/jenkinsci/configuration-as-code-plugin/blob/master/docs/features/secrets.adoc#kubernetes-secrets)   | `[]` |
+| `controller.secretClaims`              | List of `SecretClaim` resources to create                                                                                                                                                     | `[]` |
 
 #### Kubernetes NetworkPolicy
 
@@ -395,5 +396,6 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `backup.runAsUser`                       | Deprecated in favor of `backup.podSecurityContextOverride`.  uid that jenkins runs with. | `1000`                                    |
 | `backup.fsGroup`                         | Deprecated in favor of `backup.podSecurityContextOverride`.  uid that will be used for persistent volume. | `1000`                             |
 | `backup.podSecurityContextOverride`      | Completely overwrites the contents of the backup pod's security context, ignoring the values provided for `runAsUser`, and `fsGroup`. | Not set |
+| `cronJob.apiVersion`                     | CronJob API version | 'batch/v1' |
 | `awsSecurityGroupPolicies.enabled`      | Enable the creation of SecurityGroupPolicy resources | `false` |
 | `awsSecurityGroupPolicies.policies` | Security Group Policy definitions. `awsSecurityGroupPolicies.enabled` must be `true`  | Not set |

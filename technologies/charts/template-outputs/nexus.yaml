@@ -108,7 +108,8 @@ spec:
             null
           resources:
             
-            null
+            cpu: 1
+            memory: 2Gi
           ports:
             - name: nexus-ui
               containerPort: 8081

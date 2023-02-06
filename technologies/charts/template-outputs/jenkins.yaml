@@ -26,7 +26,7 @@ metadata:
     "app.kubernetes.io/component": "jenkins-controller"
 type: Opaque
 data:
-  jenkins-admin-password: "ZEpWVUo5MWtGdmt2VUVqQzFMMlE4Tg=="
+  jenkins-admin-password: "c3psUHZIejJhbHA1OWNzd0VndXdUSw=="
   jenkins-admin-user: "YWRtaW4="
 ---
 # Source: jenkins/templates/config.yaml
@@ -75,8 +75,39 @@ data:
     nexus-artifact-uploader
     matrix-auth
     role-strategy
-    slack
     sonar
+---
+# Source: jenkins/templates/jcasc-config.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "RELEASE-NAME-jenkins-jenkins-config-jcasc-config-scripts"
+  namespace: default
+  labels:
+    "app.kubernetes.io/name": jenkins
+    "helm.sh/chart": "jenkins-4.2.14"
+    "app.kubernetes.io/managed-by": "Helm"
+    "app.kubernetes.io/instance": "RELEASE-NAME"
+    "app.kubernetes.io/component": "jenkins-controller"
+    RELEASE-NAME-jenkins-jenkins-config: "true"
+data:
+  jcasc-config-scripts.yaml: |-
+    jenkins:
+      systemMessage: |
+        Welcome to my Jenkins build server, this server is 100% configured and managed 'as code'.
+    
+      securityRealm: |-
+        local:
+          allowsSignup: false
+          enableCaptcha: false
+          users:
+          - id: "${chart-admin-username}"
+            name: "Jenkins Admin"
+            password: "${chart-admin-password}"
+      # Ignored if authorizationStrategy is defined in controller.JCasC.configScripts
+      authorizationStrategy: |-
+        loggedInUsersCanDoAnything:
+          allowAnonymousRead: false
 ---
 # Source: jenkins/templates/jcasc-config.yaml
 apiVersion: v1
@@ -158,57 +189,6 @@ data:
               }  
             }       
           }
----
-# Source: jenkins/templates/jcasc-config.yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: "RELEASE-NAME-jenkins-jenkins-config-security-access"
-  namespace: default
-  labels:
-    "app.kubernetes.io/name": jenkins
-    "helm.sh/chart": "jenkins-4.2.14"
-    "app.kubernetes.io/managed-by": "Helm"
-    "app.kubernetes.io/instance": "RELEASE-NAME"
-    "app.kubernetes.io/component": "jenkins-controller"
-    RELEASE-NAME-jenkins-jenkins-config: "true"
-data:
-  security-access.yaml: |-
-    jenkins:
-      adminSecret: true
-      securityRealm:
-        github:
-          clientID: "bc7a747c92713d3c6f9d"
-          clientSecret: "{AQAAABAAAAAwOiXKE/AAOM4oZSK1WplKpxjU35o6Icult+4cp7Qj40WEmsoiEAgym8V1/FZvtm+lZMAw/EKCWv3BqPf2mRtWTA==}"
-          githubApiUri: "https://api.github.com"
-          githubWebUri: "https://github.com"
-          oauthScopes: "read:org,user:email,repo"
-        authorizationStrategy:
-          projectMatrix:
-            permissions:
-            - "GROUP:Overall/Administer:authenticated"
----
-# Source: jenkins/templates/jcasc-config.yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: "RELEASE-NAME-jenkins-jenkins-config-welcome-message"
-  namespace: default
-  labels:
-    "app.kubernetes.io/name": jenkins
-    "helm.sh/chart": "jenkins-4.2.14"
-    "app.kubernetes.io/managed-by": "Helm"
-    "app.kubernetes.io/instance": "RELEASE-NAME"
-    "app.kubernetes.io/component": "jenkins-controller"
-    RELEASE-NAME-jenkins-jenkins-config: "true"
-data:
-  welcome-message.yaml: |-
-    jenkins:
-      systemMessage: |
-        Welcome to my build server.
-    
-        This Jenkins is 100% configured and managed 'as code'.
-        Config is now mostly handled by the 'Jenkins Configuration as Code' (JCasC) plugin.
 ---
 # Source: jenkins/templates/jcasc-config.yaml
 apiVersion: v1
@@ -540,7 +520,7 @@ spec:
         "app.kubernetes.io/instance": "RELEASE-NAME"
         "app.kubernetes.io/component": "jenkins-controller"
       annotations:
-        checksum/config: 30e1eabe4b68c9c3bab8b4dadac7fdde9f4c92b520341e5ee9a5193ef28317f3
+        checksum/config: e2b5468ed53a0a0983d8e898738a826a3d87cce257bf1a71c6b179e640255822
     spec:
       securityContext:
     
@@ -763,7 +743,7 @@ data:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "RELEASE-NAME-ui-test-h7c1k"
+  name: "RELEASE-NAME-ui-test-nuiuh"
   namespace: default
   annotations:
     "helm.sh/hook": test-success

@@ -12,6 +12,74 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+
+## 4.3.0
+
+Moved use of `.Values.containerEnv` within `jenkins` Container to top of `env` block to allow for subsequent Environment Variables to reference these additional ones.
+
+## 4.2.21
+
+Update Jenkins image and appVersion to jenkins lts release version 2.375.2
+
+
+## 4.2.20
+
+Fixed the `controller.prometheus.metricRelabelings` being unable to convert the value to the ServiceMonitor.
+Added `controller.prometheus.relabelings` to allow relabling before scrape.
+Added default values for `controller.prometheus.relabelings` and `controller.prometheus.metricRelabelings`.
+
+## 4.2.19
+
+CronJob api version upgraded to batch/v1
+
+## 4.2.18
+
+Added option to set secretEnvVars.
+
+## 4.2.17
+
+Update Jenkins image and appVersion to jenkins lts release version 2.375.1
+
+
+## 4.2.16
+
+Fixed chart notes not rendering Jenkins URL with prefix when `controller.jenkinsUriPrefix` is set.
+Fixed chart notes not rendering Jenkins URL with `https` when `controller.ingress.tls` or `controller.controller.httpsKeyStore.enable` is set.
+Fixed chart notes rendering wrong JCasC URL when not using `controller.ingress`.
+
+## 4.2.15
+
+Update Jenkins image and appVersion to jenkins lts release version 2.361.4
+
+## 4.2.14
+
+Added option to mount all keys from an existing k8s secret
+
+## 4.2.13
+
+Adding `tpl` to `controller.additionalExistingSecrets`
+
+## 4.2.12
+
+Update Jenkins image and appVersion to jenkins lts release version 2.361.3
+
+
+## 4.2.11
+
+Update default plugin versions
+
+| plugin                | old version           | new version            |
+|-----------------------|-----------------------|------------------------|
+| kubernetes            | 3706.vdfb_d599579f3   | 3734.v562b_b_a_627ea_c |
+| git                   | 4.11.5                | 4.13.0                 |
+| configuration-as-code | 1512.vb_79d418d5fc8   | 1569.vb_72405b_80249   |
+
+## 4.2.10
+Fix grammar and typos
+
+## 4.2.9
+Update Jenkins image and appVersion to jenkins lts release version 2.361.2
+
 ## 4.2.8
 Modify the condition to trigger copying jenkins_config files when configAutoReload option is disabled during Jenkins initialization
 
