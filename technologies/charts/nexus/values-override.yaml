@@ -1,7 +1,7 @@
 image:
   # Sonatype Official Public Image
   repository: opeomotayo/nexus3-with-github-oauth-plugin
-  tag: latest
+  tag: v1
 
 nexus:
   resources:
