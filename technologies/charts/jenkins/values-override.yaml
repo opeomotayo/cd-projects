@@ -89,9 +89,6 @@ controller:
               githubApiUri: "https://api.github.com"
               githubWebUri: "https://github.com"
               oauthScopes: "read:org,user:email,repo"
-              
-      authorizationStrategy-config: |
-        jenkins:
           authorizationStrategy:
             projectMatrix:
               permissions:
