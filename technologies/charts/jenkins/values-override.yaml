@@ -80,6 +80,19 @@ controller:
   
   # url('https://github.com/opeomotayo/cd-projects.git')
   # credentials('ssh-key-jenkins-github-devops')
+  # security-realm: |
+  #   jenkins:
+  #     securityRealm:
+  #       github:
+  #         clientID: "bc7a747c92713d3c6f9d"
+  #         clientSecret: "${oauth-client-secret}"
+  #         githubApiUri: "https://api.github.com"
+  #         githubWebUri: "https://github.com"
+  #         oauthScopes: "read:org,user:email,repo"
+  #     authorizationStrategy:
+  #       globalMatrix:
+  #         permissions:
+      #         - "GROUP:Overall/Administer:authenticated"
   JCasC:
     enabled: true
     defaultConfig: false
@@ -91,20 +104,6 @@ controller:
 
             This Jenkins is 100% configured and managed 'as code'.
             Config is now mostly handled by the 'Jenkins Configuration as Code' (JCasC) plugin.
-
-      # security-realm: |
-      #   jenkins:
-      #     securityRealm:
-      #       github:
-      #         clientID: "bc7a747c92713d3c6f9d"
-      #         clientSecret: "${oauth-client-secret}"
-      #         githubApiUri: "https://api.github.com"
-      #         githubWebUri: "https://github.com"
-      #         oauthScopes: "read:org,user:email,repo"
-      #     authorizationStrategy:
-      #       globalMatrix:
-      #         permissions:
-      #         - "GROUP:Overall/Administer:authenticated"
 
       pipelines-jobs: |
         jobs:
