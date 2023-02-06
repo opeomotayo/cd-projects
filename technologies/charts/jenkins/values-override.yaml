@@ -49,19 +49,6 @@ controller:
           systemMessage: |
             Welcome to my Jenkins build server, this server is 100% configured and managed 'as code'.
 
-          securityRealm: |-
-            local:
-              allowsSignup: false
-              enableCaptcha: false
-              users:
-              - id: "${chart-admin-username}"
-                name: "Jenkins Admin"
-                password: "${chart-admin-password}"
-          # Ignored if authorizationStrategy is defined in controller.JCasC.configScripts
-          authorizationStrategy: |-
-            loggedInUsersCanDoAnything:
-              allowAnonymousRead: false   
-
       pipelines-jobs: |
         jobs:
           - script: >
