@@ -11,4 +11,6 @@ FROM sonatype/nexus3:$NEXUS_VERSION
 ARG DEPLOY_DIR=/opt/sonatype/nexus/deploy/
 USER root
 COPY --from=build /opt/nexus3-github-oauth-plugin.kar ${DEPLOY_DIR}
+RUN echo "github.api.url=https://api.github.com" >> /opt/sonatype/nexus/etc/githuboauth.properties &&\
+    echo "github.principal.cache.ttl=PT1H" >> /opt/sonatype/nexus/etc/githuboauth.properties
 USER nexus
