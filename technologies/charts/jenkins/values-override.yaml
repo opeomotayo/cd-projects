@@ -80,20 +80,6 @@ controller:
             This Jenkins is 100% configured and managed 'as code'.
             Config is now mostly handled by the 'Jenkins Configuration as Code' (JCasC) plugin.
 
-      security-realm-config: |
-        jenkins:
-          securityRealm:
-            github:
-              clientID: "bc7a747c92713d3c6f9d"
-              clientSecret: "{AQAAABAAAAAw78oeclxjbb9NsNq0evHEEFP7Lw3/AiQW+MObCM7v7vZzu8xxrthwlah2vf62DPaAiu6y1McYchpD87uR0+Remg==}"
-              githubApiUri: "https://api.github.com"
-              githubWebUri: "https://github.com"
-              oauthScopes: "read:org,user:email,repo"
-          authorizationStrategy:
-            projectMatrix:
-              permissions:
-              - "GROUP:Overall/Administer:authenticated"  
-
       pipelines-jobs: |
         jobs:
           - script: >
