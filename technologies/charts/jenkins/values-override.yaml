@@ -90,10 +90,6 @@ controller:
               githubApiUri: "https://api.github.com"
               githubWebUri: "https://github.com"
               oauthScopes: "read:org,user:email,repo"
-
-      authorization-strategy: |
-        jenkins:
-          securityRealm:
           authorizationStrategy:
             globalMatrix:
               permissions:
