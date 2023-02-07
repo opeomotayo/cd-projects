@@ -17,59 +17,15 @@ jenkins:
       roles:
         global:
         - assignments:
-          - "opeomotayo"
+          - "admin"
           name: "admin"
           pattern: ".*"
           permissions:
           - "Overall/Administer"
         - assignments:
-          - "officialdarnyc"
-          name: "developers"
-          pattern: ".*"
-          permissions:
-          - "Job/Move"
-          - "Job/Build"
-          - "Credentials/ManageDomains"
-          - "View/Create"
-          - "Agent/Configure"
-          - "Job/Read"
-          - "Credentials/Update"
-          - "Agent/Create"
-          - "Agent/Build"
-          - "View/Configure"
-          - "Metrics/HealthCheck"
-          - "Agent/Provision"
-          - "Metrics/ThreadDump"
-          - "SCM/Tag"
-          - "Job/Create"
-          - "Job/Discover"
-          - "Credentials/View"
-          - "Agent/Connect"
-          - "Agent/Disconnect"
-          - "Job/Cancel"
-          - "Overall/Read"
-          - "Run/Update"
-          - "Credentials/Create"
-          - "Job/Configure"
-          - "Metrics/View"
-          - "Job/Workspace"
-          - "View/Read"
-        - assignments:
           - "opeomotayo"
           name: "devops"
           pattern: ".*"
-          permissions:
-          - "Overall/Administer"
-        - assignments:
-          - "opeomotayo-demo"
-          name: "testers"
-          pattern: ".*"
-          permissions:
-          - "Overall/Read"
-          - "Job/Read"
-          - "Metrics/View"
-          - "View/Read"
-          - "Credentials/View"
   clouds:
   - kubernetes:
       containerCap: 10
@@ -85,11 +41,18 @@ jenkins:
       templates:
       - containers:
         - args: "^${computer.jnlpmac} ^${computer.name}"
+          command: "sleep"
           envVars:
           - envVar:
               key: "JENKINS_URL"
               value: "http://jenkins.jenkins.svc.cluster.local:8080/"
           image: "jenkins/inbound-agent:4.11.2-4"
+          livenessProbe:
+            failureThreshold: 0
+            initialDelaySeconds: 0
+            periodSeconds: 0
+            successThreshold: 0
+            timeoutSeconds: 0
           name: "jnlp"
           resourceLimitCpu: "512m"
           resourceLimitMemory: "512Mi"
@@ -128,7 +91,7 @@ jenkins:
   securityRealm:
     github:
       clientID: "bc7a747c92713d3c6f9d"
-      clientSecret: "{AQAAABAAAAAwTM/B+oD0tfoqmCNZOn/2+0PY8zpt+YYOF3fvLvxeQ0mEU6271Elrd8W3C16dZFOg5iYGWnK6x3k4cdlXpux5yg==}"
+      clientSecret: "{AQAAABAAAAAweB2q7VvxH+Q7sWkwWgyqWKE5jlAZJ3IqDx9nJ1yPhYlRU2vidY+V2wIIePQ9KxbV95touvp+fl7TdirQYb9ShA==}"
       githubApiUri: "https://api.github.com"
       githubWebUri: "https://github.com"
       oauthScopes: "read:org,user:email,repo"
