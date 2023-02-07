@@ -5,28 +5,29 @@ credentials:
       - usernamePassword:
           description: "github-pwd"
           id: "github-pwd"
-          password: "{AQAAABAAAAAg+g9UpPDg7i99Wi0ZDjy4t/Cho4PBnPb/8oZgEvW8rMu8E4RT5xBiLpyb2JS/s5GQ}"
+          password: "{AQAAABAAAAAQhYdt1NVqlXF10TsMHlCCZ51GnqH4Huj6p2W4Y9qZfuE=}"
           scope: GLOBAL
           username: "opeomotayo"
-      - string:
-          description: "oauth-client-secret"
-          id: "oauth-client-secret"
-          scope: GLOBAL
-          secret: "{AQAAABAAAAAwFgygJZL2hcEuzA7REU9WxNawa6nrWxM42hu5CWIUBKMubi+OrbDy+i35lA1Ur9lgMPBaI8XKePTwX1hBwRv0dw==}"
-      - string:
-          description: "oauth-client-id"
-          id: "oauth-client-id"
-          scope: GLOBAL
-          secret: "{AQAAABAAAAAgvKtOlbfM0PfyU9MGCEcxTh9n4ZZxqzuD5hLcMy9d6p/YO1C9x5mU/dBoV6IVVgtS}"
-      - string:
-          description: "login-pwd"
-          id: "login-pwd"
-          scope: GLOBAL
-          secret: "{AQAAABAAAAAQIqoHFAocjBwmUqby5KWfIHL+yEZGeTAwlXHLuFc342Y=}"
 jenkins:
   agentProtocols:
   - "JNLP4-connect"
   - "Ping"
+  # authorizationStrategy:
+  #   roleBased:
+  #     roles:
+  #       global:
+  #       - assignments:
+  #         - "admin"
+  #         name: "admin"
+  #         pattern: ".*"
+  #         permissions:
+  #         - "Overall/Administer"
+  #       - assignments:
+  #         - "opeomotayo"
+  #         name: "devops"
+  #         pattern: ".*"
+  #         permissions:
+  #         - "Overall/Administer"
   authorizationStrategy:
     loggedInUsersCanDoAnything:
       allowAnonymousRead: false
@@ -67,7 +68,7 @@ jenkins:
         label: "jenkins-jenkins-agent"
         name: "default"
         namespace: "jenkins"
-        nodeUsageMode: NORMAL
+        nodeUsageMode: "NORMAL"
         podRetention: "never"
         serviceAccount: "default"
         slaveConnectTimeout: 100
@@ -92,13 +93,21 @@ jenkins:
   remotingSecurity:
     enabled: true
   scmCheckoutRetryCount: 0
+  # securityRealm:
+  #   github:
+  #     clientID: "bc7a747c92713d3c6f9d"
+  #     clientSecret: "just testing"
+  #     githubApiUri: "https://api.github.com"
+  #     githubWebUri: "https://github.com"
+  #     oauthScopes: "read:org,user:email,repo"
   securityRealm:
-    github:
-      clientID: "bc7a747c92713d3c6f9d"
-      clientSecret: "{AQAAABAAAAAgCk+RrmQRzwzsobOHCzOz4fw82Tb9DfH1DHpTDdM9mTy2hYcUmq3HL0INSF+rPNDT}"
-      githubApiUri: "https://api.github.com"
-      githubWebUri: "https://github.com"
-      oauthScopes: "read:org,user:email,repo"
+    local:
+      allowsSignup: false
+      users:
+       - id: admin
+         password: admin
+       - id: test
+         password: test
   slaveAgentPort: 50000
   systemMessage: "Welcome to my build server.\r\n\r\nThis Jenkins is 100% configured\
     \ and managed 'as code'.\r\nConfig is now mostly handled by the 'Jenkins Configuration\
