@@ -19,7 +19,7 @@ controller:
   additionalPlugins:
     - blueocean
     - credentials-binding
-    - github-oauth
+    - github-oauth:0.39
     - job-dsl
     - kubernetes-credentials-provider
     - ldap
