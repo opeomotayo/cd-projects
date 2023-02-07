@@ -8,6 +8,8 @@
 #       memory: "512Mi"    
 
 controller:
+  image: "jenkins/jenkins"
+  tag: "lts-jdk11"
   installPlugins:
     - configuration-as-code
     - git
