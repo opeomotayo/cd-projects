@@ -13,19 +13,22 @@ jenkins:
   - "JNLP4-connect"
   - "Ping"
   authorizationStrategy:
-    roleBased:
-      roles:
-        global:
-        - assignments:
-          - "admin"
-          name: "admin"
-          pattern: ".*"
-          permissions:
-          - "Overall/Administer"
-        - assignments:
-          - "opeomotayo"
-          name: "devops"
-          pattern: ".*"
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
+  # authorizationStrategy:
+  #   roleBased:
+  #     roles:
+  #       global:
+  #       - assignments:
+  #         - "admin"
+  #         name: "admin"
+  #         pattern: ".*"
+  #         permissions:
+  #         - "Overall/Administer"
+  #       - assignments:
+  #         - "opeomotayo"
+  #         name: "devops"
+  #         pattern: ".*"
   clouds:
   - kubernetes:
       containerCap: 10
