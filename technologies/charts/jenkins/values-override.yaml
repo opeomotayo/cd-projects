@@ -1,4 +1,31 @@
+# agent:
+#   resources:
+#     requests:
+#       cpu: "256m"
+#       memory: "256Mi"
+#     limits:
+#       cpu: "512m"
+#       memory: "512Mi"    
+
 controller:
+  installPlugins:
+    - configuration-as-code
+    - git
+    - kubernetes
+    - workflow-aggregator
+
+  additionalPlugins:
+    - blueocean
+    - credentials-binding
+    - github-oauth
+    - job-dsl
+    - kubernetes-credentials-provider
+    - ldap
+    - nexus-artifact-uploader
+    - matrix-auth
+    - role-strategy
+    # - slack
+    - sonar
 
   sidecars:
     configAutoReload:
