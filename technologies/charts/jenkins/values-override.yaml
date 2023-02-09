@@ -10,7 +10,7 @@
 controller:
   image: "jenkins/jenkins"
   tag: "lts-jdk11"
-
+  numExecutors: 1
   installPlugins:
     - configuration-as-code
     - git

@@ -5,7 +5,6 @@ pipelineJob('actions-controller') {
         numToKeep(10)
         daysToKeep(30)
     }
-    agent any
     definition {
         cpsScm {
             scm {
