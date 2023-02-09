@@ -211,9 +211,9 @@ tool:
               }
             }      
         }
-security:
-  globalJobDslSecurityConfiguration:
-    useScriptSecurity: false
+# security:
+#   globalJobDslSecurityConfiguration:
+#     useScriptSecurity: false
 
 # credentials:
 #   system:
