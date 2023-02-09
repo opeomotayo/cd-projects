@@ -31,7 +31,7 @@ controller:
     - role-strategy
     # - slack
     - sonar
-    - permissive-script-security:0.7
+    # - permissive-script-security:0.7
 
   sidecars:
     configAutoReload:
