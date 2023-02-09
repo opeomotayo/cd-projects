@@ -6,10 +6,18 @@ pipelineJob('actions-controller') {
         daysToKeep(30)
     }
     definition {
-        // cps {
-        //     script(readFileFromWorkspace('pipeplines/actions-controller/Jenkinsfile'))
-        //     sandbox()     
-        // }
+        cps {
+            script(readFileFromWorkspace('pipeplines/actions-controller/Jenkinsfile'))
+            sandbox()     
+        }
+    }       
+}
+pipelineJob('actions-controller2') {
+    logRotator {
+        numToKeep(10)
+        daysToKeep(30)
+    }
+    definition {
         cpsScm {
             scm {
                 git {
