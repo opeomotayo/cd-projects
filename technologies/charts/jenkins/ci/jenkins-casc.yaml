@@ -187,7 +187,30 @@ tool:
           installers:
           - sonarRunnerInstaller:
               id: "4.8.0.2856"
-
+ 
+  jobs:
+    - script: >
+        job('seed') {
+            scm {
+              git {
+                extensions {
+                  wipeOutWorkspace()
+                }
+                remote {
+                  github('opeomotayo/cd-projects')
+                }
+                branches('main')
+              }
+            } 
+            triggers {
+              scm('H/15 * * * *')
+            }
+            steps {
+              jobDsl {
+                targets('jobs/**/*.groovy')
+              }
+            }      
+        }
 
 
 # credentials:

@@ -10,12 +10,12 @@
 controller:
   image: "jenkins/jenkins"
   tag: "lts-jdk11"
+
   installPlugins:
     - configuration-as-code
     - git
     - kubernetes
     - workflow-aggregator
-
   additionalPlugins:
     - blueocean
     - credentials-binding
