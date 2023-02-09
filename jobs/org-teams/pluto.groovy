@@ -5,13 +5,7 @@ pipelineJob('actions-controller') {
         numToKeep(10)
         daysToKeep(30)
     }
-    agent {
-        kubernetes {
-            label "-${UUID.randomUUID()}"
-            defaultContainer 'devops-tools'
-            yamlFile 'jobs/pod-templates.yaml'
-        }
-    }
+    agent any
     definition {
         cpsScm {
             scm {
