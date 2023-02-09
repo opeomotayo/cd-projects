@@ -11,8 +11,8 @@ controller:
   image: "jenkins/jenkins"
   tag: "lts-jdk11"
   numExecutors: 1
-  javaOpts: >
-    -Dpermissive-script-security.enabled=true
+  # javaOpts: >
+  #   -Dpermissive-script-security.enabled=true
 
   installPlugins:
     - configuration-as-code
