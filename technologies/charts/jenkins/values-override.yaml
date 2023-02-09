@@ -12,8 +12,8 @@ controller:
   tag: "lts-jdk11"
   numExecutors: 1
   javaOpts: >
-    -Djenkins.install.runSetupWizard=false -Dpermissive-script-security.enabled=true
-  installPlugins:
+    -Dpermissive-script-security.enabled=true
+    -Djenkins.install.runSetupWizard=false
     - configuration-as-code
     - git
     - kubernetes
