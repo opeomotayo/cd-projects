@@ -187,7 +187,7 @@ tool:
           installers:
           - sonarRunnerInstaller:
               id: "4.8.0.2856"
- 
+
   jobs:
     - script: >
         job('seed') {
@@ -211,7 +211,9 @@ tool:
               }
             }      
         }
-
+security:
+  globalJobDslSecurityConfiguration:
+    useScriptSecurity: false
 
 # credentials:
 #   system:
