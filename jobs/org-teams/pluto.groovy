@@ -15,7 +15,7 @@ pipelineJob('actions-controller') {
                 branches('main')
                 }
             }   
-            scriptPath('pipelines/team-pluto/actions-controller/Jenkinsfile')
+            scriptPath('/pipelines/team-pluto/actions-controller/Jenkinsfile')
         }  
     }       
 }
