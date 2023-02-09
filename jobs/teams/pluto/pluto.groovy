@@ -18,17 +18,10 @@ pipelineJob('actions-controller2') {
         daysToKeep(30)
     }
     definition {
-        cpsScm {
-            scm {
-                git {
-                remote {
-                    url('https://github.com/opeomotayo/cd-projects.git') 
-                }
-                branches('main')
-                }
-            }   
-            scriptPath('pipeplines/actions-controller/Jenkinsfile')
-        }  
-    }       
+        cps {
+            script(readFileFromWorkspace('pipeplines/actions-controller/Jenkinsfile'))
+            sandbox()     
+        }
+    }      
 }
 

@@ -11,6 +11,8 @@ controller:
   image: "jenkins/jenkins"
   tag: "lts-jdk11"
   numExecutors: 1
+  javaOpts: >
+    -Djenkins.install.runSetupWizard=false -Dpermissive-script-security.enabled=true
   installPlugins:
     - configuration-as-code
     - git
@@ -28,6 +30,7 @@ controller:
     - role-strategy
     # - slack
     - sonar
+    - permissive-script-security:0.7
 
   sidecars:
     configAutoReload:
