@@ -6,21 +6,21 @@ pipelineJob('actions-controller') {
         daysToKeep(30)
     }
     definition {
-        cps {
-            script(readFileFromWorkspace('pipeplines/actions-controller/Jenkinsfile'))
-            sandbox()     
-        }
-        // cpsScm {
-        //     scm {
-        //         git {
-        //         remote {
-        //             url('https://github.com/opeomotayo/cd-projects.git') 
-        //         }
-        //         branches('main')
-        //         }
-        //     }   
-        //     scriptPath('pipeplines/actions-controller/Jenkinsfile')
-        // }  
+        // cps {
+        //     script(readFileFromWorkspace('pipeplines/actions-controller/Jenkinsfile'))
+        //     sandbox()     
+        // }
+        cpsScm {
+            scm {
+                git {
+                remote {
+                    url('https://github.com/opeomotayo/cd-projects.git') 
+                }
+                branches('main')
+                }
+            }   
+            scriptPath('pipeplines/actions-controller/Jenkinsfile')
+        }  
     }       
 }
 
