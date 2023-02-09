@@ -13,7 +13,8 @@ controller:
   numExecutors: 1
   javaOpts: >
     -Dpermissive-script-security.enabled=true
-    -Djenkins.install.runSetupWizard=false
+
+  installPlugins:
     - configuration-as-code
     - git
     - kubernetes
