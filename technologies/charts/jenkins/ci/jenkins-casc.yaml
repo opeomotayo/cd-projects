@@ -318,20 +318,7 @@ globalCredentialsConfiguration:
   configuration:
     providerFilter: "none"
     typeFilter: "none"
-security:
-  apiToken:
-    creationOfLegacyTokenEnabled: false
-    tokenGenerationOnCreationEnabled: false
-    usageStatisticsEnabled: true
-  gitHooks:
-    allowedOnAgents: false
-    allowedOnController: false
-  gitHostKeyVerificationConfiguration:
-    sshHostKeyVerificationStrategy: "knownHostsFileVerificationStrategy"
-  globalJobDslSecurityConfiguration:
-    useScriptSecurity: true
-  sSHD:
-    port: -1
+
 unclassified:
   bitbucketEndpointConfiguration:
     endpoints:
@@ -384,7 +371,14 @@ unclassified:
     useExistingAccountWithSameEmail: false
   sonarGlobalConfiguration:
     buildWrapperEnabled: false
-  
+security:
+  globalJobDslSecurityConfiguration:
+    useScriptSecurity: false
+  scriptApproval:
+    approvedScriptHashes:
+    - "SHA512:5db4d3ca9bc4e7430ddab24d9ee16099f53cba4321f8ab81aa9f42510779ce79870314f2d1cc3d3769bedcb7283e23b01225e50e94b295dd5e03f879cf8f9264"
+    - "SHA512:e4cf9356a56e98f2db355e0bbc519af04a5de88a035415df22568cd257cbd59134248e343d0a7a5795ec01152d7c90b8bb92892db1100b0e6a3095bc34f45eda"
+    - "SHA512:ef1b5b21e0b4986ce6f500782560612c0ffb446fa015480aa013932374bc28e68eee53d391765932eea6a1db49a41b4ff6aeb4325af72dacd447f04ab354b4bd" 
 jobs:
 - script: >
     job('seed') {
