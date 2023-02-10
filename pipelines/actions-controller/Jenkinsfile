@@ -18,12 +18,12 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '100'))
     }
 
-    agent {
-        kubernetes {
-            label "-${UUID.randomUUID()}"
-            defaultContainer 'devops-tools'
-            yamlFile 'pipelines/pod-templates.yaml'
-        }
+    agent { any
+        // kubernetes {
+        //     label "-${UUID.randomUUID()}"
+        //     defaultContainer 'devops-tools'
+        //     yamlFile 'pipelines/pod-templates.yaml'
+        // }
     }
 
     // environment {
