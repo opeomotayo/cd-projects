@@ -11,13 +11,13 @@ controller:
   image: "jenkins/jenkins"
   tag: "lts-jdk11"
   numExecutors: 1
-  secretEnvVars:
-  - key: clientSecret
-    secretKey: clientSecret
-    secretName: github-oauth
-  - key: clientID
-    secretKey: clientID
-    secretName: github-oauth
+  # secretEnvVars:
+  # - key: clientSecret
+  #   secretKey: clientSecret
+  #   secretName: github-oauth
+  # - key: clientID
+  #   secretKey: clientID
+  #   secretName: github-oauth
   # containerEnv:
   # - name: clientID
   #   valueFrom:
@@ -44,7 +44,7 @@ controller:
     - nexus-artifact-uploader
     - matrix-auth
     - role-strategy
-    # - slack
+    - slack
     - sonar
 
 
