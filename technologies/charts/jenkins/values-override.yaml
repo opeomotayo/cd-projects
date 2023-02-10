@@ -32,7 +32,7 @@ controller:
     - nexus-artifact-uploader
     - matrix-auth
     - role-strategy
-    # - slack
+    - slack
     - sonar
     # - permissive-script-security:0.7
 
