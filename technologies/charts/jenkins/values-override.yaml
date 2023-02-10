@@ -11,17 +11,24 @@ controller:
   image: "jenkins/jenkins"
   tag: "lts-jdk11"
   numExecutors: 1
-  containerEnv:
-  - name: clientID
-    valueFrom:
-    secretKeyRef:
-      name: github-oauth
-      key: clientID
-  - name: clientSecret
-    valueFrom:
-    secretKeyRef:
-      name: github-oauth
-      key: clientSecret
+  secretEnvVars:
+  - key: clientSecret
+    secretKey: clientSecret
+    secretName: github-oauth
+  - key: clientID
+    secretKey: clientID
+    secretName: github-oauth
+  # containerEnv:
+  # - name: clientID
+  #   valueFrom:
+  #   secretKeyRef:
+  #     name: github-oauth
+  #     key: clientID
+  # - name: clientSecret
+  #   valueFrom:
+  #   secretKeyRef:
+  #     name: github-oauth
+  #     key: clientSecret
   installPlugins:
     - configuration-as-code
     - git
