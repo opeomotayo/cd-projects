@@ -11,8 +11,6 @@ controller:
   image: "jenkins/jenkins"
   tag: "lts-jdk11"
   numExecutors: 1
-  # javaOpts: >
-  #   -Dpermissive-script-security.enabled=true
   security:
     globalJobDslSecurityConfiguration:
       useScriptSecurity: false
@@ -32,9 +30,9 @@ controller:
     - nexus-artifact-uploader
     - matrix-auth
     - role-strategy
-    - slack
+    # - slack
     - sonar
-    # - permissive-script-security:0.7
+
 
   sidecars:
     configAutoReload:
