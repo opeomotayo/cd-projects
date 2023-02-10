@@ -18,13 +18,14 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '100'))
     }
     
-    agent {
-        kubernetes {
-            // label "-${UUID.randomUUID()}"
-            yamlFile 'build-pod.yaml'
-            defaultContainer 'docker'      
-        }
-    }
+    agent any 
+    // agent {
+    //     kubernetes {
+    //         // label "-${UUID.randomUUID()}"
+    //         yamlFile 'build-pod.yaml'
+    //         defaultContainer 'docker'      
+    //     }
+    // }
 
     // environment {
     //     http_proxy = "ep.threatpulse.net:80"
@@ -35,8 +36,10 @@ pipeline {
     stages {
         stage('Add ARC Repo') {
             steps {
-                sh "helm repo add ${config.repoName} https://actions-runner-controller.github.io/actions-runner-controller"
-                sh "helm pull --version ${config.version} --untar ${config.repoName}/actions-runner-controller"
+                sh "ls -la"
+                sh "pwd"
+                // sh "helm repo add ${config.repoName} https://actions-runner-controller.github.io/actions-runner-controller"
+                // sh "helm pull --version ${config.version} --untar ${config.repoName}/actions-runner-controller"
             }
         }
 
