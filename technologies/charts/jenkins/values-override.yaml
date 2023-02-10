@@ -13,6 +13,9 @@ controller:
   numExecutors: 1
   # javaOpts: >
   #   -Dpermissive-script-security.enabled=true
+  security:
+    globalJobDslSecurityConfiguration:
+      useScriptSecurity: false
 
   installPlugins:
     - configuration-as-code
