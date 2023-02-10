@@ -15,7 +15,7 @@ pipelineJob('actions-controller1') {
             branches('main')
             }
         }   
-        scriptPath('dsl/pipelines/actions-controller/Jenkinsfile')
+        scriptPath('dsl/**/**/Jenkinsfile')
         }  
     }       
 }
