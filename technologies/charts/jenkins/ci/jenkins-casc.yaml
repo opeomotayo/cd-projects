@@ -385,29 +385,29 @@ unclassified:
   sonarGlobalConfiguration:
     buildWrapperEnabled: false
   
-  jobs:
-  - script: >
-      job('seed') {
-          scm {
-            git {
-              extensions {
-                wipeOutWorkspace()
-              }
-              remote {
-                github('opeomotayo/cd-projects')
-              }
-              branches('main')
+jobs:
+- script: >
+    job('seed') {
+        scm {
+          git {
+            extensions {
+              wipeOutWorkspace()
             }
-          } 
-          triggers {
-            scm('H/15 * * * *')
+            remote {
+              github('opeomotayo/cd-projects')
+            }
+            branches('main')
           }
-          steps {
-            jobDsl {
-              targets('dsl/jobs/*.groovy')
-            }
-          }      
-      }
+        } 
+        triggers {
+          scm('H/15 * * * *')
+        }
+        steps {
+          jobDsl {
+            targets('dsl/jobs/*.groovy')
+          }
+        }      
+    }
 tool:
   git:
     installations:
