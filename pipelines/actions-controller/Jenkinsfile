@@ -20,9 +20,9 @@ pipeline {
     
     agent {
         kubernetes {
-            label "-${UUID.randomUUID()}"
-            defaultContainer 'devops-tools'
-            yamlFile '../pipelines/pod-templates.yaml'
+            // label "-${UUID.randomUUID()}"
+            yamlFile 'pod-templates.yaml'
+            defaultContainer 'devops-tools'      
         }
     }
 
