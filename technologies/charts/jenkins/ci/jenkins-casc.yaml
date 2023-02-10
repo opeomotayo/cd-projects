@@ -404,7 +404,7 @@ unclassified:
           }
           steps {
             jobDsl {
-              targets('jobs/*.groovy')
+              targets('dsl/jobs/*.groovy')
             }
           }      
       }
