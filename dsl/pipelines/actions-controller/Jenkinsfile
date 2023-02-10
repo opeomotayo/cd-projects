@@ -19,13 +19,13 @@ pipeline {
     }
     
     agent any 
-    // agent {
-    //     kubernetes {
-    //         // label "-${UUID.randomUUID()}"
-    //         yamlFile 'build-pod.yaml'
-    //         defaultContainer 'docker'      
-    //     }
-    // }
+    agent {
+        kubernetes {
+            // label "-${UUID.randomUUID()}"
+            yamlFile 'dsl/pipelines/build-pod.yaml'
+            defaultContainer 'docker'      
+        }
+    }
 
     // environment {
     //     http_proxy = "ep.threatpulse.net:80"
