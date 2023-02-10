@@ -11,10 +11,17 @@ controller:
   image: "jenkins/jenkins"
   tag: "lts-jdk11"
   numExecutors: 1
-  security:
-    globalJobDslSecurityConfiguration:
-      useScriptSecurity: false
-
+  containerEnv:
+  - name: clientID
+    valueFrom:
+    secretKeyRef:
+      name: github-oauth
+      key: clientID
+  - name: clientSecret
+    valueFrom:
+    secretKeyRef:
+      name: github-oauth
+      key: clientSecret
   installPlugins:
     - configuration-as-code
     - git

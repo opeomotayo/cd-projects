@@ -84,8 +84,8 @@
 #   scmCheckoutRetryCount: 0
 #   securityRealm:
 #     github:
-#       clientID: "637496041a683f8c01c3"
-#       clientSecret: "3b41ead62fbb8f77052c8ed1d0b3e1da6fccff38"
+#       clientID: "${clientID}"
+#       clientSecret: "${clientSecret}"
 #       githubApiUri: "https://api.github.com"
 #       githubWebUri: "https://github.com"
 #       oauthScopes: "read:org,user:email,repo"
@@ -285,7 +285,6 @@ jenkins:
   markupFormatter: "plainText"
   mode: NORMAL
   myViewsTabBar: "standard"
-  numExecutors: 1
   primaryView:
     all:
       name: "all"
@@ -295,13 +294,20 @@ jenkins:
     enabled: true
   scmCheckoutRetryCount: 0
   securityRealm:
-    local:
-      allowsSignup: false
-      users:
-       - id: admin
-         password: admin
-       - id: test
-         password: test
+    github:
+      clientID: "${clientID}"
+      clientSecret: "${clientSecret}"
+      githubApiUri: "https://api.github.com"
+      githubWebUri: "https://github.com"
+      oauthScopes: "read:org,user:email,repo"
+  # securityRealm:
+  #   local:
+  #     allowsSignup: false
+  #     users:
+  #      - id: admin
+  #        password: admin
+  #      - id: test
+  #        password: test
   slaveAgentPort: 50000
   systemMessage: "Welcome to my build server.\r\n\r\nThis Jenkins is 100% configured\
     \ and managed 'as code'.\r\nConfig is now mostly handled by the 'Jenkins Configuration\
