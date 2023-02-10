@@ -7,7 +7,7 @@ pipelineJob('actions-controller1') {
     }
     definition {
         cps {
-            script(readFileFromWorkspace('pipeplines/actions-controller/Jenkinsfile'))
+            script(readFileFromWorkspace('pipelines/actions-controller/Jenkinsfile'))
             sandbox()     
         }
     }       
@@ -19,7 +19,7 @@ pipelineJob('actions-controller2') {
     }
     definition {
         cps {
-            script(readFileFromWorkspace('pipeplines/actions-controller/Jenkinsfile'))
+            script(readFileFromWorkspace('pipelines/actions-controller/Jenkinsfile'))
             sandbox()     
         }
     }      
@@ -31,7 +31,7 @@ pipelineJob('actions-controller3') {
     }
     definition {
         cps {
-            script(readFileFromWorkspace('pipeplines/actions-controller/Jenkinsfile'))
+            script(readFileFromWorkspace('pipelines/actions-controller/Jenkinsfile'))
             sandbox()     
         }
     }       
@@ -43,7 +43,7 @@ pipelineJob('actions-controller4') {
     }
     definition {
         cps {
-            script(readFileFromWorkspace('pipeplines/actions-controller/Jenkinsfile'))
+            script(readFileFromWorkspace('pipelines/actions-controller/Jenkinsfile'))
             sandbox()     
         }
     }      
