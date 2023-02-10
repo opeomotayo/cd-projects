@@ -17,14 +17,14 @@ pipeline {
         // disableConcurrentBuilds()
         buildDiscarder(logRotator(numToKeepStr: '100'))
     }
-    agent any
-    // agent {
-    //     kubernetes {
-    //         label "-${UUID.randomUUID()}"
-    //         defaultContainer 'devops-tools'
-    //         yamlFile 'pipelines/pod-templates.yaml'
-    //     }
-    // }
+    
+    agent {
+        kubernetes {
+            label "-${UUID.randomUUID()}"
+            defaultContainer 'devops-tools'
+            yamlFile '../pipelines/pod-templates.yaml'
+        }
+    }
 
     // environment {
     //     http_proxy = "ep.threatpulse.net:80"
