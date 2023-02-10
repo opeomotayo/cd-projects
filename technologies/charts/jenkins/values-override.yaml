@@ -44,7 +44,7 @@ controller:
     - nexus-artifact-uploader
     - matrix-auth
     - role-strategy
-    - slack
+    # - slack
     - sonar
 
 
