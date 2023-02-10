@@ -25,33 +25,16 @@ pipelineJob('actions-controller2') {
         daysToKeep(30)
     }
     definition {
-        cps {
-            script(readFileFromWorkspace('pipelines/actions-controller/Jenkinsfile'))
-            sandbox()     
-        }
-    }      
-}
-pipelineJob('actions-controller3') {
-    logRotator {
-        numToKeep(10)
-        daysToKeep(30)
-    }
-    definition {
-        cps {
-            script(readFileFromWorkspace('pipelines/actions-controller/Jenkinsfile'))
-            sandbox()     
-        }
+        cpsScm {
+        scm {
+            git {
+            remote {
+                github('opeomotayo/cd-projects')
+            }
+            branches('main')
+            }
+        }   
+        scriptPath('dsl/**/**/Jenkinsfile')
+        }  
     }       
-}
-pipelineJob('actions-controller4') {
-    logRotator {
-        numToKeep(10)
-        daysToKeep(30)
-    }
-    definition {
-        cps {
-            script(readFileFromWorkspace('pipelines/actions-controller/Jenkinsfile'))
-            sandbox()     
-        }
-    }      
 }
