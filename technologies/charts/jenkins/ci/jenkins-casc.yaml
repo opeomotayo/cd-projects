@@ -296,7 +296,7 @@ jenkins:
   securityRealm:
     github:
       clientID: "637496041a683f8c01c3"
-      clientSecret: "${clientSecret}"
+      clientSecret: "${GITHUB_OAUTH_CLIENT_SECRET}"
       githubApiUri: "https://api.github.com"
       githubWebUri: "https://github.com"
       oauthScopes: "read:org,user:email,repo"

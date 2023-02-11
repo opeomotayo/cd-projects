@@ -198,6 +198,11 @@ spec:
             - name: SECRETS
               value: /run/secrets/additional
             {{- end }}
+            - name: GITHUB_OAUTH_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: github-oauth
+                  key: clientSecret
             - name: POD_NAME
               valueFrom:
                 fieldRef:
