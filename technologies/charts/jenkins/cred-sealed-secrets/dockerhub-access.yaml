@@ -1,0 +1,22 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: dockerhub-access
+  namespace: jenkins
+spec:
+  encryptedData:
+    password: AgBzwF5Q1mLignSFqxzaXwnZ97nA8OTgw3+YTw9rnj+oPXaoCxJap165EkFjkLvkTvOKoJvofiU6Jmx0iv4zJkyyUhd+9a2IUUrQhWt6WxdF3BvwvC3BEMB43cG/efFzI/S2Oia39aWGzyHRCyu9NlPhhuJJ36cj5VLezHnf4BnBPoqaieSYXFGHQCW0T4e+GdtpR9/lyQ7w1uAJ66qo5EY0IsKmVcWu9hvAVIYmCaL/dHz8VgebgWnrCNG8vRLHL89Xgu6QBcjsd/6Kj1vLTWsbhwmAYSMm1srBPjtk7t7d3Z6GVs8VTNvu+fbDZfyNaYPD3RFJAT5wFH4ix4JHGawWpjzQMQArZ1s+SBDZFfmbD7TMWOhkgEpf5pY6cwU+vqFhN/voQzAM3qFB0LVB+LG25ztpb63pcJ+S7JVtXP1CkKnEEJKpWbFoAINvTQSOpObl1zhWhgUX0ebTwaEP+0/41ZWtP0mteQ/bSLTtC0/Tonfl13c7PcuBa4qMRrX7j46iUT/z3/Y2ar03jaNIZlblIXVh0o0FnK1MX4iuMjfoIxW5/7Vu0E28NZytviB0HUkcxWQpfcKxQ5EDEmAa3EGS8ribW05MPtQcFQocD+80TEB9bcLm41xRrSnd+Hx/YmiW7Q2Ji74p7frpXM3AJdldy6acAP/Eq1bfP6PFOEGf+NeC44e20JFxrGNGfGoXFik5Q4fLM0aUrjGXtdw=
+    username: AgCFyynk44nFqKWJly68WkmQJq8+Tl0lmV/hZHKO1cWT1HS93Ful4mzcNmV3qQsAheIULibZC/lczZNHX36SONQJdhYZPNOxa+Ok1JuZRUIWXxDLokoE86tvEF69cBa4cacAMuced6lVmCdYnbnOz/BkXPMt5v4H6c/644yR8a2HpZliV9QHJ6jYGZNSxmMQftjkhfo2h7EkA/ft+T/R+15HHPOGbUpLMKuwhJ1d5OJkf0fqeveVOeFH+KDTHzwW54kkLDwD2hy7Vcm3f9bvVF30Iz/UWSVGxHY/v4IaYJV6lVDAwqnDLfkmOH7SmeN1hkVwc/d1QGJNOVYhNUfr2TBp9oe3MPFT5JCCYXCO4ZQwMu8/uW4bBNn+E1T5V+30qDveNOT1kpV1cRqrs5XIZnoU3/Mh17cAteAGyr0Yd1MyC8q8txJun88O9cnxuhKebf4Y9wNsAqL9D6ahI7H9gEFlAG5l08pP/9gZ3xZBBWYmdEoMmKenyfbH1ZeFc93BnAjpRDkZpLS1DTlFenylr3IR3M767xrMGO9Rl7LucizGu6VKHbzczjuRxAPE150nViYWw8F6jOKMchNx6B8tohWLzxFvQCMeSK5TGVEGhZ9YIc+KxlxUC2LyuWgl7CO2K6YeBW8jdF3ZsPW2ON+YmVuzEHPnMiRUik53TipZcqq31MLVJ46Exv5rzFhz79st2+tNQ8GhawkWsBC1fIfBbTha
+  template:
+    data: null
+    metadata:
+      annotations:
+        jenkins.io/credentials-description: credentials from Kubernetes
+      creationTimestamp: null
+      labels:
+        jenkins.io/credentials-type: usernamePassword
+      name: dockerhub-access
+      namespace: jenkins
+    type: Opaque
+
