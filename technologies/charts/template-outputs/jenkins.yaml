@@ -7,7 +7,7 @@ metadata:
   namespace: default
   labels:
     "app.kubernetes.io/name": 'jenkins'
-    "helm.sh/chart": "jenkins-4.2.14"
+    "helm.sh/chart": "jenkins-4.3.0"
     "app.kubernetes.io/managed-by": "Helm"
     "app.kubernetes.io/instance": "RELEASE-NAME"
     "app.kubernetes.io/component": "jenkins-controller"
@@ -20,13 +20,13 @@ metadata:
   namespace: default
   labels:
     "app.kubernetes.io/name": 'jenkins'
-    "helm.sh/chart": "jenkins-4.2.14"
+    "helm.sh/chart": "jenkins-4.3.0"
     "app.kubernetes.io/managed-by": "Helm"
     "app.kubernetes.io/instance": "RELEASE-NAME"
     "app.kubernetes.io/component": "jenkins-controller"
 type: Opaque
 data:
-  jenkins-admin-password: "c3psUHZIejJhbHA1OWNzd0VndXdUSw=="
+  jenkins-admin-password: "NkVDemFsRWFJcE5UWW1xRkJMbzV0bw=="
   jenkins-admin-user: "YWRtaW4="
 ---
 # Source: jenkins/templates/config.yaml
@@ -68,7 +68,7 @@ data:
     workflow-aggregator
     blueocean
     credentials-binding
-    github-oauth
+    github-oauth:0.39
     job-dsl
     kubernetes-credentials-provider
     ldap
@@ -81,124 +81,11 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: "RELEASE-NAME-jenkins-jenkins-config-jcasc-config-scripts"
-  namespace: default
-  labels:
-    "app.kubernetes.io/name": jenkins
-    "helm.sh/chart": "jenkins-4.2.14"
-    "app.kubernetes.io/managed-by": "Helm"
-    "app.kubernetes.io/instance": "RELEASE-NAME"
-    "app.kubernetes.io/component": "jenkins-controller"
-    RELEASE-NAME-jenkins-jenkins-config: "true"
-data:
-  jcasc-config-scripts.yaml: |-
-    jenkins:
-      systemMessage: |
-        Welcome to my Jenkins build server, this server is 100% configured and managed 'as code'.
-    
-      securityRealm: |-
-        local:
-          allowsSignup: false
-          enableCaptcha: false
-          users:
-          - id: "${chart-admin-username}"
-            name: "Jenkins Admin"
-            password: "${chart-admin-password}"
-      # Ignored if authorizationStrategy is defined in controller.JCasC.configScripts
-      authorizationStrategy: |-
-        loggedInUsersCanDoAnything:
-          allowAnonymousRead: false
----
-# Source: jenkins/templates/jcasc-config.yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: "RELEASE-NAME-jenkins-jenkins-config-pipelines-jobs"
-  namespace: default
-  labels:
-    "app.kubernetes.io/name": jenkins
-    "helm.sh/chart": "jenkins-4.2.14"
-    "app.kubernetes.io/managed-by": "Helm"
-    "app.kubernetes.io/instance": "RELEASE-NAME"
-    "app.kubernetes.io/component": "jenkins-controller"
-    RELEASE-NAME-jenkins-jenkins-config: "true"
-data:
-  pipelines-jobs.yaml: |-
-    jobs:
-      - script: >
-          multibranchPipelineJob('multibranch-pipeline-job') {
-            branchSources {
-              git {
-                id('123456789') // IMPORTANT: use a constant and unique identifier
-                remote('https://github.com/jenkinsci/job-dsl-plugin.git')
-              }
-            }
-          } 
-      - script: >
-          pipelineJob('actions-runner-controller') {
-          logRotator {
-              numToKeep(10)
-              daysToKeep(30)
-          }
-            definition {
-              cpsScm {
-                scm {
-                  git {
-                    remote {
-                      github('opeomotayo/cd-projects')
-                    }
-                    branches('main')
-                  }
-                }   
-                scriptPath('jobs/actions-runner-controller/Jenkinsfile')
-              }  
-            }       
-          }
-      - script: >
-          pipelineJob('actions-runner-controller2') {
-            logRotator {
-              numToKeep(10)
-              daysToKeep(30)
-            }
-            definition {
-              cpsScm {
-                scm {
-                    git {
-                      remote {
-                          url('https://github.com/opeomotayo/cd-projects.git')
-                      }
-                      branches('*')
-                    }
-                }
-                scriptPath('jobs/actions-runner-controller/Jenkinsfile')
-              }
-            }         
-          }   
-      - script: >
-          pipelineJob('github-demo') {
-            definition {
-              cpsScm {
-                scm {
-                  git {
-                    remote {
-                      github('jenkinsci/pipeline-examples')
-                    }
-                  }
-                }   
-                scriptPath('declarative-examples/simple-examples/environmentInStage.groovy')
-              }  
-            }       
-          }
----
-# Source: jenkins/templates/jcasc-config.yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
   name: "RELEASE-NAME-jenkins-jenkins-jcasc-config"
   namespace: default
   labels:
     "app.kubernetes.io/name": jenkins
-    "helm.sh/chart": "jenkins-4.2.14"
+    "helm.sh/chart": "jenkins-4.3.0"
     "app.kubernetes.io/managed-by": "Helm"
     "app.kubernetes.io/instance": "RELEASE-NAME"
     "app.kubernetes.io/component": "jenkins-controller"
@@ -206,9 +93,20 @@ metadata:
 data:
   jcasc-default-config.yaml: |-
     jenkins:
+      authorizationStrategy:
+        loggedInUsersCanDoAnything:
+          allowAnonymousRead: false
+      securityRealm:
+        local:
+          allowsSignup: false
+          enableCaptcha: false
+          users:
+          - id: "${chart-admin-username}"
+            name: "Jenkins Admin"
+            password: "${chart-admin-password}"
       disableRememberMe: false
       mode: NORMAL
-      numExecutors: 0
+      numExecutors: 1
       labelString: ""
       projectNamingStrategy: "standard"
       markupFormatter:
@@ -231,7 +129,7 @@ data:
           templates:
             - name: "default"
               namespace: "default"
-              id: ec9481133f16b4bfc8be7ba738f0c6d698e96e979bb73abd5c6089ad5ee48fde
+              id: 474be7705ac6cddeedf68ad2962972dd9921f64c6e534967402794fbf06a21ec
               containers:
               - name: "jnlp"
                 alwaysPullImage: false
@@ -271,7 +169,7 @@ data:
     unclassified:
       location:
         adminAddress: 
-        url: https://jenkins.opeomotayo.net
+        url: http://RELEASE-NAME-jenkins:8080
 ---
 # Source: jenkins/templates/home-pvc.yaml
 kind: PersistentVolumeClaim
@@ -281,7 +179,7 @@ metadata:
   namespace: default
   labels:
     "app.kubernetes.io/name": 'jenkins'
-    "helm.sh/chart": "jenkins-4.2.14"
+    "helm.sh/chart": "jenkins-4.3.0"
     "app.kubernetes.io/managed-by": "Helm"
     "app.kubernetes.io/instance": "RELEASE-NAME"
     "app.kubernetes.io/component": "jenkins-controller"
@@ -374,7 +272,7 @@ metadata:
   namespace: default
   labels:
     "app.kubernetes.io/name": 'jenkins'
-    "helm.sh/chart": "jenkins-4.2.14"
+    "helm.sh/chart": "jenkins-4.3.0"
     "app.kubernetes.io/managed-by": "Helm"
     "app.kubernetes.io/instance": "RELEASE-NAME"
     "app.kubernetes.io/component": "jenkins-controller"
@@ -396,7 +294,7 @@ metadata:
   namespace: default
   labels:
     "app.kubernetes.io/name": 'jenkins'
-    "helm.sh/chart": "jenkins-4.2.14"
+    "helm.sh/chart": "jenkins-4.3.0"
     "app.kubernetes.io/managed-by": "Helm"
     "app.kubernetes.io/instance": "RELEASE-NAME"
     "app.kubernetes.io/component": "jenkins-controller"
@@ -415,7 +313,7 @@ metadata:
   namespace: default
   labels:
     "app.kubernetes.io/name": 'jenkins'
-    "helm.sh/chart": "jenkins-4.2.14"
+    "helm.sh/chart": "jenkins-4.3.0"
     "app.kubernetes.io/managed-by": "Helm"
     "app.kubernetes.io/instance": "RELEASE-NAME"
     "app.kubernetes.io/component": "jenkins-controller"
@@ -436,7 +334,7 @@ metadata:
   namespace: default
   labels:
     "app.kubernetes.io/name": 'jenkins'
-    "helm.sh/chart": "jenkins-4.2.14"
+    "helm.sh/chart": "jenkins-4.3.0"
     "app.kubernetes.io/managed-by": "Helm"
     "app.kubernetes.io/instance": "RELEASE-NAME"
     "app.kubernetes.io/component": "jenkins-controller"
@@ -457,7 +355,7 @@ metadata:
   namespace: default
   labels:
     "app.kubernetes.io/name": 'jenkins'
-    "helm.sh/chart": "jenkins-4.2.14"
+    "helm.sh/chart": "jenkins-4.3.0"
     "app.kubernetes.io/managed-by": "Helm"
     "app.kubernetes.io/instance": "RELEASE-NAME"
     "app.kubernetes.io/component": "jenkins-controller"
@@ -479,7 +377,7 @@ metadata:
   namespace: default
   labels:
     "app.kubernetes.io/name": 'jenkins'
-    "helm.sh/chart": "jenkins-4.2.14"
+    "helm.sh/chart": "jenkins-4.3.0"
     "app.kubernetes.io/managed-by": "Helm"
     "app.kubernetes.io/instance": "RELEASE-NAME"
     "app.kubernetes.io/component": "jenkins-controller"
@@ -501,7 +399,7 @@ metadata:
   namespace: default
   labels:
     "app.kubernetes.io/name": 'jenkins'
-    "helm.sh/chart": "jenkins-4.2.14"
+    "helm.sh/chart": "jenkins-4.3.0"
     "app.kubernetes.io/managed-by": "Helm"
     "app.kubernetes.io/instance": "RELEASE-NAME"
     "app.kubernetes.io/component": "jenkins-controller"
@@ -520,7 +418,7 @@ spec:
         "app.kubernetes.io/instance": "RELEASE-NAME"
         "app.kubernetes.io/component": "jenkins-controller"
       annotations:
-        checksum/config: e2b5468ed53a0a0983d8e898738a826a3d87cce257bf1a71c6b179e640255822
+        checksum/config: 56207c3f7ed617b0d0f48bae9c3a42fde80f045122a886010b1bfdcba4885ad6
     spec:
       securityContext:
     
@@ -530,7 +428,7 @@ spec:
       serviceAccountName: "RELEASE-NAME-jenkins"
       initContainers:
         - name: "init"
-          image: "jenkins/jenkins:2.389-jdk11"
+          image: "jenkins/jenkins:lts-jdk11"
           imagePullPolicy: "Always"
           securityContext:
             allowPrivilegeEscalation: false
@@ -558,7 +456,7 @@ spec:
               name: tmp-volume
       containers:
         - name: jenkins
-          image: "jenkins/jenkins:2.389-jdk11"
+          image: "jenkins/jenkins:lts-jdk11"
           imagePullPolicy: "Always"
           securityContext:
             allowPrivilegeEscalation: false
@@ -569,6 +467,12 @@ spec:
           env:
             - name: SECRETS
               value: /run/secrets/additional
+            # added by opeomotayo
+            - name: GITHUB_OAUTH_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: github-oauth-client-secret
+                  key: client-secret
             - name: POD_NAME
               valueFrom:
                 fieldRef:
@@ -581,8 +485,9 @@ spec:
                  --webroot=/var/jenkins_cache/war 
             - name: JENKINS_SLAVE_AGENT_PORT
               value: "50000"
+
             - name: CASC_JENKINS_CONFIG
-              value: /var/jenkins_home/casc_configs
+              value: https://raw.githubusercontent.com/opeomotayo/cd-projects/main/technologies/charts/jenkins/ci/jenkins-casc.yaml
           ports:
             - containerPort: 8080
               name: http
@@ -627,7 +532,7 @@ spec:
               name: plugin-dir
               readOnly: false
             - name: sc-config-volume
-              mountPath: /var/jenkins_home/casc_configs
+              mountPath: https://raw.githubusercontent.com/opeomotayo/cd-projects/main/technologies/charts/jenkins/ci/jenkins-casc.yaml
             - name: jenkins-secrets
               mountPath: /run/secrets/additional
               readOnly: true
@@ -649,7 +554,7 @@ spec:
             - name: LABEL
               value: "RELEASE-NAME-jenkins-jenkins-config"
             - name: FOLDER
-              value: "/var/jenkins_home/casc_configs"
+              value: "https://raw.githubusercontent.com/opeomotayo/cd-projects/main/technologies/charts/jenkins/ci/jenkins-casc.yaml"
             - name: NAMESPACE
               value: 'default'
             - name: REQ_URL
@@ -662,7 +567,7 @@ spec:
             {}
           volumeMounts:
             - name: sc-config-volume
-              mountPath: "/var/jenkins_home/casc_configs"
+              mountPath: "https://raw.githubusercontent.com/opeomotayo/cd-projects/main/technologies/charts/jenkins/ci/jenkins-casc.yaml"
             - name: jenkins-home
               mountPath: /var/jenkins_home
 
@@ -725,6 +630,51 @@ spec:
 # Source: jenkins/templates/ingress.yaml
 #managed by opeomotayo
 ---
+# Source: jenkins/templates/cred-sealed-secrets/dockerhub-access.yaml
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: dockerhub-access
+  namespace: jenkins
+spec:
+  encryptedData:
+    password: AgBzwF5Q1mLignSFqxzaXwnZ97nA8OTgw3+YTw9rnj+oPXaoCxJap165EkFjkLvkTvOKoJvofiU6Jmx0iv4zJkyyUhd+9a2IUUrQhWt6WxdF3BvwvC3BEMB43cG/efFzI/S2Oia39aWGzyHRCyu9NlPhhuJJ36cj5VLezHnf4BnBPoqaieSYXFGHQCW0T4e+GdtpR9/lyQ7w1uAJ66qo5EY0IsKmVcWu9hvAVIYmCaL/dHz8VgebgWnrCNG8vRLHL89Xgu6QBcjsd/6Kj1vLTWsbhwmAYSMm1srBPjtk7t7d3Z6GVs8VTNvu+fbDZfyNaYPD3RFJAT5wFH4ix4JHGawWpjzQMQArZ1s+SBDZFfmbD7TMWOhkgEpf5pY6cwU+vqFhN/voQzAM3qFB0LVB+LG25ztpb63pcJ+S7JVtXP1CkKnEEJKpWbFoAINvTQSOpObl1zhWhgUX0ebTwaEP+0/41ZWtP0mteQ/bSLTtC0/Tonfl13c7PcuBa4qMRrX7j46iUT/z3/Y2ar03jaNIZlblIXVh0o0FnK1MX4iuMjfoIxW5/7Vu0E28NZytviB0HUkcxWQpfcKxQ5EDEmAa3EGS8ribW05MPtQcFQocD+80TEB9bcLm41xRrSnd+Hx/YmiW7Q2Ji74p7frpXM3AJdldy6acAP/Eq1bfP6PFOEGf+NeC44e20JFxrGNGfGoXFik5Q4fLM0aUrjGXtdw=
+    username: AgCFyynk44nFqKWJly68WkmQJq8+Tl0lmV/hZHKO1cWT1HS93Ful4mzcNmV3qQsAheIULibZC/lczZNHX36SONQJdhYZPNOxa+Ok1JuZRUIWXxDLokoE86tvEF69cBa4cacAMuced6lVmCdYnbnOz/BkXPMt5v4H6c/644yR8a2HpZliV9QHJ6jYGZNSxmMQftjkhfo2h7EkA/ft+T/R+15HHPOGbUpLMKuwhJ1d5OJkf0fqeveVOeFH+KDTHzwW54kkLDwD2hy7Vcm3f9bvVF30Iz/UWSVGxHY/v4IaYJV6lVDAwqnDLfkmOH7SmeN1hkVwc/d1QGJNOVYhNUfr2TBp9oe3MPFT5JCCYXCO4ZQwMu8/uW4bBNn+E1T5V+30qDveNOT1kpV1cRqrs5XIZnoU3/Mh17cAteAGyr0Yd1MyC8q8txJun88O9cnxuhKebf4Y9wNsAqL9D6ahI7H9gEFlAG5l08pP/9gZ3xZBBWYmdEoMmKenyfbH1ZeFc93BnAjpRDkZpLS1DTlFenylr3IR3M767xrMGO9Rl7LucizGu6VKHbzczjuRxAPE150nViYWw8F6jOKMchNx6B8tohWLzxFvQCMeSK5TGVEGhZ9YIc+KxlxUC2LyuWgl7CO2K6YeBW8jdF3ZsPW2ON+YmVuzEHPnMiRUik53TipZcqq31MLVJ46Exv5rzFhz79st2+tNQ8GhawkWsBC1fIfBbTha
+  template:
+    data: null
+    metadata:
+      annotations:
+        jenkins.io/credentials-description: credentials from Kubernetes
+      creationTimestamp: null
+      labels:
+        jenkins.io/credentials-type: usernamePassword
+      name: dockerhub-access
+      namespace: jenkins
+    type: Opaque
+---
+# Source: jenkins/templates/cred-sealed-secrets/github-oauth-client-secret.yaml
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: github-oauth-client-secret
+  namespace: jenkins
+spec:
+  encryptedData:
+    client-secret: AgACw6G1bwAdjfhLct2QMmxeC79+S3YWtjmK/EYc7vwHr42o5fVTXY308fKWkbJc54szXF4LUx3cNq4M/nTHhqXFN3eqRPH/leAQAxi+Z61cEYyeWFtshupzzyGTVn87ygX2wi3N9nRzKp48eohxyoI3kZ4Ej1pxZzX6ojQiUI/K+3NQPwFbjH1g45vDLYjIH0harLW1lsaEh1XRRlq+OonIxxx2/4qycnNv4D0JZ43YZ47ehpmP4feulR3HExJDg+jn4KoM0J0+SRF6m5Junols1jI7LbxXbuEpfyLnij0K2cmC2ffYbFf3qX3TKnA0qIt0+kiJeBVUN8UAg6lYrA57nJJ+3dQjopnfZA9bTy9nbteL0aslGwQT8Xnm5JrVll0U6qwiNKVXwTrHSBe0F12OEIZD9NK1Ee9MtoIHrf1MVoBLtlAEEK2XgVxQu7K1NV6X3PuFzzcgSrfDBsOvwzJzHX+df9IZc3R2kx9mDj4SA5gTMjfMGV7VL+J3TpL79gKP8KEkkAOqFyL1vFuQKP0usAdcfPsA+9y8566FiJvJ8l96jQT7skld8eHzflCx1czrsAxvgQlJJHgg6V0ThPPeVD90DnTw/p5sGOKDh1g7w0Vs2kigfa3rTZWsh6Y5HHfw+CZXzJOCmsKc97bc+EJytjewZnLU8VTtS7mmwdO4AjjwB4aaOaq42s1ydmD1qflmyBfrdQW0x+3yFq9tvpivRQ9pb8dHgrU9QXl0wGRDNvvKs6yGxF6qbVZPzwpTmAaHlWh580aYwg==
+  template:
+    data: null
+    metadata:
+      annotations:
+        jenkins.io/credentials-description: github oauth client-secret secret text credential from Kubernetes
+      creationTimestamp: null
+      labels:
+        jenkins.io/credentials-type: secretText
+      name: github-oauth-client-secret
+      namespace: jenkins
+    type: Opaque
+---
 # Source: jenkins/templates/tests/test-config.yaml
 apiVersion: v1
 kind: ConfigMap
@@ -743,7 +693,7 @@ data:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "RELEASE-NAME-ui-test-nuiuh"
+  name: "RELEASE-NAME-ui-test-xn3ph"
   namespace: default
   annotations:
     "helm.sh/hook": test-success
@@ -764,7 +714,7 @@ spec:
         name: tools
   containers:
     - name: RELEASE-NAME-ui-test
-      image: jenkins/jenkins:2.361.1-jdk11
+      image: jenkins/jenkins:2.375.2-jdk11
       command: ["/tools/bats/bin/bats", "-t", "/tests/run.sh"]
       volumeMounts:
       - mountPath: /tests
