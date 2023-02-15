@@ -11,10 +11,10 @@ controller:
   image: "jenkins/jenkins"
   tag: "lts-jdk11"
   numExecutors: 1
-  secretEnvVars:
-  - key: clientSecret
-    secretKey: clientSecret
-    secretName: github-oauth
+  # secretEnvVars:
+  # - key: clientSecret
+  #   secretKey: clientSecret
+  #   secretName: github-oauth
   # containerEnv:
   # - name: clientID
   #   valueFrom:
@@ -43,6 +43,7 @@ controller:
     - role-strategy
     # - slack
     - sonar
+    - docker-build-step
 
 
   sidecars:
