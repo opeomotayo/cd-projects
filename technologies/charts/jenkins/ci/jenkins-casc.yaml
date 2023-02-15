@@ -394,7 +394,7 @@ jobs:
               wipeOutWorkspace()
             }
             remote {
-              github('opeomotayo/cd-projects')
+              github('opeomotayo/ci-projects')
             }
             branches('main')
           }
@@ -404,7 +404,7 @@ jobs:
         }
         steps {
           jobDsl {
-            targets('dsl/**/*.groovy')
+            targets('dsl-jobs/*.groovy')
           }
         }      
     }
