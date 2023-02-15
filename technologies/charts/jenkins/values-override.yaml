@@ -44,6 +44,7 @@ controller:
     # - slack
     - sonar
     - docker-build-step
+    - docker-workflow
 
 
   sidecars:
