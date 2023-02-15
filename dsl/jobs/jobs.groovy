@@ -1,6 +1,6 @@
 // github('opeomotayo/cd-projects') can also be used instead of url('https://github.com/opeomotayo/cd-projects.git')
 // multiple pipelinesJobs can also be set here
-pipelineJob('actions-controller1') {
+pipelineJob('hello-world') {
     logRotator {
         numToKeep(10)
         daysToKeep(30)
@@ -10,12 +10,12 @@ pipelineJob('actions-controller1') {
         scm {
             git {
             remote {
-                github('opeomotayo/cd-projects')
+                github('opeomotayo/ci-projects')
             }
             branches('main')
             }
         }   
-        scriptPath('dsl/pipelines/actions-controller/Jenkinsfile')
+        scriptPath('flask-applications/helloworld/Jenkinsfile')
         }  
     }       
 }
