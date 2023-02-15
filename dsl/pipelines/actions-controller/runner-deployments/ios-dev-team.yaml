@@ -1,5 +1,0 @@
-repository: ios-dev-team
-workstream: ios
-autoscaling:
-  totalNumberOfQueuedAndInProgressWorkflowRuns:
-    enabled: true
