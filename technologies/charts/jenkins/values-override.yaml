@@ -29,7 +29,7 @@ controller:
   installPlugins:
     - configuration-as-code
     - git
-    - kubernetes
+    - kubernetes:3845.va_9823979a_744
     - workflow-aggregator
   additionalPlugins:
     - blueocean
@@ -42,7 +42,7 @@ controller:
     - ldap
     - nexus-artifact-uploader
     - matrix-auth
-    # - parameterized-trigger
+    - parameterized-trigger
     - role-strategy
     - slack
     - sonar
