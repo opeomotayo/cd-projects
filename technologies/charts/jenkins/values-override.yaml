@@ -29,6 +29,7 @@ controller:
   installPlugins:
     - configuration-as-code
     - git
+    - kubernetes-client-api:5.12.2-193.v26a_6078f65a_9
     - kubernetes:3734.v562b_b_a_627ea_c
     - workflow-aggregator
   additionalPlugins:
