@@ -27,7 +27,8 @@ pipeline {
               //def encodedPassword = URLEncoder.encode("$GIT_PASSWORD",'UTF-8')
               sh "git config --global user.email opeomotayo@gmail.com"
               sh "git config --global user.name opeomotayo"
-              sh "git switch main"
+              // sh "git switch main"
+              sh "git branch"
               sh "printenv"
               sh "cat technologies/deployment-pipelines/deployment.yaml"
               sh "sed -i 's+opeomotayo/flask-app1.*+opeomotayo/flask-app1:${DOCKERTAG}+g' technologies/deployment-pipelines/deployment.yaml"
