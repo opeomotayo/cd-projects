@@ -34,18 +34,18 @@ controller:
   additionalPlugins:
     - blueocean
     - credentials-binding
+    - docker-build-step
+    - docker-workflow
     - github-oauth:0.39
     - job-dsl
     - kubernetes-credentials-provider
     - ldap
     - nexus-artifact-uploader
     - matrix-auth
+    - parameterized-trigger
     - role-strategy
     - slack
     - sonar
-    - docker-build-step
-    - docker-workflow
-
 
   sidecars:
     configAutoReload:
