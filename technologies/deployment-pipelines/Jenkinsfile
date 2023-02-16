@@ -3,7 +3,7 @@ pipeline {
     skipStagesAfterUnstable()
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
-
+  
   agent {
     kubernetes {
       // label "-${UUID.randomUUID()}"
@@ -11,7 +11,9 @@ pipeline {
       defaultContainer 'devops-tools'      
     }
   }
-
+  parameters {
+      string(name: 'DOCKERTAG',  defaultValue: "${DOCKERTAG}", description: 'Latest image tag') 
+  }
   stages {
     stage('Clone repository') { 
       steps { 
