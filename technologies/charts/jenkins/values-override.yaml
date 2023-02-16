@@ -42,7 +42,7 @@ controller:
     - ldap
     - nexus-artifact-uploader
     - matrix-auth
-    - parameterized-trigger
+    # - parameterized-trigger
     - role-strategy
     - slack
     - sonar

@@ -4,13 +4,12 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
   
-  agent {
-    kubernetes {
-      // label "-${UUID.randomUUID()}"
-      yamlFile 'build-pod.yaml'
-      defaultContainer 'devops-tools'      
-    }
-  }
+  // agent {
+  //   kubernetes {
+  //     yamlFile 'build-pod.yaml'
+  //     defaultContainer 'devops-tools'      
+  //   }
+  // }
   stages {
     stage('Clone repository') { 
       steps { 
