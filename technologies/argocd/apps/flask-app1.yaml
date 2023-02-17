@@ -1,11 +1,11 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata: 
-  name: sonarqube
+  name: flask-app1
   namespace: argocd
 spec: 
   destination: 
-    namespace: sonarqube
+    namespace: flask
     server: "https://kubernetes.default.svc"
   project: default
   source:
