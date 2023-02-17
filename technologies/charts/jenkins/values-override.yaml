@@ -29,7 +29,7 @@ controller:
   installPlugins:
     - configuration-as-code
     - git
-    - kubernetes:3802.vb_b_600831fcb_3
+    - kubernetes #:3802.vb_b_600831fcb_3
     - workflow-aggregator
   additionalPlugins:
     - blueocean
@@ -40,10 +40,10 @@ controller:
     - github-oauth
     - github-pullrequest
     - job-dsl
-    - kubernetes-cli:1.11.0
-    - kubernetes-credentials:0.10.0
-    - kubernetes-credentials-provider:1.208.v128ee9800c04
-    - kubernetes-client-api:6.3.1-206.v76d3b_6b_14db_b
+    - kubernetes-cli #:1.11.0
+    - kubernetes-credentials #:0.10.0
+    - kubernetes-credentials-provider #:1.208.v128ee9800c04
+    - kubernetes-client-api #:6.3.1-206.v76d3b_6b_14db_b
     - ldap
     - nexus-artifact-uploader
     - matrix-auth
