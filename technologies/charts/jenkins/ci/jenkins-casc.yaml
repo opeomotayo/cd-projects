@@ -171,25 +171,25 @@ security:
 jobs:
 - script: >
     job('seed') {
-        scm {
-          git {
-            extensions {
-              wipeOutWorkspace()
-            }
-            remote {
-              github('opeomotayo/ci-projects')
-            }
-            branches('main')
+      scm {
+        git {
+          extensions {
+            wipeOutWorkspace()
           }
-        } 
-        triggers {
-          scm('H/15 * * * *')
+          remote {
+            github('opeomotayo/ci-projects')
+          }
+          branches('main')
         }
-        steps {
-          jobDsl {
-            targets('dsl/*.groovy')
-          }
-        }      
+      } 
+      triggers {
+        scm('H/15 * * * *')
+      }
+      steps {
+        jobDsl {
+          targets('dsl/*.groovy')
+        }
+      }      
     }
 tool:
   git:
