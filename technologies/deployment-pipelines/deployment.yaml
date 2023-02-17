@@ -15,7 +15,7 @@ spec:
         app: flask-app1
     spec:
       containers:
-      - image: opeomotayo/flask-app1:7
+      - image: opeomotayo/flask-app1:8
         name: flask-app1
 ---
 apiVersion: v1
