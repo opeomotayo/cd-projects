@@ -3,3 +3,9 @@ This repo along with https://github.com/saha-rajdeep/kubernetescode creates a Je
 
 
 Please refer to the https://github.com/saha-rajdeep/kubernetescode/blob/main/README.md for the instructions on how to use the codes.
+
+
+Docker plugin
+Docker Pipeline
+GitHub Integration Plugin
+Parameterized trigger Plugin

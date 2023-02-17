@@ -35,8 +35,10 @@ controller:
     - blueocean
     - credentials-binding
     - docker-build-step
+    - docker-plugin
     - docker-workflow
-    - github-oauth:0.39
+    - github-oauth
+    - github-pullrequest
     - job-dsl
     - kubernetes-cli:1.11.0
     - kubernetes-credentials:0.10.0
