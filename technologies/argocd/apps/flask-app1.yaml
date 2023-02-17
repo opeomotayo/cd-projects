@@ -1,0 +1,14 @@
+project: default
+source:
+  repoURL: 'https://github.com/opeomotayo/cd-projects.git'
+  path: technologies/deployment-pipelines
+  targetRevision: HEAD
+destination:
+  server: 'https://kubernetes.default.svc'
+  namespace: flask
+syncPolicy:
+  automated:
+  prune: true
+  selfHeal: false
+  syncOptions:
+    - CreateNamespace=true
