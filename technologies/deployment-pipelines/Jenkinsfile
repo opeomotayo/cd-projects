@@ -1,3 +1,5 @@
+def DOCKERTAG
+
 pipeline {
   options {
     skipStagesAfterUnstable()
