@@ -16,7 +16,7 @@ RUN rc-update add docker boot
 RUN curl -sSL https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 
 # Install Java.
-RUN apk --update --no-cache add openjdk7 curl
+RUN apk --update --no-cache add openjdk8 curl
 
 RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
   && curl -fsSL -o /tmp/apache-maven.tar.gz ${BASE_URL}/apache-maven-${MAVEN_VERSION}-bin.tar.gz \
