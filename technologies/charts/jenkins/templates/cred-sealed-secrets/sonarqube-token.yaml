@@ -1,0 +1,21 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: sonarqube-token
+  namespace: jenkins
+spec:
+  encryptedData:
+    sonarqube-token: AgA2ZTNvB0tKj4SgjPIKfMMVmPEqQygUFLeO0iqR6DNw/HF0/55nnE2tZ9bbIlu4E+sKXBeSmqtOzwtcn38ekyXBVKCivLLoY6vJAUSdAbMya6dvkxsyMNywFvOQ94xhNU0ibWakr7f8NKiWjMePQyoxkfzYD6/6F5H7mNfaf68ukZjgVP+MAJtQ+OzJdOqck8kU2aHMS0S9BAVM1EXQHyY2NT5WyWAJ3bag0ugO/APP7LIxXe1A7GkKV2odx2tmlcDcDNeiBw41dUL2BLf/iD/FBdJpRPO9o0J13o3Qyi54dDfsOtPXPU73zpAnseDbxxx1a6pA/heedVDJvVWr2Dg8ATAxjG3khJ3MR1mNcW0W0SWfOCCpEFXRmU5RosG1+RJxrkmGq+OoZBDT4i59vZyynyaQHf3AUThz/BvsRkfJ3+bUEcV7hXiRkJnefm9aS7+Nk9uK/9somXuNBTAYOPgQ0KLiGkuB34fmJHQrxIFay8z+zRi7Uy/OqKesYNluoj+8qbqTynk6fc/oHWpg9+nlsomJ5HYtdm249pK8c+HX1E/OdGVoxNRYSHlYRZzAbKLh1C9REFNvJaT5n6C1b0gLe40ZPFsB4u8+1wWhNyj440xLWfOYaK/pkKYC5M1KPXKZPdMoD7itoefmOzCIR8GdwVl51cjZ9l38SFrx6YvDrSxyUOOtXJ/pQxkcF7iovHDLJjg3DD2mZH/9U/0rlmHY7bax+sm1e0Rt5DE19eV61lIXYkPKEm6e
+  template:
+    data: null
+    metadata:
+      annotations:
+        jenkins.io/credentials-description: secret text credential from Kubernetes
+      creationTimestamp: null
+      labels:
+        jenkins.io/credentials-type: secretText
+      name: sonarqube-token
+      namespace: jenkins
+    type: Opaque
+
