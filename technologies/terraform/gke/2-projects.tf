@@ -1,6 +1,6 @@
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/google_project
 resource "google_project" "host-staging" {
-  name                =  "111" #local.host_project_name
+  name                =  111 #local.host_project_name
   project_id          = local.host_project_id
   billing_account     = local.billing_account
   org_id              = local.org_id
@@ -9,7 +9,7 @@ resource "google_project" "host-staging" {
 
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/google_project
 resource "google_project" "k8s-staging" {
-  name                = "222" #local.service_project_name
+  name                = 222 #local.service_project_name
   project_id          = local.service_project_id
   billing_account     = local.billing_account
   org_id              = local.org_id
