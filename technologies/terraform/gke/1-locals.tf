@@ -1,6 +1,6 @@
 locals {
   region               = "eu-west2"
-  org_id               = "terraform-gke-379306"
+  org_id               = "989785785157"
   billing_account      = "01F7F7-EEDB76-A58E66"
   host_project_name    = "host-staging"
   service_project_name = "k8s-staging"
