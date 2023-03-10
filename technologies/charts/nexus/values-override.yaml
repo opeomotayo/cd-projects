@@ -3,10 +3,6 @@ image:
   repository: opeomotayo/nexus3-with-github-oauth-plugin
   tag: v1
 
-persistence:
-  enabled: true
-  accessMode: ReadWriteMany
-
 # nexus:
 #   resources:
 #     requests:
