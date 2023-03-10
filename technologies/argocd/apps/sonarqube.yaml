@@ -12,9 +12,9 @@ spec:
     helm:
       valueFiles:
         - values-override.yaml
-destination:
-  server: 'https://kubernetes.default.svc'
-  namespace: sonarqube
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: sonarqube
   syncPolicy:
     automated:
       prune: true
