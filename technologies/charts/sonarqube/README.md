@@ -1,4 +1,4 @@
-# How I installed SonarQube
+# How I deployed SonarQube
 
 * ### Clone official SonarQube chart
 ```
@@ -10,8 +10,9 @@ git clone https://github.com/SonarSource/helm-chart-sonarqube.git
 * ### Update ingress.yaml file
 
 * ### Run the below commands to test installation
-``` 
+```
 helm dependency update
+helm template sonarqube -f sonarqube/values-override.yaml > template-outputs/sonarqube.yaml 
 helm -n sonarqube upgrade --install sonarqube sonarqube -f sonarqube/values-override.yaml
 ```
 

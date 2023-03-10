@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata: 
+  name: nexus
+  namespace: argocd
+spec: 
+  project: default
+  source:
+    repoURL: 'https://github.com/opeomotayo/cd-projects.git'
+    path: technologies/charts/nexus
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values-override.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: nexus
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false
+    syncOptions:
+      - CreateNamespace=true
+      - Replace=true
+
