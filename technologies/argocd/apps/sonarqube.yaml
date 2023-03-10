@@ -4,14 +4,17 @@ metadata:
   name: sonarqube
   namespace: argocd
 spec: 
-  destination: 
-    namespace: sonarqube
-    server: "https://kubernetes.default.svc"
   project: default
-  source: 
-    repoURL: "https://opeomotayo.github.io/tools-chart/"
-    targetRevision: 0.0.2
-    chart: sonar-chart
+  source:
+    repoURL: 'https://github.com/opeomotayo/cd-projects.git'
+    path: technologies/charts/sonarqube
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values-override.yaml
+destination:
+  server: 'https://kubernetes.default.svc'
+  namespace: sonarqube
   syncPolicy:
     automated:
       prune: true
@@ -19,3 +22,4 @@ spec:
     syncOptions:
       - CreateNamespace=true
       - Replace=true
+
