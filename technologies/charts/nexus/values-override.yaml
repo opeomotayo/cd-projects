@@ -3,11 +3,11 @@ image:
   repository: opeomotayo/nexus3-with-github-oauth-plugin
   tag: v1
 
-nexus:
-  resources:
-    requests:
-      cpu: 2
-      memory: 4Gi
-    limits:
-      cpu: 4
-      memory: 8Gi
+# nexus:
+#   resources:
+#     requests:
+#       cpu: 2
+#       memory: 4Gi
+#     limits:
+#       cpu: 4
+#       memory: 8Gi

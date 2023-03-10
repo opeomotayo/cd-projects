@@ -1,23 +1,39 @@
-# Steps to create Jenkins with Configurtion as Code
+# How I deployed Jenkins
 
-1: Clone the the latest Jenkins helm Chart. <br>
-2: Temporarily install Jenkins without any modification for testing using the below commands: <br>
+* ### Clone official Jenkins chart
 ```
-helm -n jenkins upgrade --install jenkins jenkins
+git clone https://github.com/jenkinsci/helm-charts.git
 ```
-3: Create values-override.yaml next to values.yaml. <br>
-4: Create jenkins-casc.yaml in ci folder location. <br>
-5: Add additional Jenkins's plugins, and JCasC URL location to folder option. <br>
 
-6: Configure Global Tool Configuration, Configure Global Security, Configure Clouds, Configure System adding Global Pipeline Libraries (shared library) etc from Jenkins's UI. <br>
-7: Go to Configuration as Code, click View Configuration and copy the content and add it to jenkins-casc.yaml file. <br>
+* ### Create values-override.yaml to override the default values
 
-8: Delete and test Jenkins installation again using the below commands: <br>
+* ### Update ingress.yaml file for host/domain name configuration
+
+* ### Create crbac.yaml file for cluster-role service account
+
+* ### Create cred-sealed-secrets directory to store sealed secrets credentials
+
+* ### Create jenkins-casc.yaml file override the default values and store Jenkins configurations as code:
+    *new/additional plugins* <br/>
+    *tools configurations* <br/>
+    *dsl-jobs/seed job configurations* <br/>
+    *sharerd library configurations* <br/>
+    *email notification configurations* <br/>
+    *jenkins url configurations* <br/>
+
+* ### Run the below commands to test installation
 ```
-helm uninstall jenkins -n jenkins
-helm template jenkins -f jenkins/values-override.yaml > template-outputs/jenkins.yaml
-helm -n jenkins upgrade --install jenkins jenkins -f jenkins/values-override.yaml
 helm -n jenkins show values jenkins
 helm -n jenkins get values jenkins
+helm template jenkins -f jenkins/values-override.yaml > template-outputs/jenkins.yaml 
+helm -n jenkins upgrade --install jenkins jenkins -f jenkins/values-override.yaml
+kubectl exec --namespace jenkins -it svc/jenkins -c jenkins -- /bin/cat /run/secrets/additional/chart-admin-password && echo
+```
 
+* ### To deploy with Argo CD 
+Create jenkins.yaml file within argocd/apps/ directory
+
+* ### Run the below command to create Jenkins 
+```
+kubectl apply -f apps/jenkins.yaml
 ```

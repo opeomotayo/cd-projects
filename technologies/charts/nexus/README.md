@@ -7,7 +7,7 @@ git clone https://github.com/sonatype/helm3-charts.git
 
 * ### Create values-override.yaml to override the default values
 
-* ### Update ingress.yaml file
+* ### Update ingress.yaml file for host/domain name configuration
 
 * ### Run the below commands to test installation
 ``` 
@@ -25,6 +25,9 @@ kubectl apply -f apps/nexus.yaml
 
 * ### To update Nexus
 Update code and push commit to github, because autosync is enabled, the commited changes should continously deploy to kubernetes cluster
+
+* ### To update Nexus
+I configured GitHub SSO to Nexus
 
 # References:
 https://github.com/sonatype/helm3-charts.git
