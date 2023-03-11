@@ -1,5 +1,7 @@
 service:
   type: ClusterIP
+  httpsPort: 9443
+  edgePort: 8000
 
 ingress:
   enabled: true
