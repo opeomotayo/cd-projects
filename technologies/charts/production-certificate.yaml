@@ -10,3 +10,63 @@ spec:
   dnsNames:
   - portainer.opeomotayo.net
     
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: prometheus-stack-production
+  namespace: prometheus-stack
+spec:
+  secretName: prometheus-stack-production-certificate
+  issuerRef:
+    name: letsencrypt-production
+  dnsNames:
+  - alertmanager.opeomotayo.net
+    
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: prometheus-stack-production
+  namespace: prometheus-stack
+spec:
+  secretName: prometheus-stack-production-certificate
+  issuerRef:
+    name: letsencrypt-production
+  dnsNames:
+  - grafana.opeomotayo.net
+    
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: prometheus-stack-production
+  namespace: prometheus-stack
+spec:
+  secretName: prometheus-stack-production-certificate
+  issuerRef:
+    name: letsencrypt-production
+  dnsNames:
+  - grafana.opeomotayo.net
+    
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: prometheus-stack-production
+  namespace: prometheus-stack
+spec:
+  secretName: prometheus-stack-production-certificate
+  issuerRef:
+    name: letsencrypt-production
+  dnsNames:
+  - prometheus.opeomotayo.net
+    
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: prometheus-stack-production
+  namespace: prometheus-stack
+spec:
+  secretName: prometheus-stack-production-certificate
+  issuerRef:
+    name: letsencrypt-production
+  dnsNames:
+  - grafana.opeomotayo.net
+    
