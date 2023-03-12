@@ -12,6 +12,7 @@ git clone git clone https://github.com/prometheus-community/helm-charts.git
 * ### Run the below commands to test installation
 ```
 kubectl create ns prometheus-stack
+helm dependency update
 helm template prometheus-stack -f prometheus-stack/values-override.yaml > template-outputs/prometheus-stack.yaml 
 helm -n prometheus-stack upgrade --install prometheus-stack prometheus-stack -f prometheus-stack/values-override.yaml
 ```
