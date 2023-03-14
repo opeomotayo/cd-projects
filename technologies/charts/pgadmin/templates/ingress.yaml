@@ -3,7 +3,7 @@
 apiVersion: {{ template "ingress.apiVersion" . }}
 kind: Ingress
 metadata:
-  name: {{ $fullName }}-ingress
+  name: "{{ $fullName }}-ingress"
   labels:
     {{- include "pgadmin.labels" . | nindent 4 }}
   {{- if .Values.ingress.annotations }}
