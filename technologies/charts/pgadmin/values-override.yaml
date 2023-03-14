@@ -1,0 +1,12 @@
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  hosts:
+    - host: pgadmin.opeomotayo.net
+      paths: "/"
+
+  tls:
+    - secretName: pgadmin-production-certificate
+      hosts:
+        - pgadmin.opeomotayo.net
