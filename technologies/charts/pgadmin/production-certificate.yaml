@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: pgadmin-production
+  namespace: pgadmin
+spec:
+  secretName: pgadmin-production-certificate
+  issuerRef:
+    name: letsencrypt-production
+  dnsNames:
+  - opeomotayo.net
+    
