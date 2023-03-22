@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: squid-proxy-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: squid-proxy
+  template:
+    metadata:
+      labels:
+        app: squid-proxy
+    spec:
+      containers:
+      - name: squid-proxy
+        image: hipod/squid-ubuntu:latest
+        ports:
+        - containerPort: 3128
+        volumeMounts:
+        - mountPath: /var/spool/squid
+          name: squid-cache
+        - mountPath: /var/log/squid
+          name: squid-log
+        livenessProbe:
+          tcpSocket:
+            port: 3128
+          initialDelaySeconds: 40
+          timeoutSeconds: 4
+      volumes:
+      - name: squid-cache
+        emptyDir: {}
+      - name: squid-log
+        emptyDir: {}
