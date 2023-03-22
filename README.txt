@@ -18,3 +18,5 @@ Encrypt the secret with kubeseal:
 < chillfs-secret.yaml > chillfs-sealed-secret.yaml`
 
 Once the sealed secret resource is applied, the sealed-secrets controller automatically decrypts the sealed secret and converts that to a Kubernetes-based secret ( base 64 ).
+
+https://us05web.zoom.us/j/88287616754?pwd=MS8zV25EQkVPTXk3MkFpR00zUXYvZz09
