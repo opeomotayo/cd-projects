@@ -20,3 +20,7 @@ Encrypt the secret with kubeseal:
 Once the sealed secret resource is applied, the sealed-secrets controller automatically decrypts the sealed secret and converts that to a Kubernetes-based secret ( base 64 ).
 
 https://us05web.zoom.us/j/83716928780?pwd=L1ExdlBsMElOTDg4aTFoN3IwVVRwZz09
+
+
+ - name: JAVA_OPTS
+      value: "-Djavax.net.ssl.trustStore=/usr/local/share/ca-certificates/java/cacerts -Djavax.net.ssl.trustStorePassword=changeit"
