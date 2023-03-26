@@ -2,7 +2,7 @@
 pipeline {
 
   def app
- def DOCKERTAG
+  def DOCKERTAG
 
   options {
     skipStagesAfterUnstable()
