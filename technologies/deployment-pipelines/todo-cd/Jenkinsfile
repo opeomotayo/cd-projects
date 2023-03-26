@@ -1,9 +1,7 @@
-
-pipeline {
-
   def app
   def DOCKERTAG
 
+pipeline {
   options {
     skipStagesAfterUnstable()
     buildDiscarder(logRotator(numToKeepStr: '10'))
