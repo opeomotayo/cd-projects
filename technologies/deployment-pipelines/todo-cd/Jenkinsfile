@@ -1,3 +1,4 @@
+def DOCKERTAG
 pipeline {
   options {
     skipStagesAfterUnstable()
@@ -24,6 +25,7 @@ pipeline {
           catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
             withCredentials([usernamePassword(credentialsId: 'github-pat', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
               //def encodedPassword = URLEncoder.encode("$GIT_PASSWORD",'UTF-8')
+              sh "echo DOCKERTAG is ${DOCKERTAG}"
               sh "git config --global user.email opeomotayo@gmail.com"
               sh "git config --global user.name opeomotayo"
               sh "git config --global --add safe.directory /home/jenkins/agent/workspace/todo-cd"
