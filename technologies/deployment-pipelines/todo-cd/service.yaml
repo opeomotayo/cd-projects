@@ -4,6 +4,9 @@ kind: Service
 metadata:
   # Service name
   name: todo-app
+  namespace: todo-app
+  labels:
+    app: todo-app
 spec:
   selector:
     # Selector for Pods

@@ -1,0 +1,25 @@
+#managed by opeomotayo
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: todo-app-ingress
+  namespace: todo-app
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  tls:
+  - hosts:
+      - todo-app.opeomotayo.net
+    secretName: todo-app-production-certificate
+  rules:
+  - host: todo-app.opeomotayo.net
+    http:
+      paths:
+      - backend:
+          service:
+            name: todo-app-lts
+            port:
+              number: 8080
+        path: /
+        pathType: Prefix
