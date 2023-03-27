@@ -28,24 +28,22 @@ pipeline {
     stage('Update GIT') {
       steps { 
         script {
-           sh "echo ${HELLO}"
-           sh "echo ${params.HELLO}"
-          // catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-          //   withCredentials([usernamePassword(credentialsId: 'github-pat', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-          //     //def encodedPassword = URLEncoder.encode("$GIT_PASSWORD",'UTF-8')
-          //     sh "echo DOCKERTAG is ${DOCKERTAG}"
-          //     sh "git config --global user.email opeomotayo@gmail.com"
-          //     sh "git config --global user.name opeomotayo"
-          //     sh "git config --global --add safe.directory /home/jenkins/agent/workspace/todo-cd"
-          //     // sh "git switch main"
-          //     sh "cat technologies/deployment-pipelines/todo-cd/deployment.yaml"
-          //     sh "sed -i 's+opeomotayo/todo-app.*+opeomotayo/todo-app:${DOCKERTAG}+g' technologies/deployment-pipelines/todo-cd/deployment.yaml"
-          //     sh "cat technologies/deployment-pipelines/todo-cd/deployment.yaml"
-          //     sh "git add ."
-          //     sh "git commit -m 'Done by Jenkins Job changemanifest: ${env.BUILD_NUMBER}'"
-          //     sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/cd-projects.git HEAD:main"
-          //   }
-          // }
+          catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+            withCredentials([usernamePassword(credentialsId: 'github-pat', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+              //def encodedPassword = URLEncoder.encode("$GIT_PASSWORD",'UTF-8')
+              sh "echo DOCKERTAG is ${DOCKERTAG} or ${params.DOCKERTAG}"
+              sh "git config --global user.email opeomotayo@gmail.com"
+              sh "git config --global user.name opeomotayo"
+              sh "git config --global --add safe.directory /home/jenkins/agent/workspace/todo-cd"
+              // sh "git switch main"
+              sh "cat technologies/deployment-pipelines/todo-cd/deployment.yaml"
+              sh "sed -i 's+opeomotayo/todo-app.*+opeomotayo/todo-app:${DOCKERTAG}+g' technologies/deployment-pipelines/todo-cd/deployment.yaml"
+              sh "cat technologies/deployment-pipelines/todo-cd/deployment.yaml"
+              sh "git add ."
+              sh "git commit -m 'Done by Jenkins Job changemanifest: ${DOCKERTAG}'"
+              sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/cd-projects.git HEAD:main"
+            }
+          }
         }
       }
     }
