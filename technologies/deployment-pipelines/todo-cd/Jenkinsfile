@@ -29,7 +29,8 @@ pipeline {
     stage('Update GIT') {
       steps { 
         script {
-           sh 'echo ${HELLO}'
+           sh "echo ${HELLO}"
+           sh "echo ${params.HELLO}"
           // catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
           //   withCredentials([usernamePassword(credentialsId: 'github-pat', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
           //     //def encodedPassword = URLEncoder.encode("$GIT_PASSWORD",'UTF-8')
