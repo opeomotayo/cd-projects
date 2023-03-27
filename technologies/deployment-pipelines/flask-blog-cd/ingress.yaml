@@ -1,0 +1,25 @@
+#managed by opeomotayo
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: flask-blog-ingress
+  namespace: flask-blog
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  tls:
+  - hosts:
+      - blog.opeomotayo.net
+    secretName: flask-blog-production-certificate
+  rules:
+  - host: flask-blog.opeomotayo.net
+    http:
+      paths:
+      - backend:
+          service:
+            name: flask-blog
+            port:
+              number: 8080
+        path: /
+        pathType: Prefix
