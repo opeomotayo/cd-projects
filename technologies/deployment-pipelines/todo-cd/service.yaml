@@ -13,6 +13,7 @@ spec:
     app: todo-app
   ports:
     # Port Map
-  - port: 80
+  - port: 8080
+    targetPort: 8080
     protocol: TCP
   type: ClusterIP
