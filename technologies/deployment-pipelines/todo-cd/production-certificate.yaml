@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: todo-app-production
+  namespace: todo-app
+spec:
+  secretName: todo-app-production-certificate
+  issuerRef:
+    name: letsencrypt-production
+  dnsNames:
+  - todo-app.opeomotayo.net
+    
