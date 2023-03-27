@@ -1,4 +1,5 @@
 def app
+def DOCKERTAG
 
 pipeline {
   options {
