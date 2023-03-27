@@ -19,4 +19,4 @@ spec:
       - image:  opeomotayo/blog-app:11
         name: blog-app
         ports:
-        - containerPort: 8080
+        - containerPort: 3000

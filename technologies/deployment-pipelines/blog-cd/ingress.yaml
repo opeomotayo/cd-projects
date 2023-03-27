@@ -20,6 +20,6 @@ spec:
           service:
             name: blog-app
             port:
-              number: 8080
+              number: 3000
         path: /
         pathType: Prefix
