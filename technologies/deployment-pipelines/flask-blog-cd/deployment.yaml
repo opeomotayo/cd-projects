@@ -25,7 +25,7 @@ spec:
       - name: flask-app
         image: opeomotayo/flask-blog:7
         # https://iximiuz.com/en/posts/kubernetes-kind-load-docker-image/
-        imagePullPolicy: Never
+        imagePullPolicy: Always
         resources:
           limits:
             memory: "256Mi"
