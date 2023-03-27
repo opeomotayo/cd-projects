@@ -20,6 +20,6 @@ spec:
           service:
             name: todo-app-lts
             port:
-              number: 8080
+              number: 80
         path: /
         pathType: Prefix
