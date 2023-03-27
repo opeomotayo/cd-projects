@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mysql-stateful-set
-  namespace: flask-blog
+  namespace: blog-app
 spec:
   selector:
     matchLabels:

@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: flask-data
-  namespace: flask-blog
+  namespace: blog-app
 data:
   mysql_database_name: flaskr
   mysql_database_port: "3306"
@@ -19,7 +19,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: mysql-init-script
-  namespace: flask-blog
+  namespace: blog-app
 data:
   schema.sql: |
     -- Initialize the database.

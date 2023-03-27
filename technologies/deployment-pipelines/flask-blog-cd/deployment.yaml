@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: flask-app-deployment
-  namespace: flask-blog
+  namespace: blog-app
   labels:
       type: blog
 spec:

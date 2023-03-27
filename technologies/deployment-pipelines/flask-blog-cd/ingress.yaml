@@ -4,22 +4,22 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: flask-blog-ingress
-  namespace: flask-blog
+  namespace: blog-app
   annotations:
     kubernetes.io/ingress.class: "nginx"
 spec:
   tls:
   - hosts:
-      - blog.opeomotayo.net
+      - blog-app.opeomotayo.net
     secretName: flask-blog-production-certificate
   rules:
-  - host: flask-blog.opeomotayo.net
+  - host: blog-app.opeomotayo.net
     http:
       paths:
       - backend:
           service:
             name: flask-blog
             port:
-              number: 8080
+              number: 5000
         path: /
         pathType: Prefix
