@@ -18,7 +18,7 @@ spec:
       paths:
       - backend:
           service:
-            name: todo-app-lts
+            name: todo-app
             port:
               number: 8080
         path: /

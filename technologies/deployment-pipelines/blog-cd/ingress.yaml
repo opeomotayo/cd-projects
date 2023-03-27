@@ -18,7 +18,7 @@ spec:
       paths:
       - backend:
           service:
-            name: blog-app-lts
+            name: blog-app
             port:
               number: 8080
         path: /
