@@ -1,4 +1,5 @@
 def app
+def DOCKERTAG
 
 pipeline {
   options {
@@ -37,10 +38,10 @@ pipeline {
               sh "git config --global --add safe.directory /home/jenkins/agent/workspace/todo-cd"
               // sh "git switch main"
               sh "cat technologies/deployment-pipelines/todo-cd/deployment.yaml"
-              sh "sed -i 's+opeomotayo/todo-app.*+opeomotayo/todo-app:${DOCKERTAG}+g' technologies/deployment-pipelines/todo-cd/deployment.yaml"
+              sh "sed -i 's+opeomotayo/todo-app.*+opeomotayo/todo-app:${params.DOCKERTAG}+g' technologies/deployment-pipelines/todo-cd/deployment.yaml"
               sh "cat technologies/deployment-pipelines/todo-cd/deployment.yaml"
               sh "git add ."
-              sh "git commit -m 'Done by Jenkins Job changemanifest: ${DOCKERTAG}'"
+              sh "git commit -m 'Done by Jenkins Job changemanifest: ${params.DOCKERTAG}'"
               sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/cd-projects.git HEAD:main"
             }
           }
