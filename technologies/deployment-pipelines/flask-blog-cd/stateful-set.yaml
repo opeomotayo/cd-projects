@@ -22,7 +22,7 @@ spec:
         effect: NoSchedule
       containers:
       - name: mysql
-        image: opeomotayo/mysql-blog:14
+        image: opeomotayo/mysql-blog:17
         ports:
         - containerPort: 3306
           name: database
