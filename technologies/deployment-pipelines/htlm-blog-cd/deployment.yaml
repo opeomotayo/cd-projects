@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: html-blog
+  namespace: html-blog
+  labels:
+    app: html-blog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: html-blog
+  template:
+    metadata:
+      labels:
+        app: html-blog
+    spec:
+      containers:
+      - image:  opeomotayo/html-blog:60
+        name: html-blog
+        ports:
+        - containerPort: 8080

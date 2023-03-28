@@ -1,0 +1,25 @@
+#managed by opeomotayo
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: html-blog-ingress
+  namespace: html-blog
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  tls:
+  - hosts:
+      - html-blog.opeomotayo.net
+    secretName: html-blog-production-certificate
+  rules:
+  - host: html-blog.opeomotayo.net
+    http:
+      paths:
+      - backend:
+          service:
+            name: html-blog
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
