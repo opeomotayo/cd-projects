@@ -16,7 +16,7 @@ spec:
         app: todo-app
     spec:
       containers:
-      - image:  opeomotayo/todo-app:65
+      - image:  opeomotayo/todo-app:66
         name: todo-app
         ports:
         - containerPort: 8080
