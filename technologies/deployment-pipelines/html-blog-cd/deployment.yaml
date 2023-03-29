@@ -19,4 +19,4 @@ spec:
       - image:  opeomotayo/html-blog:6
         name: html-blog
         ports:
-        - containerPort: 8080
+        - containerPort: 80
