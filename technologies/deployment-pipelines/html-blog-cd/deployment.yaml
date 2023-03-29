@@ -16,7 +16,7 @@ spec:
         app: html-blog
     spec:
       containers:
-      - image:  opeomotayo/html-blog:9
+      - image:  opeomotayo/html-blog:10
         name: html-blog
         ports:
         - containerPort: 80
