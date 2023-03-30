@@ -16,7 +16,7 @@ spec:
         app: blog-app
     spec:
       containers:
-      - image:  opeomotayo/blog-app:31
+      - image:  opeomotayo/blog-app:32
         name: blog-app
         ports:
         - containerPort: 3000
