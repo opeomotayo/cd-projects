@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: html-blog-production
+  namespace: html-blog
+spec:
+  secretName: html-blog-production-certificate
+  issuerRef:
+    name: letsencrypt-production
+  dnsNames:
+  - html-blog.opeomotayo.net
+    
