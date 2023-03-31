@@ -26,7 +26,7 @@ metadata:
     "app.kubernetes.io/component": "jenkins-controller"
 type: Opaque
 data:
-  jenkins-admin-password: "NkVDemFsRWFJcE5UWW1xRkJMbzV0bw=="
+  jenkins-admin-password: "VU5vdDJhWHBmM1IyOXR2VmR6YWJ6dw=="
   jenkins-admin-user: "YWRtaW4="
 ---
 # Source: jenkins/templates/config.yaml
@@ -68,13 +68,22 @@ data:
     workflow-aggregator
     blueocean
     credentials-binding
-    github-oauth:0.39
+    docker-build-step
+    docker-plugin
+    docker-workflow
+    github-oauth
+    github-pullrequest
     job-dsl
+    kubernetes-cli
+    kubernetes-credentials
     kubernetes-credentials-provider
+    kubernetes-client-api
     ldap
     nexus-artifact-uploader
     matrix-auth
+    parameterized-trigger
     role-strategy
+    slack
     sonar
 ---
 # Source: jenkins/templates/jcasc-config.yaml
@@ -129,7 +138,7 @@ data:
           templates:
             - name: "default"
               namespace: "default"
-              id: 474be7705ac6cddeedf68ad2962972dd9921f64c6e534967402794fbf06a21ec
+              id: a09ee9bdc755a04a117a6392bc42fe083fe3d242fae8195361c6e377b524ee76
               containers:
               - name: "jnlp"
                 alwaysPullImage: false
@@ -143,8 +152,8 @@ data:
                 privileged: "false"
                 resourceLimitCpu: 512m
                 resourceLimitMemory: 512Mi
-                resourceRequestCpu: 512m
-                resourceRequestMemory: 512Mi
+                resourceRequestCpu: 256m
+                resourceRequestMemory: 256Mi
                 runAsUser: 
                 runAsGroup: 
                 ttyEnabled: false
@@ -169,7 +178,7 @@ data:
     unclassified:
       location:
         adminAddress: 
-        url: http://RELEASE-NAME-jenkins:8080
+        url: https://jenkins.opeomotayo.net
 ---
 # Source: jenkins/templates/home-pvc.yaml
 kind: PersistentVolumeClaim
@@ -418,7 +427,7 @@ spec:
         "app.kubernetes.io/instance": "RELEASE-NAME"
         "app.kubernetes.io/component": "jenkins-controller"
       annotations:
-        checksum/config: 56207c3f7ed617b0d0f48bae9c3a42fde80f045122a886010b1bfdcba4885ad6
+        checksum/config: efe653547ab1d39877c49780e1f96c355029792deabb8ba873824e220ae12555
     spec:
       securityContext:
     
@@ -438,8 +447,8 @@ spec:
           command: [ "sh", "/var/jenkins_config/apply_config.sh" ]
           resources:
             limits:
-              cpu: 2000m
-              memory: 4096Mi
+              cpu: 1000m
+              memory: 2048Mi
             requests:
               cpu: 50m
               memory: 256Mi
@@ -516,8 +525,8 @@ spec:
             timeoutSeconds: 5
           resources:
             limits:
-              cpu: 2000m
-              memory: 4096Mi
+              cpu: 1000m
+              memory: 2048Mi
             requests:
               cpu: 50m
               memory: 256Mi
@@ -599,36 +608,88 @@ spec:
       - name: tmp-volume
         emptyDir: {}
 ---
-# Source: jenkins/templates/ingress.yaml
+# Source: jenkins/templates/jenkins-controller-ingress.yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: jenkins-ingress
-  namespace: jenkins
+  namespace: default
+  labels:
+    "app.kubernetes.io/name": 'jenkins'
+    "helm.sh/chart": "jenkins-4.3.0"
+    "app.kubernetes.io/managed-by": "Helm"
+    "app.kubernetes.io/instance": "RELEASE-NAME"
+    "app.kubernetes.io/component": "jenkins-controller"
   annotations:
-    kubernetes.io/ingress.class: "nginx"
+    kubernetes.io/ingress.class: nginx
+  name: RELEASE-NAME-jenkins
 spec:
-  tls:
-  - hosts:
-      - jenkins.opeomotayo.net
-    secretName: jenkins-production-certificate
+  ingressClassName: "nginx"
   rules:
-  - host: jenkins.opeomotayo.net
-    http:
+  - http:
       paths:
       - backend:
           service:
-            name: jenkins
+            name: RELEASE-NAME-jenkins
             port:
               number: 8080
-        path: /
-        pathType: Prefix
+        pathType: ImplementationSpecific
+    host: "jenkins.opeomotayo.net"
+  tls:
+    - hosts:
+      - jenkins.opeomotayo.net
+      secretName: jenkins-production-certificate
 ---
 # Source: jenkins/templates/crbac.yaml
 #managed by opeomotayo
 ---
+# Source: jenkins/templates/cred-sealed-secrets/github-oauth-client-secret.yaml
+# apiVersion: bitnami.com/v1alpha1
+# kind: SealedSecret
+# metadata:
+#   creationTimestamp: null
+#   name: github-oauth-client-secret
+#   namespace: jenkins
+# spec:
+#   encryptedData:
+#     client-secret: AgACw6G1bwAdjfhLct2QMmxeC79+S3YWtjmK/EYc7vwHr42o5fVTXY308fKWkbJc54szXF4LUx3cNq4M/nTHhqXFN3eqRPH/leAQAxi+Z61cEYyeWFtshupzzyGTVn87ygX2wi3N9nRzKp48eohxyoI3kZ4Ej1pxZzX6ojQiUI/K+3NQPwFbjH1g45vDLYjIH0harLW1lsaEh1XRRlq+OonIxxx2/4qycnNv4D0JZ43YZ47ehpmP4feulR3HExJDg+jn4KoM0J0+SRF6m5Junols1jI7LbxXbuEpfyLnij0K2cmC2ffYbFf3qX3TKnA0qIt0+kiJeBVUN8UAg6lYrA57nJJ+3dQjopnfZA9bTy9nbteL0aslGwQT8Xnm5JrVll0U6qwiNKVXwTrHSBe0F12OEIZD9NK1Ee9MtoIHrf1MVoBLtlAEEK2XgVxQu7K1NV6X3PuFzzcgSrfDBsOvwzJzHX+df9IZc3R2kx9mDj4SA5gTMjfMGV7VL+J3TpL79gKP8KEkkAOqFyL1vFuQKP0usAdcfPsA+9y8566FiJvJ8l96jQT7skld8eHzflCx1czrsAxvgQlJJHgg6V0ThPPeVD90DnTw/p5sGOKDh1g7w0Vs2kigfa3rTZWsh6Y5HHfw+CZXzJOCmsKc97bc+EJytjewZnLU8VTtS7mmwdO4AjjwB4aaOaq42s1ydmD1qflmyBfrdQW0x+3yFq9tvpivRQ9pb8dHgrU9QXl0wGRDNvvKs6yGxF6qbVZPzwpTmAaHlWh580aYwg==
+#   template:
+#     data: null
+#     metadata:
+#       annotations:
+#         jenkins.io/credentials-description: github oauth client-secret secret text credential from Kubernetes
+#       creationTimestamp: null
+#       labels:
+#         jenkins.io/credentials-type: secretText
+#       name: github-oauth-client-secret
+#       namespace: jenkins
+#     type: Opaque
+---
 # Source: jenkins/templates/ingress.yaml
-#managed by opeomotayo
+# #managed by opeomotayo
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: jenkins-ingress
+#   namespace: jenkins
+#   annotations:
+#     kubernetes.io/ingress.class: "nginx"
+# spec:
+#   tls:
+#   - hosts:
+#       - jenkins.opeomotayo.net
+#     secretName: jenkins-production-certificate
+#   rules:
+#   - host: jenkins.opeomotayo.net
+#     http:
+#       paths:
+#       - backend:
+#           service:
+#             name: jenkins
+#             port:
+#               number: 8080
+#         path: /
+#         pathType: Prefix
 ---
 # Source: jenkins/templates/cred-sealed-secrets/dockerhub-access.yaml
 apiVersion: bitnami.com/v1alpha1
@@ -639,8 +700,8 @@ metadata:
   namespace: jenkins
 spec:
   encryptedData:
-    password: AgBzwF5Q1mLignSFqxzaXwnZ97nA8OTgw3+YTw9rnj+oPXaoCxJap165EkFjkLvkTvOKoJvofiU6Jmx0iv4zJkyyUhd+9a2IUUrQhWt6WxdF3BvwvC3BEMB43cG/efFzI/S2Oia39aWGzyHRCyu9NlPhhuJJ36cj5VLezHnf4BnBPoqaieSYXFGHQCW0T4e+GdtpR9/lyQ7w1uAJ66qo5EY0IsKmVcWu9hvAVIYmCaL/dHz8VgebgWnrCNG8vRLHL89Xgu6QBcjsd/6Kj1vLTWsbhwmAYSMm1srBPjtk7t7d3Z6GVs8VTNvu+fbDZfyNaYPD3RFJAT5wFH4ix4JHGawWpjzQMQArZ1s+SBDZFfmbD7TMWOhkgEpf5pY6cwU+vqFhN/voQzAM3qFB0LVB+LG25ztpb63pcJ+S7JVtXP1CkKnEEJKpWbFoAINvTQSOpObl1zhWhgUX0ebTwaEP+0/41ZWtP0mteQ/bSLTtC0/Tonfl13c7PcuBa4qMRrX7j46iUT/z3/Y2ar03jaNIZlblIXVh0o0FnK1MX4iuMjfoIxW5/7Vu0E28NZytviB0HUkcxWQpfcKxQ5EDEmAa3EGS8ribW05MPtQcFQocD+80TEB9bcLm41xRrSnd+Hx/YmiW7Q2Ji74p7frpXM3AJdldy6acAP/Eq1bfP6PFOEGf+NeC44e20JFxrGNGfGoXFik5Q4fLM0aUrjGXtdw=
-    username: AgCFyynk44nFqKWJly68WkmQJq8+Tl0lmV/hZHKO1cWT1HS93Ful4mzcNmV3qQsAheIULibZC/lczZNHX36SONQJdhYZPNOxa+Ok1JuZRUIWXxDLokoE86tvEF69cBa4cacAMuced6lVmCdYnbnOz/BkXPMt5v4H6c/644yR8a2HpZliV9QHJ6jYGZNSxmMQftjkhfo2h7EkA/ft+T/R+15HHPOGbUpLMKuwhJ1d5OJkf0fqeveVOeFH+KDTHzwW54kkLDwD2hy7Vcm3f9bvVF30Iz/UWSVGxHY/v4IaYJV6lVDAwqnDLfkmOH7SmeN1hkVwc/d1QGJNOVYhNUfr2TBp9oe3MPFT5JCCYXCO4ZQwMu8/uW4bBNn+E1T5V+30qDveNOT1kpV1cRqrs5XIZnoU3/Mh17cAteAGyr0Yd1MyC8q8txJun88O9cnxuhKebf4Y9wNsAqL9D6ahI7H9gEFlAG5l08pP/9gZ3xZBBWYmdEoMmKenyfbH1ZeFc93BnAjpRDkZpLS1DTlFenylr3IR3M767xrMGO9Rl7LucizGu6VKHbzczjuRxAPE150nViYWw8F6jOKMchNx6B8tohWLzxFvQCMeSK5TGVEGhZ9YIc+KxlxUC2LyuWgl7CO2K6YeBW8jdF3ZsPW2ON+YmVuzEHPnMiRUik53TipZcqq31MLVJ46Exv5rzFhz79st2+tNQ8GhawkWsBC1fIfBbTha
+    password: AgBSANHAy0Mn1wz2/TmWf/eMJ6wqNuDv5Fx73pSt5G1TnAodtGBNVsxO+YmWai7Dcim7YmpM71jV2yONp2bl8JH3GfiSGoi7hYtWLsbaffakK5aT/TP6SazHVywHEh6aVRw37eaXXahiqxyfrt5PZ1aMAbxL8BE7e/UKwWGoHJ4j5lMacadoNx2CMWfrJN9koMq3XQgYVYGgr26w1QCLBeQ1drX6O8N/P528Rtq7zxTjqTnPpJgQrxcgCxDmWQzI9EgqyHlLCMk9v7vmc3aaWdlEali/eL1n1G/mea9zgaEcD8jJuW5yh1L2Lqt4soLt5nmxxJAVA6pcZxXKl2AKclOgdmd138ATg5VN/b3inueL+pyva5jmrd20VgNexYp2E6HfR1S8PNJZEO+XXMlqZKbXz2LqVuxwi1EaR6KGW/qPMa0wh6174P0MD0gFwF2KfQkrY3CxO/gcy3x8cMWFY+g+qwak30ZKnYXrKlrFQucYj9tmn8Nh2usO//+k9rmC8qiVSjPSBM9d02HCLTEhd/9jLU1c7GCCSNa0CDxhhv4oZUsHQZMhFS6SAv+dl+v9QaBcBZEc1ebDyObcGdEiddhauiaQP4e46o52KrlEJXZRFmHR74byXtQPGAprCaQmLfi1Jxq3hgZmdKacv7qKbYL8s0I+AByESrIyJGV/6lrqnJoS3lR/ZnClp1D3UqXTlONkYtYcC+pOIJA=
+    username: AgALCbV/XzxuRNTL6seb//5OJM8rvEQ1nDujlo70Ak4Sa3jEk22VqSzj38Ml5pa/LfxDrqAwm3Ipl88Ctf3uunAQ6CWtImBuus4yDwkzINJN7ogexCXesWstU8oWqvpOcS5nXlKvEFYElQ80m2tgN2ReyQphYtP867LD+EdlHHrqhY/6h3KiQUvwCvdwuTISYezbzucYvzKBXY5cMeQAmE2wMF8qVnJnKwakfWvWh3UySApJYKq3gPU/7HZWNlWXXOXz2tXWGlkwWsqCkFXGWPIzaOK63CkzR2Ttey65J1lwfpVFEUJyD/NdnVf95tiHb2gK1Gi7MHuo7/WvgQz8tan2hkMlcIlTTtUKnKQnkHDtkse2gatVZXLkqDMOHaw5ZpT6GkCe16VZe+COa3JBJi4TzlZCSjEr46lksusURBJcMUfl8/H4+hIanyVTk2xuqO6BAxINbNM0ntwNWIY8k75m8D0rIjgJpu8SzKY0yJj8ZVpNDEkp1y8H0lg7TaC+FQKt3SU66aTAPQJufXJC4DaP9ufhYt7/Atr5NAJYBa4RFZHC+7Y6RWuLnjg1GbRsKKKQpgAtzaZneq8I7gwZnq+k3Uj2aWoCEOtHdH2H0uJ9znSadMsZf6qApwMybCXOSTFc00+oglIUdPzj8XuNWawa9JgBqnN/3eRKAbfKvjwc9KjHX9YM6OVxijxMEjHUrGNGU+TRPLcjYkSG
   template:
     data: null
     metadata:
@@ -653,25 +714,48 @@ spec:
       namespace: jenkins
     type: Opaque
 ---
-# Source: jenkins/templates/cred-sealed-secrets/github-oauth-client-secret.yaml
+# Source: jenkins/templates/cred-sealed-secrets/github-pat.yaml
 apiVersion: bitnami.com/v1alpha1
 kind: SealedSecret
 metadata:
   creationTimestamp: null
-  name: github-oauth-client-secret
+  name: github-pat
   namespace: jenkins
 spec:
   encryptedData:
-    client-secret: AgACw6G1bwAdjfhLct2QMmxeC79+S3YWtjmK/EYc7vwHr42o5fVTXY308fKWkbJc54szXF4LUx3cNq4M/nTHhqXFN3eqRPH/leAQAxi+Z61cEYyeWFtshupzzyGTVn87ygX2wi3N9nRzKp48eohxyoI3kZ4Ej1pxZzX6ojQiUI/K+3NQPwFbjH1g45vDLYjIH0harLW1lsaEh1XRRlq+OonIxxx2/4qycnNv4D0JZ43YZ47ehpmP4feulR3HExJDg+jn4KoM0J0+SRF6m5Junols1jI7LbxXbuEpfyLnij0K2cmC2ffYbFf3qX3TKnA0qIt0+kiJeBVUN8UAg6lYrA57nJJ+3dQjopnfZA9bTy9nbteL0aslGwQT8Xnm5JrVll0U6qwiNKVXwTrHSBe0F12OEIZD9NK1Ee9MtoIHrf1MVoBLtlAEEK2XgVxQu7K1NV6X3PuFzzcgSrfDBsOvwzJzHX+df9IZc3R2kx9mDj4SA5gTMjfMGV7VL+J3TpL79gKP8KEkkAOqFyL1vFuQKP0usAdcfPsA+9y8566FiJvJ8l96jQT7skld8eHzflCx1czrsAxvgQlJJHgg6V0ThPPeVD90DnTw/p5sGOKDh1g7w0Vs2kigfa3rTZWsh6Y5HHfw+CZXzJOCmsKc97bc+EJytjewZnLU8VTtS7mmwdO4AjjwB4aaOaq42s1ydmD1qflmyBfrdQW0x+3yFq9tvpivRQ9pb8dHgrU9QXl0wGRDNvvKs6yGxF6qbVZPzwpTmAaHlWh580aYwg==
+    password: AgByQDmSQKeG+NhuWIltf6rS17HrSvUFmsDzDCWNL2NINmzMDH+Yo4Q4TD9PgfpX9eLrsK5hiAxk2yZFdPjxsXSM05QhaqipJHrg1ncpd3LI3SYiY73IB26szhXvmAWBq1GRdLzb2uqA/1v8vjp0OrrwBbARHfe+Scf5+fHWucM/+6gbmvsXMR8R1XUQJMdjtVIrQRuzjGYDRMAD0tGGIVowTwVt6dQybzuXBNoG3J9Mzu62u0hb2A6+GLv/g2Wkq2ZYfsxj0xwqFNhgXK2KSGJk8OAgMxmKJNVbmA+v/YHFdFra1t6wnrygEJwEzjJ/7lpi+bmDjQ3Pw7OCS3BqIN9gmgTgJPQu2ZiMts4U5dkoYWX9pTfbkl5pB24g+KYQjXAcmHJYb7XCTdlyzG+ClFpZcsndaKvwqi3xk1KihgczVmLGvaeCHBCGjOqjNl1yoVhLDu5iCp4lNp2bC3NTUKmyBFfrnWYNjQGh7FkC7FIGhaRiOcHrO6atYuPHF2PQkpj0B2sx9CONVI1RfVetK8P9EFJC4DIvTiR0G0eWpubmobnSVtvFLhAFXTy5LQgM+mvi5TecZPmNI3A2HV4s/e2xZYyhvgicNjuS3O6PzCqoaeSxSOWWgH9xBl3ytH4P+k5sQzDvEl502WHqWsBQlOwKUUoHHs2+xuFROPfcR+C6PR+k3lI0ZOxqXzaHpKwCS/ulvqPPliEak2qn+hMt1+EK6EyFgYUTbPuBMEp6Bd37qTk6udo1bC8j
+    username: AgA5I7aasMilB8xOy0XVoy7hUbiULEdc7vUsr4AH9lmkCV/4fd6ocdukOcSlHw8WGPrXatvgVwdgnTZLxhfHTxan2itAGToFVd3Hf0ndFYmZuyqN/w9x8dHkUZfXwFH7b0axKAg0WxlllZBK4cVKJNEQyLOkTNPLWRpU2bBHRnD0iKlVhEkdCNPNxZLgQVJ2PyOhs3idIRDpKRDkXq96FzjTLSl0Fx2cZm0Erey79xG3LYPh7POVeqC+rmg3EGQz1F/xMxKBxPgnrZgc0YkLl8IedeSRbAfDJnvX/60tbDDfZcbLGYDR6L6Jr3u5K+yZg2UR0/c/BV5oT0h8UT60BV1UCbh15rPNxQh69WzTr7pHbkLr6Y0yn8xGmrRCUOnQ4EJ6Cj01z40zsxj2hDKEqQ7+UXWg7IBVL23cX4dikRvn4Borjzt19bYl3YStHfg01mXv2pnAKnRXecWjnj4PC+3mGtW3EHa/pR4mco66YbfMYIMchajOZgMJ9jk6E4Pkt5/d93bOkze4GkxNm6H8s4cPRIZLUk+TBfNHgY+6Y42F77vT3Mk6ZcyOaTeQFMJ1QWRJfyWOqGffsFOyN9dFVbA3QQGyp+/GwQuqYoSSrrlaKiEGCHh2F8rQMxzM1q6vfPV9rzd1RZOoUaLKmB6qjmdnCeEYjIK97UFS6ZNLzYO9bXxlq2XAdh7a4Zw2nzK7gf38oypqg+pahlgL
   template:
     data: null
     metadata:
       annotations:
-        jenkins.io/credentials-description: github oauth client-secret secret text credential from Kubernetes
+        jenkins.io/credentials-description: github-pat credentials from Kubernetes
+      creationTimestamp: null
+      labels:
+        jenkins.io/credentials-type: usernamePassword
+      name: github-pat
+      namespace: jenkins
+    type: Opaque
+---
+# Source: jenkins/templates/cred-sealed-secrets/sonarqube-token.yaml
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: sonarqube-token
+  namespace: jenkins
+spec:
+  encryptedData:
+    sonarqube-token: AgA2ZTNvB0tKj4SgjPIKfMMVmPEqQygUFLeO0iqR6DNw/HF0/55nnE2tZ9bbIlu4E+sKXBeSmqtOzwtcn38ekyXBVKCivLLoY6vJAUSdAbMya6dvkxsyMNywFvOQ94xhNU0ibWakr7f8NKiWjMePQyoxkfzYD6/6F5H7mNfaf68ukZjgVP+MAJtQ+OzJdOqck8kU2aHMS0S9BAVM1EXQHyY2NT5WyWAJ3bag0ugO/APP7LIxXe1A7GkKV2odx2tmlcDcDNeiBw41dUL2BLf/iD/FBdJpRPO9o0J13o3Qyi54dDfsOtPXPU73zpAnseDbxxx1a6pA/heedVDJvVWr2Dg8ATAxjG3khJ3MR1mNcW0W0SWfOCCpEFXRmU5RosG1+RJxrkmGq+OoZBDT4i59vZyynyaQHf3AUThz/BvsRkfJ3+bUEcV7hXiRkJnefm9aS7+Nk9uK/9somXuNBTAYOPgQ0KLiGkuB34fmJHQrxIFay8z+zRi7Uy/OqKesYNluoj+8qbqTynk6fc/oHWpg9+nlsomJ5HYtdm249pK8c+HX1E/OdGVoxNRYSHlYRZzAbKLh1C9REFNvJaT5n6C1b0gLe40ZPFsB4u8+1wWhNyj440xLWfOYaK/pkKYC5M1KPXKZPdMoD7itoefmOzCIR8GdwVl51cjZ9l38SFrx6YvDrSxyUOOtXJ/pQxkcF7iovHDLJjg3DD2mZH/9U/0rlmHY7bax+sm1e0Rt5DE19eV61lIXYkPKEm6e
+  template:
+    data: null
+    metadata:
+      annotations:
+        jenkins.io/credentials-description: secret text credential from Kubernetes
       creationTimestamp: null
       labels:
         jenkins.io/credentials-type: secretText
-      name: github-oauth-client-secret
+      name: sonarqube-token
       namespace: jenkins
     type: Opaque
 ---
@@ -693,7 +777,7 @@ data:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "RELEASE-NAME-ui-test-xn3ph"
+  name: "RELEASE-NAME-ui-test-sd0et"
   namespace: default
   annotations:
     "helm.sh/hook": test-success
