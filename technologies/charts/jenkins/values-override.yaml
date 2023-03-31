@@ -2,10 +2,15 @@ agent:
   resources:
     requests:
       cpu: "256m"
-      memory: "256Mi"
+      memory: "128Mi"
     limits:
       cpu: "512m"
       memory: "512Mi"
+
+persistence:
+  enabled: true
+  accessMode: "ReadWriteOnce"
+  size: "5Gi"
 
 backup:
   enabled: false
@@ -28,18 +33,19 @@ controller:
   resources:
     requests:
       cpu: "50m"
-      memory: "256Mi"
+      memory: "128Mi"
     limits:
       cpu: "1000m"
-      memory: "2048Mi"
+      memory: "4096Mi"
 
   initContainerResources:
     requests:
       cpu: "50m"
-      memory: "256Mi"
+      memory: "128Mi"
     limits:
       cpu: "1000m"
-      memory: "2048Mi"
+      memory: "4096Mi"
+      
   numExecutors: 1
 
   ingress:
