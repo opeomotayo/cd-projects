@@ -125,7 +125,7 @@ unclassified:
   gitHubConfiguration:
     apiRateLimitChecker: ThrottleForNormalize
   gitHubPluginConfig:
-    hookUrl: "http://jenkins:8080/github-webhook/"
+    hookUrl: "https://jenkins.opeomotayo.net/github-webhook/" #"http://jenkins:8080/github-webhook/"
   globalLibraries:
     libraries:
     - defaultVersion: "main"
