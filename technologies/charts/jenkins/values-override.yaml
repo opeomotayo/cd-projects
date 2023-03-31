@@ -1,15 +1,39 @@
-# agent:
-#   resources:
-#     requests:
-#       cpu: "256m"
-#       memory: "256Mi"
-#     limits:
-#       cpu: "512m"
-#       memory: "512Mi"    
+agent:
+  resources:
+    requests:
+      cpu: "256m"
+      memory: "256Mi"
+    limits:
+      cpu: "512m"
+      memory: "512Mi" 
+backup:
+  enabled: false
+  resources:
+    requests:
+      memory: "256m"
+      cpu: "256m"
+    limits:
+      memory: "512m"
+      cpu: "512m" 
 
 controller:
   image: "jenkins/jenkins"
   tag: "lts-jdk11"
+  resources:
+    requests:
+      cpu: "50m"
+      memory: "256Mi"
+    limits:
+      cpu: "1000m"
+      memory: "2048Mi"
+  Overrides the init container default values
+  initContainerResources:
+    requests:
+      cpu: "50m"
+      memory: "256Mi"
+    limits:
+      cpu: "1000m"
+      memory: "2048Mi"
   numExecutors: 1
   # secretEnvVars:
   # - key: clientSecret
