@@ -9,7 +9,7 @@ apiVersion: {{ .Values.controller.ingress.apiVersion }}
 {{- end }}
 kind: Ingress
 metadata:
-  namespace: {{ template "jenkins.namespace" . }}
+  namespace: {{ .Values.controller.namespace }} #updated by opeomotayo
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
     {{- if .Values.renderHelmLabels }}
@@ -25,7 +25,7 @@ metadata:
   annotations:
 {{ toYaml .Values.controller.ingress.annotations | indent 4 }}
 {{- end }}
-  name: {{ template "jenkins.fullname" . }}
+  name: {{ .Values.controller.ingress.name }}
 spec:
 {{- if .Values.controller.ingress.ingressClassName }}
   ingressClassName: {{ .Values.controller.ingress.ingressClassName | quote }}
