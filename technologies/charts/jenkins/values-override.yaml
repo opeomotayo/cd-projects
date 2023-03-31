@@ -26,6 +26,8 @@ controller:
   image: "jenkins/jenkins"
   tag: "lts-jdk11"
 
+  jenkinsUrl: "https://jenkins.opeomotayo.net"
+
   namespace: jenkins
 
   servicePort: 8080
@@ -45,7 +47,7 @@ controller:
     limits:
       cpu: "1000m"
       memory: "4096Mi"
-      
+
   numExecutors: 1
 
   ingress:
