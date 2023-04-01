@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: website
-        image: devteds/demo-bookstore-website:1.0
+        image: devteds/demo-bookstore-website:1
         imagePullPolicy: Always
         ports:
         - containerPort: 80

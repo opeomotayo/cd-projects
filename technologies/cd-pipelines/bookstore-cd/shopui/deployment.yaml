@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: shopui
-        image: devteds/demo-bookstore-shopui:1.0
+        image: devteds/demo-bookstore-shopui:1
         imagePullPolicy: Always
         ports:
         - containerPort: 80

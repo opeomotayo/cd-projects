@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: shopapi
-        image: devteds/demo-bookstore-shopapi:1.0
+        image: devteds/demo-bookstore-shopapi:1
         imagePullPolicy: Always
         ports:
         - containerPort: 3000
