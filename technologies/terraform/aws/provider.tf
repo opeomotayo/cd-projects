@@ -1,5 +1,5 @@
 provider "aws" {
-  profile = "terraform"
+  profile = "terraform-eks"
   region  = "eu-west-2"
 }
 
