@@ -1,1 +1,5 @@
 defaultAdminUser: admin
+default_admin_password: admin
+secret_key: admin
+postgresql:
+  postgresqlPassword: password
