@@ -8,7 +8,7 @@
 - name: call roles
   hosts: 167.235.236.197
   roles:
-   #- hostname
-   #- firewalld
-   #- ntp-config
-   - motd
+  #- hostname
+  #- firewalld
+  #- ntp-config
+  - motd

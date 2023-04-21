@@ -1,2 +1,6 @@
 ---
-# handlers file for /etc/ansible/roles/ntp-config
+  handlers:
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
