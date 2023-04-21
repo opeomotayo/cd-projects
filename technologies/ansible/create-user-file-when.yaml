@@ -1,7 +1,7 @@
 ---
 - hosts: all
   vars:
-    - user: sammy
+    - user: opeomotayo
   tasks:
     - name: Check if file already exists
       command: ls /home/{{ user }}/myfile
