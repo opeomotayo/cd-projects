@@ -1,0 +1,2 @@
+https://freshbrewed.science/2022/07/12/awx-in-k8s.html
+kubectl port-forward svc/adwerxawx -n adwerx 8080:8080 --address 167.235.236.197

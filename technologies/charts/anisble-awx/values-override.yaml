@@ -1,0 +1,23 @@
+defaultAdminUser: admin
+defaultAdminPassword: awx
+postgresql:
+  postgresqlPassword: awx
+secretKey: awx
+
+ingress:
+  enabled: true
+  # -- Whether the default backend for this ingress should route to the awx service
+  defaultBackend: true
+  # -- Define ingress routing here
+  hosts:
+    - host: ansible-awx.opeomotayo.net
+      paths:
+        - "/"
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  tls:
+    # -- Secrets referenced here must be exist in this namespace
+    - secretName: vi
+      hosts:
+        - ansible-awx.opeomotayo.net
