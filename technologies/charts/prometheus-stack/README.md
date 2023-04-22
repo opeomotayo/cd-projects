@@ -33,3 +33,4 @@ I configured GitHub SSO to prometheus-stack
 
 # References:
 https://github.com/SonarSource/helm-chart-prometheus-stack
+https://www.youtube.com/watch?v=6xmWr7p5TE0
