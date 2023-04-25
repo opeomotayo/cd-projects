@@ -1,19 +1,19 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: persistent-volume
+  name: rsyslog-pv
   labels:
-    type: local
+    type: local-pv
 spec:
-  #we use local node storage here!
-  #kubectl get storageclass
-  storageClassName: hostpath
+  storageClassName: local-path
   capacity:
-    storage: 1Gi
+    storage: 5Gi
+  volumeMode: Filesystem
   accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: "/data/postgres"
+  - ReadWriteMany
+  persistentVolumeReclaimPolicy: Delete
+  local:
+    path: "/data/rsyslog-pv"
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -21,4 +21,4 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - pwx-worker-1
+          - poc-server

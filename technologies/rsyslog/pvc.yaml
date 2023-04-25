@@ -1,12 +1,15 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: persistent-volume-claim
+  name: rsyslog-pvc
+  namespace: rsyslog
+  labels:
+    type: local-pvc
 spec:
-  storageClassName: hostpath
-  # volumeName: "persistent-volume" 
+  storageClassName: local-path
+  volumeName: "rsyslog-pv" 
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
-      storage: 50Mi
+      storage: 500Mi
