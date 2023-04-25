@@ -5,9 +5,10 @@ metadata:
   namespace: "rsyslog"
 spec:
   ports:
-    - port: 514
+    - name: tcp
+      port: 514
       targetPort: 514
       protocol: TCP
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     app: "rsyslog"

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tcp-configmap
+  namespace: rsyslog
+data:
+  514: "rsyslog/rsyslog-service:514"
