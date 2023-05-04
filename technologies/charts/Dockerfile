@@ -1,5 +1,5 @@
 # This dockerfile bakes github-oauth-plugin into Nexus image
-ARG NEXUS_VERSION=latest
+ARG NEXUS_VERSION=3.53.0
 
 FROM alpine AS build
 
