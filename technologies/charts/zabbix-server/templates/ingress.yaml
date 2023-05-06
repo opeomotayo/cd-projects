@@ -34,8 +34,74 @@ spec:
         {{- range .paths }}
           - path: {{ . }}
             backend:
-              serviceName: zabbix-web
-              servicePort: {{ $svcPort }}
+              service:
+                name: zabbix-web
+                port:
+                  number: {{ $svcPort }}
         {{- end }}
   {{- end }}
 {{- end }}
+
+
+# {{- if .Values.ingress.enabled -}}
+# {{- $fullName := include "zabbix.fullname" . -}}
+# apiVersion: {{ template "ingress.apiVersion" . }}
+# kind: Ingress
+# metadata:
+#   name: {{ $fullName }}
+#   labels:
+#     {{- include "zabbix.labels" . | nindent 4 }}
+#   {{- if .Values.ingress.annotations }}
+#   annotations:
+#     {{- .Values.ingress.annotations | toYaml | nindent 4 }}
+#   {{- end }}
+# spec:
+# {{- if .Values.ingress.tls }}
+#   tls:
+#   {{- range .Values.ingress.tls }}
+#     - hosts:
+#       {{- range .hosts }}
+#         - {{ . | quote }}
+#       {{- end }}
+#       secretName: {{ .secretName }}
+#   {{- end }}
+# {{- end }}
+#   rules:
+#   {{- range .Values.ingress.hosts }}
+#     - host: {{ .host | quote }}
+#       http:
+#         paths:
+#         {{- range .paths }}
+#           - path: {{ . }}
+#             backend:
+#               serviceName: {{ $fullName }}
+#               servicePort: http
+#         {{- end }}
+#   {{- end }}
+# {{- end }}
+
+#managed by opeomotayo
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: nexus-ingress
+#   namespace: nexus
+#   annotations:
+#     kubernetes.io/ingress.class: "nginx"
+# spec:
+#   tls:
+#   - hosts:
+#       - nexus.opeomotayo.net
+#     secretName: nexus-production-certificate
+#   rules:
+#   - host: nexus.opeomotayo.net
+#     http:
+#       paths:
+#       - backend:
+#           service:
+#             name: nexus-nexus-repository-manager
+#             port:
+#               number: 8081
+#         path: /
+#         pathType: Prefix
