@@ -14,7 +14,7 @@ ingress:
   hosts:
     - host: zabbix.opeomotayo.net
       paths: 
-       - "/"
+        - "/"
 
   tls:
     - secretName: zabbix-production-certificate
