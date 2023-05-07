@@ -18,8 +18,8 @@ spec:
       paths:
       - backend:
           service:
-            name: zabbix
+            name: zabbix-zabbix-web
             port:
               number: 80
         path: /
-        pathType: Prefix
+        pathType: ImplementationSpecific
