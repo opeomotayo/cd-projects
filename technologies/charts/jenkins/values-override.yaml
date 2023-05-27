@@ -85,7 +85,7 @@ controller:
     - matrix-auth
     - parameterized-trigger
     - role-strategy
-    - slack
+    # - slack
     - sonar
 
   sidecars:
