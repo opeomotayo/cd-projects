@@ -4,6 +4,12 @@ image:
   tag: 3.52.0
 
 nexus:
+  docker:
+    enabled: true
+    registries:
+      - host: nexus.opeomotayo.net
+        port: 5000
+        secretName: nexus-production-certificate
   resources:
     requests:
       cpu: 2

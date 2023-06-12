@@ -34,7 +34,7 @@ pipeline {
               sh "echo DOCKERTAG is ${DOCKERTAG} or ${params.DOCKERTAG}"
               sh "git config --global user.email opeomotayo@gmail.com"
               sh "git config --global user.name opeomotayo"
-              sh "git config --global --add safe.directory /home/jenkins/agent/workspace/bookstore-cd/shopapi"
+              // sh "git config --global --add safe.directory /home/jenkins/agent/workspace/bookstore-cd/shopapi"
               sh "git config --global --add safe.directory /home/jenkins/agent/workspace/bookstore-cd"
               // sh "git switch main"
               sh "cat cd-pipelines/bookstore-cd/shopapi/deployment.yaml"
